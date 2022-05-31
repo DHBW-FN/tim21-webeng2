@@ -20,7 +20,16 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <label>
+            Wikipedia:
+            <input type="text"
+                   name="wikipedia"
+                   placeholder="Enter a Wikipedia article"
+                     onChange={(event) => wikipediaLookup(event.target.value)}
+            />
+          </label>
+          <br/>
+            <textarea rows="10" cols="100" value={wikipedia} readOnly/>
         </p>
         <a
           className="App-link"
