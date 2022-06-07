@@ -15,6 +15,6 @@ export default function History(){
             <ListItem>Stuttgart</ListItem>
             <ListItem>Bergen</ListItem>
         </List>
-        </>
+    </>
     )
 }

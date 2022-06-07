@@ -5,7 +5,7 @@ const store = createStore({
   state: {
     products: [
       {
-        id: '1',
+        id: "1",
         title: "Apple iPhone 8",
         description:
       },

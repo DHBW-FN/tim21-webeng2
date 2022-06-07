@@ -7,7 +7,7 @@ import {
   Fab,
   Button,
   Panel,
-  BlockTitle, 
+  BlockTitle,
   View,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
@@ -35,7 +35,7 @@ const HomePage = () => (
       <View>
         <Page>
           <BlockTitle>
-          <History></History>
+            <History></History>
           </BlockTitle>
         </Page>
       </View>

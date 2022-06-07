@@ -16,7 +16,7 @@ const MyApp = () => {
 
   // Framework7 Parameters
   const f7params = {
-    name: 'Navigator', // App name
+    name: "Navigator", // App name
       theme: 'auto', // Automatic theme detection
 
 
