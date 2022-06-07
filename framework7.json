@@ -1,0 +1,20 @@
+{
+  "cwd": "/Users/marioschwartz/UNI/WebEng2_group/web-eng-2",
+  "type": [
+    "web",
+    "pwa"
+  ],
+  "name": "Navigator",
+  "framework": "react",
+  "template": "blank",
+  "cssPreProcessor": false,
+  "bundler": "vite",
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false
+}
