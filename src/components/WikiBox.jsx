@@ -10,6 +10,18 @@ import {
 } from 'framework7-react';
 
 export default function WikiBox() {
+    const [wikipedia, setWikipedia] = useState(["Waiting for article..."])
+
+    function wikipediaLookup(city){
+        fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setWikipedia(data.query.pages[Object.keys(data.query.pages)[0]].extract)
+            })
+    }
+
+    wikipediaLookup("Friedrichshafen")
 
     return (
       <Page>
@@ -27,7 +39,7 @@ export default function WikiBox() {
         >
         <div className="sheet-modal-swipe-step">
             <div className="display-flex padding justify-content-space-between align-items-center">
-              
+
                 <h1>Friedrichshafen:</h1>
                 <Icon f7='location'></Icon>
             </div>
@@ -43,7 +55,7 @@ export default function WikiBox() {
             Wiki
           </BlockTitle>
           <p>
-          Friedrichshafen ist eine große Mittelstadt am nördlichen Ufer des Bodensees und die Kreisstadt des Bodenseekreises, zugleich dessen größte Stadt und nach Konstanz die zweitgrößte Stadt am Bodensee. Gemeinsam mit Ravensburg und Weingarten bildet Friedrichshafen eines von 14 Oberzentren (in Funktionsergänzung) in Baden-Württemberg. Seit April 1956 ist Friedrichshafen Große Kreisstadt, seit September 2011 kann es sich durch die Zeppelin Universität außerdem Universitätsstadt nennen.
+              {wikipedia}
           </p>
       </Sheet>
       </Page>
