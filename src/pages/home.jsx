@@ -10,8 +10,8 @@ import {
   BlockTitle, 
   View,
 } from 'framework7-react';
-import WikiBox from '../js/WikiBox';
-import History from '../js/History';
+import WikiBox from '../components/WikiBox';
+import History from '../components/History';
 
 
 const HomePage = () => (
@@ -20,9 +20,9 @@ const HomePage = () => (
     
     {/* Toolbar */}
     <Toolbar tabbar bottom>
-      <Button panelOpen="left">History</Button>
-      <Link tabLink="tab2-map" tabLinkActive>Map</Link>
-      <Button panelOpen="right">account</Button>
+      <Button panelOpen="left"><Icon f7="memories"></Icon></Button>
+      <Button> <Icon f7="map"></Icon></Button>
+      <Button panelOpen="right"><Icon f7="person_crop_circle"></Icon></Button>
     </Toolbar>
     {/* Page content */}
     <Fab position="right-bottom" slot="fixed">
@@ -44,7 +44,9 @@ const HomePage = () => (
       <View>
         <Page>
         <BlockTitle>
+          <h1>
           Account
+          </h1>
         </BlockTitle>
         </Page>
       </View>

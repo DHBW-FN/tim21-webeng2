@@ -8,7 +8,7 @@ import {
 export default function History(){
     return (
         <>
-        <BlockTitle>Suchverlauf</BlockTitle>
+        <BlockTitle><h1>Suchverlauf</h1></BlockTitle>
         <List>
             <ListItem>Köln</ListItem>
             <ListItem>Melbourne</ListItem>
