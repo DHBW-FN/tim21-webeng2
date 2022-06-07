@@ -6,18 +6,15 @@ const store = createStore({
     products: [
       {
         id: "1",
-        title: "Apple iPhone 8",
-        description:
+        title: "Apple iPhone 8"
       },
       {
         id: "2",
-        title: 'Apple iPhone 8 Plus',
-        description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
+        title: 'Apple iPhone 8 Plus'
       },
       {
         id: '3',
-        title: 'Apple iPhone X',
-        description:
+        title: 'Apple iPhone X'
       },
     ]
   },
