@@ -11,6 +11,7 @@ import {
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for article..."])
+    const city = "Friedrichshafen"
 
     function wikipediaLookup(city){
         fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -21,11 +22,9 @@ export default function WikiBox() {
             })
     }
 
-    wikipediaLookup("Friedrichshafen")
-
     return (
       <Page>
-      <Button fill id="press_on_Location_Icon" sheetOpen=".demo-sheet-swipe-to-step">
+      <Button fill id="press_on_Location_Icon" sheetOpen=".demo-sheet-swipe-to-step" onClick={() => wikipediaLookup(city)}>
               Press to show info
       </Button>
       <Sheet
@@ -40,7 +39,7 @@ export default function WikiBox() {
         <div className="sheet-modal-swipe-step">
             <div className="display-flex padding justify-content-space-between align-items-center">
 
-                <h1>Friedrichshafen:</h1>
+                <h1>{city}:</h1>
                 <Icon f7='location'></Icon>
             </div>
           <div className="padding-horizontal padding-bottom">
