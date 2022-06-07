@@ -34,7 +34,7 @@ const HomePage = () => (
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
-        <BlockTitle>
+          <BlockTitle>
           <History></History>
           </BlockTitle>
         </Page>

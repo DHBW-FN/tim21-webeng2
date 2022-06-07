@@ -38,12 +38,12 @@ const MyApp = () => {
   });
 
   return (
-    <App { ...f7params } >
+    <App {...f7params}>
         
         {/* Your main view, should have "view-main" class */}
         <View main className="safe-areas" url="/" />
 
     </App>
   );
-}
+};
 export default MyApp;
