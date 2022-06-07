@@ -1,7 +1,7 @@
 
 import HomePage from '../pages/home.jsx';
 
-var routes = [
+const routes = [
   {
     path: '/',
     component: HomePage,

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  f7,
   f7ready,
   App,
   View,
@@ -18,12 +17,7 @@ const MyApp = () => {
   const f7params = {
     name: "Navigator", // App name
       theme: 'auto', // Automatic theme detection
-
-
-
-      // App store
       store: store,
-      // App routes
     routes: routes,
       // Register service worker (only on production build)
       serviceWorker: process.env.NODE_ENV ==='production' ? {

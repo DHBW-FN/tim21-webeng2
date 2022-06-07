@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Page,
-  Link,
   Toolbar,
   Icon,
   Fab,
