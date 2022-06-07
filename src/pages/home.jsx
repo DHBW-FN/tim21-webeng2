@@ -36,7 +36,7 @@ const HomePage = () => (
         <Page>
         <BlockTitle>
           <History></History>
-        </BlockTitle>
+          </BlockTitle>
         </Page>
       </View>
     </Panel>

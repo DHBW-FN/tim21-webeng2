@@ -24,7 +24,7 @@ const MyApp = () => {
       // App store
       store: store,
       // App routes
-      routes: routes,
+    routes: routes,
       // Register service worker (only on production build)
       serviceWorker: process.env.NODE_ENV ==='production' ? {
         path: '/service-worker.js',
