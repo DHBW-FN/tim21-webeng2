@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Page,
   Button,
@@ -20,6 +20,12 @@ export default function WikiBox() {
                 console.log(data)
                 setWikipedia(data.query.pages[Object.keys(data.query.pages)[0]].extract)
             })
+    }
+
+    async function reverseGeo() {
+        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lon=${latitude}&lat=${longitude}`)
+            .then(response => response.json())
+            .then(data => data.display_name)
     }
 
     return (
