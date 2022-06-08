@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Page,
   Button,
@@ -8,7 +8,6 @@ import {
   ListItem,
   Icon,
 } from 'framework7-react';
-import Framework7 from 'framework7/types';
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for article..."])
@@ -25,67 +24,38 @@ export default function WikiBox() {
 
     return (
       <Page>
-      <Button fill id="press_on_Location_Icon" sheetOpen=".demo-sheet-swipe-to-step" onClick={() => wikipediaLookup(city)}>
+          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(city)}>
               Press to show info
-      </Button>
-      {Framework7.device.desktop ? (<Sheet
-          className="demo-sheet-swipe-to-step"
-          style={{ height: 'auto', '--f7-sheet-bg-color': '#fff' }}
-          backdrop
-          closeOnEscape
-          closeByBackdropClick
-        >
-        <div className="sheet-modal-swipe-step">
-            <div className="display-flex padding justify-content-space-between align-items-center">
+          </Button>
+          <Sheet
+              className="wikibox-sheet"
+              style={{ height: 'auto', '--f7-sheet-bg-color': '#fff' }}
+              backdrop
+              swipeToClose
+              closeOnEscape
+              closeByBackdropClick
+          >
+              <div className="sheet-modal-swipe-step">
+                  <div className="display-flex padding justify-content-space-between align-items-center">
 
-                <h1>{city}:</h1>
-                <Icon f7='location'></Icon>
-            </div>
-          <div className="padding-horizontal padding-bottom">
-              <List>
-              <ListItem title="Einwohnerzahl">70.000</ListItem>
-              <ListItem title="Bundesland">Baden Würtemberg</ListItem>
-              </List>
-              <div className="margin-top text-align-center">Swipe up for more details</div>
-            </div>
-          </div>
-          <BlockTitle medium className="margin-top">
-            Wiki
-          </BlockTitle>
-          <p>
-              {wikipedia}
-          </p>
-      </Sheet>) : (<Sheet
-          className="demo-sheet-swipe-to-step"
-          style={{ height: 'auto', '--f7-sheet-bg-color': '#fff' }}
-          swipeToClose
-          swipeToStep
-          backdrop
-          closeOnEscape
-          closeByBackdropClick
-        >
-        <div className="sheet-modal-swipe-step">
-            <div className="display-flex padding justify-content-space-between align-items-center">
-
-                <h1>{city}:</h1>
-                <Icon f7='location'></Icon>
-            </div>
-          <div className="padding-horizontal padding-bottom">
-              <List>
-              <ListItem title="Einwohnerzahl">70.000</ListItem>
-              <ListItem title="Bundesland">Baden Würtemberg</ListItem>
-              </List>
-              <div className="margin-top text-align-center">Swipe up for more details</div>
-            </div>
-          </div>
-          <BlockTitle medium className="margin-top">
-            Wiki
-          </BlockTitle>
-          <p>
-              {wikipedia}
-          </p>
-      </Sheet>)}
-      
-      </Page>     
+                      <h1>{city}:</h1>
+                      <Icon f7='location'></Icon>
+                  </div>
+                  <div className="padding-horizontal padding-bottom">
+                      <List>
+                          <ListItem title="Einwohnerzahl">70.000</ListItem>
+                          <ListItem title="Bundesland">Baden Würtemberg</ListItem>
+                      </List>
+                      <div className="margin-top text-align-center">Swipe up for more details</div>
+                  </div>
+              </div>
+              <BlockTitle medium className="margin-top">
+                  Wiki
+              </BlockTitle>
+              <p>
+                  {wikipedia}
+              </p>
+          </Sheet>
+      </Page>
     );
 }
