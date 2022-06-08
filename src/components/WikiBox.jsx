@@ -22,7 +22,7 @@ export default function WikiBox() {
             })
     }
 
-    async function reverseGeo() {
+    async function reverseGeo(latitude, longitude) {
         return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lon=${latitude}&lat=${longitude}`)
             .then(response => response.json())
             .then(data => data.display_name)
