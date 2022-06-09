@@ -10,6 +10,7 @@ import {
   View,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
+import WikiBox2 from '../components/WikiBox2';
 import History from '../components/History';
 
 
@@ -27,7 +28,7 @@ const HomePage = () => (
     <Fab position="right-bottom" slot="fixed">
       <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
     </Fab>
-    <WikiBox></WikiBox>
+    <WikiBox2></WikiBox2>
 
 
     <Panel resizable left reveal swipeOnlyClose>
