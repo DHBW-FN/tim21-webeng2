@@ -10,8 +10,8 @@ import {
 } from 'framework7-react';
 
 export default function WikiBox() {
-    const [wikipedia, setWikipedia] = useState(["Waiting for article..."])
-    const city = "Friedrichshafen"
+    const [wikipedia, setWikipedia] = useState(["Waiting for article..."]);
+    const [address, setAddress] = useState("Waiting for address...");
 
     function wikipediaLookup(city){
         fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -25,12 +25,16 @@ export default function WikiBox() {
     async function reverseGeo(latitude, longitude) {
         return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lon=${latitude}&lat=${longitude}`)
             .then(response => response.json())
-            .then(data => data.display_name)
+            .then(data => data.address)
+            .then(city => setAddress(city))
     }
+
+    // this function call is for demo purposes. Call somewhere else in the future
+    reverseGeo(9.4650, 47.6567).then(r => console.log(r));
 
     return (
       <Page>
-      <Button fill id="press_on_Location_Icon" sheetOpen=".demo-sheet-swipe-to-step" onClick={() => wikipediaLookup(city)}>
+      <Button fill id="press_on_Location_Icon" sheetOpen=".demo-sheet-swipe-to-step" onClick={() => wikipediaLookup(address)}>
               Press to show info
       </Button>
       <Sheet
@@ -45,7 +49,7 @@ export default function WikiBox() {
         <div className="sheet-modal-swipe-step">
             <div className="display-flex padding justify-content-space-between align-items-center">
 
-                <h1>{city}:</h1>
+                <h1>{address.city}:</h1>
                 <Icon f7='location'></Icon>
             </div>
           <div className="padding-horizontal padding-bottom">
