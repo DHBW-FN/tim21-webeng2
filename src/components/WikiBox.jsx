@@ -13,13 +13,11 @@ export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
 
-    function wikipediaLookup(city){
-        return fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
+    async function wikipediaLookup(city){
+        return await fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
             .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                setWikipedia(data.query.pages[Object.keys(data.query.pages)[0]].extract)
-            })
+            .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
+            .then(data => setWikipedia(data))
     }
 
     async function reverseGeo(latitude, longitude) {
@@ -29,13 +27,21 @@ export default function WikiBox() {
             .then(city => setAddress(city))
     }
 
+    // This runs when the component is first loaded
     useEffect(() => {
-        reverseGeo(9.4650, 47.6567).then(r => console.log(r)), []
-    })
+        reverseGeo(9.4650, 47.6567).city
+    }, [])
+
+    // This updates the wikipedia text every time the address changes
+    useEffect(() => {
+        wikipediaLookup(address.city)
+    }, [address])
 
     return (
       <Page>
-          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(address.city)}>
+          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => {
+              wikipediaLookup(address.city);
+          }}>
               Press to show info
           </Button>
           <Sheet
