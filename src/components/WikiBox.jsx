@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Page,
   Button,
@@ -10,11 +10,11 @@ import {
 } from 'framework7-react';
 
 export default function WikiBox() {
-    const [wikipedia, setWikipedia] = useState(["Waiting for article..."]);
-    const [address, setAddress] = useState("Waiting for address...");
+    const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
+    const [address, setAddress] = useState(["Waiting for address..."]);
 
     function wikipediaLookup(city){
-        fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
+        return fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -29,12 +29,13 @@ export default function WikiBox() {
             .then(city => setAddress(city))
     }
 
-    // this function call is for demo purposes. Call somewhere else in the future
-    reverseGeo(9.4650, 47.6567).then(r => console.log(r));
+    useEffect(() => {
+        reverseGeo(9.4650, 47.6567).then(r => console.log(r)), []
+    })
 
     return (
       <Page>
-          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(city)}>
+          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(address.city)}>
               Press to show info
           </Button>
           <Sheet
