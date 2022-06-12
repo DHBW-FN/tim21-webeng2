@@ -1,12 +1,13 @@
 :root {
-    /*
-    Default
-     */
+  /*
+  Default
+   */
 }
+
 :root .dark,
 :root.dark {
-    --f7-page-bg-color: #333;
-    --f7-sheet-bg-color: #333;
-    --f7-list-bg-color: #333;
-    --f7-sheet-border-color: white;
+  --f7-page-bg-color: #333;
+  --f7-sheet-bg-color: #333;
+  --f7-list-bg-color: #333;
+  --f7-sheet-border-color: white;
 }
