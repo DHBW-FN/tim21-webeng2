@@ -29,7 +29,7 @@ export default function WikiBox() {
           </Button>
           <Sheet
               className="wikibox-sheet"
-              style={{ height: 'auto', '--f7-sheet-bg-color': '#fff' }}
+              style={{ height: 'auto', '--f7-sheet-bg-color': '#000' }}
               backdrop
               swipeToClose
               closeOnEscape
