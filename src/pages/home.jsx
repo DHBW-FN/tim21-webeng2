@@ -10,25 +10,24 @@ import {
   View,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
-import WikiBox2 from '../components/WikiBox2';
 import History from '../components/History';
-
+import '../css/home.css';
 
 const HomePage = () => (
   
   <Page name="home" className='home'>
     
     {/* Toolbar */}
-    <Toolbar tabbar bottom>
-      <Button panelOpen="left"><Icon f7="memories"></Icon></Button>
-      <Button> <Icon f7="map"></Icon></Button>
-      <Button panelOpen="right"><Icon f7="person_crop_circle"></Icon></Button>
+    <Toolbar tabbar bottom className='toolbar'>
+      <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
+      <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
+      <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
     {/* Page content */}
-    <Fab position="right-bottom" slot="fixed">
-      <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
+    <Fab position="right-bottom" slot="fixed" color='white'>
+      <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill" id='FAbicon'></Icon>
     </Fab>
-    <WikiBox2></WikiBox2>
+    <WikiBox></WikiBox>
 
 
     <Panel resizable left reveal swipeOnlyClose>

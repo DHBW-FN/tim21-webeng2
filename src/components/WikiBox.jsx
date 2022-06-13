@@ -33,7 +33,7 @@ export default function WikiBox() {
                   
                   <div className=" text-align-center"></div>
               </div>
-              <div className="page-content" style={{height: "40rem"}}> {/* TODO: probably wee need to add a function here to calculate the approximate space the text is gonna take */}
+              <div className="page-content" style={{height: "auto", maxHeight: "100vh"}}>
               <BlockTitle medium className="margin-top">
                   Wiki
               </BlockTitle>
@@ -54,7 +54,7 @@ export default function WikiBox() {
           {Framework7.device.desktop ? (
           <Sheet
               className="wikibox-sheet"
-              style={{ height: 'auto', maxHeight: '90%','--f7-sheet-bg-color': '#fff' }}
+              style={{ height: 'auto', maxHeight: '100%','--f7-sheet-bg-color': '#fff' }}
               backdrop
               swipeToClose
               closeOnEscape
@@ -67,7 +67,7 @@ export default function WikiBox() {
           (
             <Sheet
             className="wikibox-sheet"
-            style={{ height: 'auto', maxHeight: '80%', '--f7-sheet-bg-color': '#fff' }}
+            style={{ height: 'auto', maxHeight: '100%', '--f7-sheet-bg-color': '#fff' }}
             backdrop
             swipeToStep
             swipeToClose
