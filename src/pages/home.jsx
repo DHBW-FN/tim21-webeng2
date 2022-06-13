@@ -8,7 +8,7 @@ import {
     Panel,
     BlockTitle,
     View,
-    PageContent,
+    PageContent, BlockHeader,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
@@ -19,7 +19,10 @@ import '../css/app.css';
 const HomePage = () => (
   
   <Page name="home" className='home'>
-
+      {/*Only for testing purpose replace later*/}
+      <BlockHeader>
+          <WikiBox />
+      </BlockHeader>
      {/* Toolbar */}
     <Toolbar tabbar bottom>
       <Button panelOpen="left"><Icon f7="memories"></Icon></Button>
@@ -30,9 +33,6 @@ const HomePage = () => (
     <Fab position="right-bottom" slot="fixed">
       <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
     </Fab>
-    <WikiBox></WikiBox>
-
-
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
