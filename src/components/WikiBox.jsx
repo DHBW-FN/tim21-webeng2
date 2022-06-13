@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Page,
   Button,
@@ -71,7 +71,7 @@ export default function WikiBox() {
 
     return (
         <Page>
-            <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(city)}>
+            <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(address.city)}>
                 Press to show info
             </Button>
             {Framework7.device.desktop ? (
