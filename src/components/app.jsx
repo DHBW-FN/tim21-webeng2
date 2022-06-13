@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import {
   f7ready,
@@ -10,19 +10,19 @@ import {
 import routes from '../js/routes';
 import store from '../js/store';
 
-const MyApp = () => {
+export const MyApp = () => {
 
 
   // Framework7 Parameters
   const f7params = {
     name: "Navigator", // App name
-      theme: 'auto', // Automatic theme detection
-      store: store,
+    theme: 'auto', // Automatic theme detection
+    store: store,
     routes: routes,
-      // Register service worker (only on production build)
-      serviceWorker: process.env.NODE_ENV ==='production' ? {
-        path: '/service-worker.js',
-      } : {},
+    // Register service worker (only on production build)
+    serviceWorker: process.env.NODE_ENV ==='production' ? {
+      path: '/service-worker.js',
+    } : {},
   };
 
   f7ready(() => {
