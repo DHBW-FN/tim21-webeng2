@@ -24,9 +24,9 @@ export default function WikiBox() {
 
     return (
       <Page>
-          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(city)}>
-              Press to show info
-          </Button>
+          {/*<Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => wikipediaLookup(city)}>*/}
+          {/*    Press to show info*/}
+          {/*</Button>*/}
           <Sheet
               className="wikibox-sheet"
               style={{ height: 'auto', '--f7-sheet-bg-color': '#fff' }}

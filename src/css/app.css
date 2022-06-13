@@ -1,1 +1,10 @@
 /* Your app custom styles here */
+
+.page-content-map {
+    padding: 0;
+}
+
+#map{
+    height: 100vh;
+    width: 100vw;
+}
