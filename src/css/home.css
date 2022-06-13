@@ -1,20 +1,24 @@
 
-.toolbar{
-    display:flex;
-    justify-content: center;
+.toolbar {
+  display: flex;
+  justify-content: center;
 }
-.toolbar-inner{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+
+.toolbar-inner {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.toolbutton{
-    flex: 0 0 33.3%;
-    
+
+.toolbutton {
+  flex: 0 0 33.3%;
+
 }
-.toolicon{
-    color: black;
+
+.toolicon {
+  color: black;
 }
-#FAbicon{
-    color: black;
+
+#FAbicon {
+  color: black;
 }
