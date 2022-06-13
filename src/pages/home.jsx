@@ -53,7 +53,7 @@ const HomePage = () => (
         </Page>
       </View>
     </Panel>
-    <PageContent className='page-content-map'>
+    <PageContent className='page-content-map' style={{ height: 'auto'}}>
       <Map/>
     </PageContent>
   </Page>
