@@ -1,1 +1,36 @@
 /* Your app custom styles here */
+
+:root {
+  /*
+  Default
+   */
+}
+
+:root .dark,
+:root.dark {
+  --f7-page-bg-color: #333;
+  --f7-sheet-bg-color: #333;
+  --f7-list-bg-color: #333;
+  --f7-sheet-border-color: white;
+}
+
+.page-content-map {
+  padding: 0;
+}
+
+#map {
+  height: 100vh;
+  max-height: calc(100vh - var(--f7-page-toolbar-bottom-offset) - var(--f7-navbar-height));
+  width: 100vw;
+}
+
+:root.dark #map {
+  filter: var(--map-tiles-filter, none);
+
+  --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+#press_on_Location_Icon {
+  height: 100%;
+}
+
