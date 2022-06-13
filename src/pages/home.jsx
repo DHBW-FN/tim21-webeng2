@@ -8,7 +8,7 @@ import {
     Panel,
     BlockTitle,
     View,
-    PageContent, BlockHeader,
+    PageContent, Navbar,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
@@ -20,9 +20,9 @@ const HomePage = () => (
   
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
-      <BlockHeader>
+      <Navbar>
           <WikiBox />
-      </BlockHeader>
+      </Navbar>
      {/* Toolbar */}
     <Toolbar tabbar bottom>
       <Button panelOpen="left"><Icon f7="memories"></Icon></Button>
@@ -53,7 +53,7 @@ const HomePage = () => (
         </Page>
       </View>
     </Panel>
-    <PageContent className='page-content-map' style={{ height: 'auto'}}>
+    <PageContent className='page-content-map'>
       <Map/>
     </PageContent>
   </Page>

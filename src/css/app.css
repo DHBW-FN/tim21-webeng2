@@ -6,5 +6,10 @@
 
 #map {
   height: 100vh;
+  max-height: calc(100vh - var(--f7-page-toolbar-bottom-offset) - var(--f7-navbar-height));
   width: 100vw;
+}
+
+#press_on_Location_Icon {
+  height: 100%;
 }
