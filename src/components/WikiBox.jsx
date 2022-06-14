@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {
-  Page,
-  Button,
-  Sheet,
-  BlockTitle,
-  List,
-  ListItem,
-  Icon,
+    Page,
+    Button,
+    Sheet,
+    BlockTitle,
+    List,
+    ListItem,
+    Icon
 } from 'framework7-react';
+import Framework7 from "framework7";
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
@@ -29,7 +30,7 @@ export default function WikiBox() {
 
     // This runs when the component is first loaded
     useEffect(() => {
-        reverseGeo(9.4650, 47.6567).city
+        reverseGeo(9.4650, 47.6567).city;
     }, [])
 
     // This updates the wikipedia text every time the address changes
@@ -37,42 +38,52 @@ export default function WikiBox() {
         wikipediaLookup(address.city)
     }, [address])
 
-    return (
-      <Page>
-          <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => {
-              wikipediaLookup(address.city);
-          }}>
-              Press to show info
-          </Button>
-          <Sheet
-              className="wikibox-sheet"
-              style={{ height: 'auto' }}
-              backdrop
-              swipeToClose
-              closeOnEscape
-              closeByBackdropClick
-          >
-              <div className="sheet-modal-swipe-step">
-                  <div className="display-flex padding justify-content-space-between align-items-center">
+    let sheetProps = {
+        className: "wikibox-sheet",
+        style: {height: 'auto'},
+        backdrop: true,
+        swipeToClose: true,
+        swipeToStep: true,
+        closeByBackdropClick: true,
+        closeOnEscape: true
+    };
+    if (Framework7.device.desktop) {
+        sheetProps.swipeToStep = false;
+    }
 
-                      <h1>{address.city}:</h1>
-                      <Icon f7='location'></Icon>
-                  </div>
-                  <div className="padding-horizontal padding-bottom">
-                      <List>
-                          <ListItem title="Einwohnerzahl">70.000</ListItem>
-                          <ListItem title="Bundesland">Baden Würtemberg</ListItem>
-                      </List>
-                      <div className="margin-top text-align-center">Swipe up for more details</div>
-                  </div>
-              </div>
-              <BlockTitle medium className="margin-top">
-                  Wiki
-              </BlockTitle>
-              <p>
-                  {wikipedia}
-              </p>
-          </Sheet>
-      </Page>
+    return (
+        <Page>
+            <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => {
+                wikipediaLookup(address.city);
+            }}>
+                Press to show info
+            </Button>
+            <Sheet
+                {...sheetProps}
+            >
+                <div className="sheet-modal-inner">
+                    <div className="sheet-modal-swipe-step">
+                        <div className="display-flex padding justify-content-space-between align-items-center">
+
+                            <h1>{address.city}:</h1>
+                            <Icon f7='location'></Icon>
+                        </div>
+                    </div>
+                    <div className="padding-horizontal padding-bottom">
+                        <List>
+                            <ListItem title="Einwohnerzahl">70.000</ListItem>
+                            <ListItem title="Bundesland">Baden Würtemberg</ListItem>
+                        </List>
+                        <div className="margin-top text-align-center">Swipe up for more details</div>
+                    </div>
+                    <BlockTitle medium className="margin-top">
+                        Wiki
+                    </BlockTitle>
+                    <p>
+                        {wikipedia}
+                    </p>
+                </div>
+            </Sheet>
+        </Page>
     );
 }
