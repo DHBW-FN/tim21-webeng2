@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {
-    Page,
-    Button,
     Sheet,
     BlockTitle,
     List,
     ListItem,
     Icon,
-    Fab
+    Fab,
+    f7
 } from 'framework7-react';
 import Framework7 from "framework7";
+import {$} from "dom7";
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
@@ -52,16 +52,13 @@ export default function WikiBox() {
         sheetProps.swipeToStep = false;
     }
 
+    f7.$('#press_on_Location_Icon').on('click', function () {
+        f7.sheet.open($('.wikibox-sheet'));
+    });
+
     return (
         <>
             <Fab position='center-top' id="press_on_Location_Icon" text="Press to show info">
-                    <Button
-                    sheetOpen=".wikibox-sheet"
-                    onClick={
-                        () => {
-                            wikipediaLookup(address.city);
-                        }
-                    }></Button>
             </Fab>
             <Sheet
                 {...sheetProps}
