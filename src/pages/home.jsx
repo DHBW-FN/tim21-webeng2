@@ -3,7 +3,6 @@ import {
     Page,
     Toolbar,
     Icon,
-    Fab,
     Button,
     Panel,
     BlockTitle,
@@ -13,7 +12,7 @@ import {
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
-import FabForMap from '../components/Fab';
+import LocateFab from "../components/Fab";
 import '../css/app.css';
 import '../css/home.css';
 
@@ -30,8 +29,8 @@ const HomePage = () => (
       <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
       <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
-     {/* Page content */}
-      <FabForMap/>
+    {/* Page content */}
+    <LocateFab/>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
