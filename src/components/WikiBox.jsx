@@ -52,13 +52,13 @@ export default function WikiBox() {
         sheetProps.swipeToStep = false;
     }
 
-    f7.$('#press_on_Location_Icon').on('click', function () {
+    f7.$('#debug-fab-open-wikibox').on('click', function () {
         f7.sheet.open($('.wikibox-sheet'));
     });
 
     return (
         <>
-            <Fab position='center-top' id="press_on_Location_Icon" text="Press to show info">
+            <Fab position='center-top' id="debug-fab-open-wikibox" text="Press to show info">
             </Fab>
             <Sheet
                 {...sheetProps}
