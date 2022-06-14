@@ -6,7 +6,7 @@ import {
     Fab
 } from 'framework7-react';
 
-export default function LocateFab(){
+export default function LocateButton(){
 
     return (
         <Fab position="right-bottom" slot="fixed" id="fab-button" onClick={() => {
