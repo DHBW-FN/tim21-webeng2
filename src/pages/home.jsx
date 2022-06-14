@@ -14,7 +14,7 @@ import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
 import '../css/app.css';
-
+import '../css/home.css';
 
 const HomePage = () => (
   
@@ -24,10 +24,10 @@ const HomePage = () => (
           <WikiBox />
       </Navbar>
      {/* Toolbar */}
-    <Toolbar tabbar bottom>
-      <Button panelOpen="left"><Icon f7="memories"></Icon></Button>
-      <Button> <Icon f7="map"></Icon></Button>
-      <Button panelOpen="right"><Icon f7="person_crop_circle"></Icon></Button>
+    <Toolbar tabbar bottom className='toolbar'>
+      <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
+      <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
+      <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
      {/* Page content */}
     <Fab position="right-bottom" slot="fixed">
