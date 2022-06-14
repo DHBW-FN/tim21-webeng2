@@ -20,9 +20,7 @@ const HomePage = () => (
   
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
-      <Navbar>
-          <WikiBox />
-      </Navbar>
+      <WikiBox />
      {/* Toolbar */}
     <Toolbar tabbar bottom className='toolbar'>
       <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>

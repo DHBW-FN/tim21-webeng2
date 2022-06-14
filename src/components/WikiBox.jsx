@@ -6,7 +6,8 @@ import {
     BlockTitle,
     List,
     ListItem,
-    Icon
+    Icon,
+    Fab
 } from 'framework7-react';
 import Framework7 from "framework7";
 
@@ -52,12 +53,16 @@ export default function WikiBox() {
     }
 
     return (
-        <Page>
-            <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => {
-                wikipediaLookup(address.city);
-            }}>
-                Press to show info
-            </Button>
+        <>
+            <Fab position='center-top' id="press_on_Location_Icon" text="Press to show info">
+                    <Button
+                    sheetOpen=".wikibox-sheet"
+                    onClick={
+                        () => {
+                            wikipediaLookup(address.city);
+                        }
+                    }></Button>
+            </Fab>
             <Sheet
                 {...sheetProps}
             >
@@ -84,6 +89,6 @@ export default function WikiBox() {
                     </p>
                 </div>
             </Sheet>
-        </Page>
+        </>
     );
 }
