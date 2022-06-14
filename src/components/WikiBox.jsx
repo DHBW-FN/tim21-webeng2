@@ -16,7 +16,7 @@ export default function WikiBox() {
     const [address, setAddress] = useState(["Waiting for address..."]);
 
     async function wikipediaLookup(city){
-        return await fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
+        return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
             .then(response => response.json())
             .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
             .then(data => setWikipedia(data))
@@ -73,8 +73,8 @@ export default function WikiBox() {
                     </div>
                     <div className="padding-horizontal padding-bottom">
                         <List>
-                            <ListItem title="Einwohnerzahl">70.000</ListItem>
-                            <ListItem title="Bundesland">Baden Würtemberg</ListItem>
+                            <ListItem title="Population">70,000</ListItem>
+                            <ListItem title="State">Baden-Wuerttemberg</ListItem>
                         </List>
                         <div className="margin-top text-align-center">Swipe up for more details</div>
                     </div>
