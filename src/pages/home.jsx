@@ -13,6 +13,7 @@ import {
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
+import FabForMap from '../components/Fab';
 import '../css/app.css';
 
 
@@ -30,9 +31,7 @@ const HomePage = () => (
       <Button panelOpen="right"><Icon f7="person_crop_circle"></Icon></Button>
     </Toolbar>
      {/* Page content */}
-    <Fab position="right-bottom" slot="fixed">
-      <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
-    </Fab>
+      <FabForMap/>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
@@ -54,7 +53,7 @@ const HomePage = () => (
       </View>
     </Panel>
     <PageContent className='page-content-map'>
-      <Map/>
+        <Map/>
     </PageContent>
   </Page>
 );
