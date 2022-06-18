@@ -7,7 +7,7 @@ import {
     Panel,
     BlockTitle,
     View,
-    PageContent, Navbar, Fab,
+    Navbar, Fab,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
@@ -29,7 +29,6 @@ const HomePage = () => (
       <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
     {/* Page content */}
-    {/*<LocateButton/>*/}
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>

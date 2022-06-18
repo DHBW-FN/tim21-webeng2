@@ -10,7 +10,7 @@ export default function Map(){
 
     function HandleFabClick(){
         const map = useMap();
-        addEventListener('handleFabClick', function (e) {map.locate()}, false);
+        addEventListener('handleFabClick', function () {map.locate()}, false);
     }
 
     function LocationMarker() {
@@ -18,7 +18,7 @@ export default function Map(){
             locationfound(e) {
                 map.flyTo(e.latlng, 15)
             },
-            locationerror(e) {
+            locationerror() {
                 alert("Unfortunately, we could not find your location")
             }
         })
