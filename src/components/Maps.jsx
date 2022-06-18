@@ -13,7 +13,7 @@ export default function Map(){
         addEventListener('handleFabClick', function () {map.locate()}, false);
     }
 
-    function LocationMarker() {
+    function EventHandler() {
         const map = useMapEvents({
             locationfound(e) {
                 map.flyTo(e.latlng, 15)
@@ -39,7 +39,7 @@ export default function Map(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <HandleFabClick/>
-                    <LocationMarker/>
+                    <EventHandler/>
                 </MapContainer>
             </PageContent>
         </>
