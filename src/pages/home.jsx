@@ -7,12 +7,11 @@ import {
     Panel,
     BlockTitle,
     View,
-    PageContent, Navbar,
+    PageContent, Navbar, Fab,
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
-import LocateButton from "../components/LocateButton";
 import '../css/app.css';
 import '../css/home.css';
 
@@ -30,7 +29,7 @@ const HomePage = () => (
       <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
     {/* Page content */}
-    <LocateButton/>
+    {/*<LocateButton/>*/}
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
@@ -51,9 +50,7 @@ const HomePage = () => (
         </Page>
       </View>
     </Panel>
-    <PageContent className='page-content-map'>
-        <Map/>
-    </PageContent>
+    <Map/>
   </Page>
 );
 export default HomePage;
