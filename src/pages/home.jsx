@@ -7,7 +7,7 @@ import {
     Panel,
     BlockTitle,
     View,
-    Navbar, Fab,
+    Navbar
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
