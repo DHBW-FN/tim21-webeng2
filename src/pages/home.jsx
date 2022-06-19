@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useState} from 'react';
 import {
     Page,
     Toolbar,
@@ -10,20 +10,26 @@ import {
     View,
     PageContent, Navbar,
 } from 'framework7-react';
+import { CoordContext } from '../js/Context';
+import { AdressContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
-import SearchBar, { CoordinatesContext } from '../components/SearchBar';
+import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
 
 
+
 const HomePage = () => {
-  const state = useContext(CoordinatesContext)
+  const [coord, setCoord] = useState({lat: null, lng: null});
+  const [adress, setAdress] = useState("");
+
   return (
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
-      <CoordinatesContext.Provider>
+      <CoordContext.Provider value={{coord, setCoord}}>
+      <AdressContext.Provider value={{adress, setAdress}}>
       <Navbar>
           <WikiBox />
       </Navbar>
@@ -38,8 +44,9 @@ const HomePage = () => {
       <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
     </Fab>
     <SearchBar></SearchBar>
-    {console.log(state.coord, "home")}
-    </CoordinatesContext.Provider>
+    {console.log(adress)}  {/*just to show that it works*/}
+    </AdressContext.Provider>
+    </CoordContext.Provider>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
