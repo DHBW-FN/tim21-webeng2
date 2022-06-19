@@ -5,21 +5,42 @@ import PlacesAutocomplete, {
         getLatLng} 
     from "react-places-autocomplete";
 
-export default function SearchBar() {
+export const CoordinatesContext = React.createContext({
+    coord: {lat: null, lng: null},
+    setCoord: () => {}
+});
+
+export default function SearchBar(props) {
+    
+        const setCoordinates2 = (coords) => {
+            console.log(coords)
+            setState({...state, coord: coords})
+            console.log(state, "state")
+        }
+        const initState = {
+            coord: [{lat: null, lng: null}],
+            setCoord: setCoordinates2
+        }
+        const [state, setState] = useState(initState)
+        
         const [searchAdress, setsearchAdress] = useState("");
-        const [coordinates, setCoordinates] = useState({
+        /*const [coordinates, setCoordinates] = useState({
             lat: null,
             lng: null
-        });
+        });*/
         const handleSelect = async value => {
             const results = await geocodeByAddress(value);
             const latLng = await getLatLng(results[0]);
             setsearchAdress(value);
-            setCoordinates(latLng);
+            /*setCoordinates2(latLng);*/
+            
+            state.setCoord(latLng)
         };
 
     return (
         <>
+        <CoordinatesContext.Provider value={state}>
+            {props.children}
         <div className="searchElement">
             <div className="search-div">
                 
@@ -42,7 +63,7 @@ export default function SearchBar() {
         </div>
                 
             </div>
-            
+            </CoordinatesContext.Provider>
         </>
 
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
     Page,
     Toolbar,
@@ -13,14 +13,17 @@ import {
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
-import SearchBar from '../components/SearchBar';
+import SearchBar, { CoordinatesContext } from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
 
-const HomePage = () => (
-  
+
+const HomePage = () => {
+  const state = useContext(CoordinatesContext)
+  return (
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
+      <CoordinatesContext.Provider>
       <Navbar>
           <WikiBox />
       </Navbar>
@@ -35,6 +38,8 @@ const HomePage = () => (
       <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
     </Fab>
     <SearchBar></SearchBar>
+    {console.log(state.coord, "home")}
+    </CoordinatesContext.Provider>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
@@ -59,5 +64,5 @@ const HomePage = () => (
       <Map/>
     </PageContent>
   </Page>
-);
+)};
 export default HomePage;
