@@ -33,6 +33,10 @@ const HomePage = () => {
       <Navbar>
           <WikiBox />
       </Navbar>
+      <SearchBar></SearchBar>
+    {console.log(adress)}  {/*just to show that it works*/}
+    </AdressContext.Provider>
+    </CoordContext.Provider>
      {/* Toolbar */}
     <Toolbar tabbar bottom className='toolbar'>
       <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
@@ -43,10 +47,8 @@ const HomePage = () => {
     <Fab position="right-bottom" slot="fixed">
       <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
     </Fab>
-    <SearchBar></SearchBar>
-    {console.log(adress)}  {/*just to show that it works*/}
-    </AdressContext.Provider>
-    </CoordContext.Provider>
+    
+    
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
@@ -70,6 +72,7 @@ const HomePage = () => {
     <PageContent className='page-content-map'>
       <Map/>
     </PageContent>
+    
   </Page>
 )};
 export default HomePage;

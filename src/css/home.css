@@ -21,3 +21,6 @@
 #FAbicon {
   color: black;
 }
+.page-content {
+  height: 100vh !important;
+}
