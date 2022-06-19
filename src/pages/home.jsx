@@ -25,7 +25,7 @@ const HomePage = () => {
   return (
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
-      <CoordinatesContext.Provider value={{coord, setCoord}}>
+      <CoordContext.Provider value={{coord, setCoord}}>
       <AdressContext.Provider value={{adress, setAdress}}>
       {/*Only for testing purpose replace later*/}
       <WikiBox />
