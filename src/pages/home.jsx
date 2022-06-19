@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     Page,
     Toolbar,
@@ -8,22 +8,28 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
+import { CoordContext } from '../js/Context';
+import { AdressContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
-import SearchBar, { CoordinatesContext } from '../components/SearchBar';
+import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
 
 
 const HomePage = () => {
-  const state = useContext(CoordinatesContext)
+  const [coord, setCoord] = useState({lat: null, lng: null});
+  const [adress, setAdress] = useState("");
+
   return (
   <Page name="home" className='home'>
-      <CoordinatesContext.Provider>
-    {/*Only for testing purpose replace later*/}
-    <WikiBox />
-    {/* Toolbar */}
+      {/*Only for testing purpose replace later*/}
+      <CoordinatesContext.Provider value={{coord, setCoord}}>
+      <AdressContext.Provider value={{adress, setAdress}}>
+      {/*Only for testing purpose replace later*/}
+      <WikiBox />
+     {/* Toolbar */}
     <Toolbar tabbar bottom className='toolbar'>
       <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
       <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
@@ -52,6 +58,7 @@ const HomePage = () => {
       </View>
     </Panel>
     <Map/>
+    </AdressContext.Provider>
       </CoordinatesContext.Provider>
       </Page>
 )};
