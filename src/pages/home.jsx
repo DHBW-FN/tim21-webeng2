@@ -11,6 +11,7 @@ import {
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
+import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
 
@@ -26,6 +27,7 @@ const HomePage = () => (
       <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
     {/* Page content */}
+    <SearchBar></SearchBar>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>

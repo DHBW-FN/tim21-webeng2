@@ -1,0 +1,35 @@
+.searchElement{
+    display: flex;
+    justify-content: flex-end;
+}
+.search-div{
+    position: absolute;
+    z-index: 10000;
+    width: 25vw;
+    vertical-align: middle;
+    background-color: white;
+    margin: 2rem;
+    
+}
+#searchInput{
+    width: 25vw !important;
+    padding: 1rem;
+}
+/*#searchfield{
+    height: 2rem;
+    width: auto;
+    line-height: 2rem;
+    padding-top: 10px;
+    padding-bottom: -2px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+}*/
+@media only screen and (max-width: 768px) {
+    .search-div{
+        min-width: 90%;
+    }
+    #searchInput{
+        min-width: 90%;
+    }
+}
