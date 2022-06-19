@@ -13,6 +13,7 @@ import {
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
+import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
 
@@ -33,6 +34,7 @@ const HomePage = () => (
     <Fab position="right-bottom" slot="fixed">
       <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
     </Fab>
+    <SearchBar></SearchBar>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
