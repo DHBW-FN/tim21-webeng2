@@ -28,7 +28,7 @@ export default function Map(){
     return (
         <>
             <Fab position="right-bottom" slot="fixed" id="fab-button" onClick={() => {
-                dispatchEvent(event);
+                dispatchEvent(locateFabClickEvent);
             }}>
                 <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
             </Fab>
