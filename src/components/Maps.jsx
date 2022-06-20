@@ -6,7 +6,7 @@ import {Fab, Icon, PageContent} from "framework7-react";
 
 export default function Map(){
 
-    const event = new Event('handleFabClick');
+    const locateFabClickEvent = new Event('handleFabClick');
 
     function HandleFabClick(){
         const map = useMap();
