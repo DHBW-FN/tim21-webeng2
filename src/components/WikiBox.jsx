@@ -1,21 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import {
-    Page,
-    Button,
     Sheet,
     BlockTitle,
     List,
     ListItem,
-    Icon
+    Icon,
+    Fab,
+    f7
 } from 'framework7-react';
 import Framework7 from "framework7";
+import {$} from "dom7";
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
 
     async function wikipediaLookup(city){
-        return await fetch(`https://de.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
+        return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
             .then(response => response.json())
             .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
             .then(data => setWikipedia(data))
@@ -52,12 +53,9 @@ export default function WikiBox() {
     }
 
     return (
-        <Page>
-            <Button fill id="press_on_Location_Icon" sheetOpen=".wikibox-sheet" onClick={() => {
-                wikipediaLookup(address.city);
-            }}>
-                Press to show info
-            </Button>
+        <>
+            <Fab position='center-top' id="debug-fab-open-wikibox" text="Press to show info" onClick={() => f7.sheet.open($('.wikibox-sheet'))}>
+            </Fab>
             <Sheet
                 {...sheetProps}
             >
@@ -71,8 +69,8 @@ export default function WikiBox() {
                     </div>
                     <div className="padding-horizontal padding-bottom">
                         <List>
-                            <ListItem title="Einwohnerzahl">70.000</ListItem>
-                            <ListItem title="Bundesland">Baden Würtemberg</ListItem>
+                            <ListItem title="Population">70,000</ListItem>
+                            <ListItem title="State">Baden-Wuerttemberg</ListItem>
                         </List>
                         <div className="margin-top text-align-center">Swipe up for more details</div>
                     </div>
@@ -84,6 +82,6 @@ export default function WikiBox() {
                     </p>
                 </div>
             </Sheet>
-        </Page>
+        </>
     );
 }
