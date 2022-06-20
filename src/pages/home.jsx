@@ -6,9 +6,7 @@ import {
     Button,
     Panel,
     BlockTitle,
-    View,
-    Navbar,
-    PageContent
+    View
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
