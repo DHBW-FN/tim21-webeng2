@@ -3,11 +3,11 @@ import {
     Page,
     Toolbar,
     Icon,
-    Fab,
     Button,
     Panel,
     BlockTitle,
     View,
+    Navbar,
     PageContent
 } from 'framework7-react';
 import WikiBox from '../components/WikiBox';
@@ -27,10 +27,7 @@ const HomePage = () => (
       <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
       <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
     </Toolbar>
-     {/* Page content */}
-    <Fab position="right-bottom" slot="fixed">
-      <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
-    </Fab>
+    {/* Page content */}
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
@@ -51,9 +48,7 @@ const HomePage = () => (
         </Page>
       </View>
     </Panel>
-    <PageContent className='page-content-map'>
-      <Map/>
-    </PageContent>
+    <Map/>
   </Page>
 );
 export default HomePage;
