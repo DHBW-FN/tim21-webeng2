@@ -33,7 +33,7 @@ export default function Map(){
                 <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
             </Fab>
             <PageContent className='page-content-map'>
-                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map" whenCreated={map => this.setState({ map })}>
+                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map">
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
