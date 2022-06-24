@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Page,
     Toolbar,
@@ -59,7 +59,7 @@ const HomePage = () => {
     </Panel>
     <Map/>
     </AdressContext.Provider>
-      </CoordinatesContext.Provider>
+      </CoordContext.Provider>
       </Page>
 )};
 export default HomePage;
