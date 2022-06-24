@@ -26,11 +26,10 @@ export default function SearchBar() {
         <>
         
         <div className="searchElement">
-            <div className="search-div">
-                
+
         <PlacesAutocomplete value={searchAdress} onChange={setsearchAdress} onSelect={handleSelect}>
             {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
-            <div>
+            <div id="innerSearchdiv">
                 <input id="searchInput" {...getInputProps({ placeholder: "Type adress ..."})} />
                 <div id="autocompletion-examples">
                     {loading ? <div>...loading</div> : null}
@@ -44,8 +43,7 @@ export default function SearchBar() {
                 </div>
             </div>)}
         </PlacesAutocomplete>
-        </div>
-                
+
             </div>
         </>
 
