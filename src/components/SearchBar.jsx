@@ -12,13 +12,13 @@ export default function SearchBar() {
     const { adress, setAdress} = useContext(AdressContext);
     
     //this way the global adress only gets set when the user makes a selection    
-    const [searchAdress, setsearchAdress] = useState("");
+    const [searchAddress, setsearchAddress] = useState("");
    
     const handleSelect = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
         setAdress(value);
-        /*setCoordinates2(latLng);*/
+        setsearchAddress(value);
         setCoord(latLng);
     };
 
@@ -27,7 +27,7 @@ export default function SearchBar() {
         
         <div className="searchElement">
 
-        <PlacesAutocomplete value={searchAdress} onChange={setsearchAdress} onSelect={handleSelect}>
+        <PlacesAutocomplete value={searchAddress} onChange={setsearchAddress} onSelect={handleSelect}>
             {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
             <div id="innerSearchdiv">
                 <input id="searchInput" {...getInputProps({ placeholder: "Type adress ..."})} />
