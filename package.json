@@ -27,6 +27,7 @@
     "framework7-icons": "^5.0.5",
     "framework7-react": "^7.0.5",
     "leaflet": "^1.8.0",
+    "leaflet-routing-machine": "^3.2.12",
     "material-icons": "^1.11.1",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",

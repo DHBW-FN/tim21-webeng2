@@ -3,6 +3,7 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
+import Routing from "./Routing";
 
 export default function Map(){
 
@@ -41,6 +42,7 @@ export default function Map(){
                     <ZoomControl position="bottomleft"/>
                     <HandleFabClick/>
                     <EventHandler/>
+                    <Routing/>
                 </MapContainer>
             </PageContent>
         </>

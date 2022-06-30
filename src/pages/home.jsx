@@ -19,6 +19,7 @@ import '../css/home.css';
 
 
 const HomePage = () => {
+    //const [coord, setCoord] = useState({lat: 47.65689, lng: 9.47554});
   const [coord, setCoord] = useState({lat: null, lng: null});
   const [adress, setAdress] = useState("");
 
