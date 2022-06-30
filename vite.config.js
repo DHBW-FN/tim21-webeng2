@@ -1,6 +1,6 @@
 
 import path from 'path';
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import reactRefresh from '@vitejs/plugin-react';
 
 
 
