@@ -34,11 +34,12 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-
-
-
-
 # Production build
 www/
 
+#IDE config folders
 /.idea/
+
+# Remove packages from the project to reduce issues with wrongfully pushed packages
+package.json
+package-lock.json
