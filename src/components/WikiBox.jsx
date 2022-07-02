@@ -9,13 +9,17 @@ import {
     f7
 } from 'framework7-react';
 import Framework7 from "framework7";
+/*
 import { CoordContext } from '../js/Context';
 import { AdressContext } from '../js/Context';
+ */
 import {$} from "dom7";
 
 export default function WikiBox() {
+    /*
     const {coord, setCoord} = useContext(CoordContext);
     const {adress, setAdress} = useContext(AdressContext);
+    */
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
 
