@@ -1,5 +1,5 @@
 import React from "react";
-import {MapContainer, TileLayer, useMapEvents, useMap} from "react-leaflet";
+import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
@@ -33,11 +33,12 @@ export default function Map(){
                 <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
             </Fab>
             <PageContent className='page-content-map'>
-                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map">
+                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
+                    <ZoomControl position="bottomleft"/>
                     <HandleFabClick/>
                     <EventHandler/>
                 </MapContainer>
