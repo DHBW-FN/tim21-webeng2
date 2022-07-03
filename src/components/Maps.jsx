@@ -1,13 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
+import { RoutingState } from "../js/Context";
 import Routing from "./Routing";
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
+    const { routingActive, setRoutingActive} = useContext(RoutingState)
 
     function HandleFabClick(){
         const map = useMap();
@@ -42,7 +44,7 @@ export default function Map(){
                     <ZoomControl position="bottomleft"/>
                     <HandleFabClick/>
                     <EventHandler/>
-                    <Routing/>
+                    {routingActive ? <Routing/> : null}; {/*disabling isn't working right now*/}
                 </MapContainer>
             </PageContent>
         </>

@@ -6,11 +6,13 @@ import {
     ListItem,
     Icon,
     Fab,
+    Button,
     f7
 } from 'framework7-react';
 import Framework7 from "framework7";
 import { CoordContext } from '../js/Context';
 import { AdressContext } from '../js/Context';
+import { RoutingState } from '../js/Context';
 import {$} from "dom7";
 
 export default function WikiBox() {
@@ -18,6 +20,8 @@ export default function WikiBox() {
     const {adress, setAdress} = useContext(AdressContext);
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
+    const { routingActive, setRoutingActive} = useContext(RoutingState);
+
 
     async function wikipediaLookup(city){
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -32,6 +36,13 @@ export default function WikiBox() {
             .then(data => data.address)
             .then(city => setAddress(city))
     }
+
+    function toggleRouting() {
+        if (coord.lat != null) {
+        setRoutingActive(prevRoutingActive => !prevRoutingActive)
+        f7.sheet.close('.wikibox-sheet')
+        }
+    };
 
     // This runs when the component is first loaded
     useEffect(() => {
@@ -68,7 +79,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address.city}:</h1>
-                            <Icon f7='location'></Icon>
+                            <Button onClick={toggleRouting}><Icon f7='location'></Icon></Button>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">

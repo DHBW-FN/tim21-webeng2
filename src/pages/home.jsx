@@ -10,6 +10,7 @@ import {
 } from 'framework7-react';
 import { CoordContext } from '../js/Context';
 import { AdressContext } from '../js/Context';
+import { RoutingState } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
@@ -22,10 +23,12 @@ const HomePage = () => {
     //const [coord, setCoord] = useState({lat: 47.65689, lng: 9.47554});
   const [coord, setCoord] = useState({lat: null, lng: null});
   const [adress, setAdress] = useState("");
+  const [routingActive, setRoutingActive] = useState(false);
 
   return (
   <CoordContext.Provider value={{coord, setCoord}}>
   <AdressContext.Provider value={{adress, setAdress}}>
+  <RoutingState.Provider value={{routingActive, setRoutingActive}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -63,6 +66,7 @@ const HomePage = () => {
     <Map/>
 
       </Page>
+  </RoutingState.Provider>
   </AdressContext.Provider>
   </CoordContext.Provider>
 )};
