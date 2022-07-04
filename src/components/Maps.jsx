@@ -8,8 +8,15 @@ import { CoordContext } from '../js/Context';
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
-    const {coord, setCoord} = useContext(CoordContext)
+    const {setCoord} = useContext(CoordContext)
 
+    function HandleClick(){
+        const map = useMap()
+        map.on("click", (e) => {
+            setCoord(e.latlng)
+        })
+    }
+    
     function HandleFabClick(){
         const map = useMap();
         addEventListener('handleFabClick', function () {map.locate()}, false);
@@ -19,20 +26,13 @@ export default function Map(){
         const map = useMapEvents({
             locationfound(e) {
                 setCoord(e.latlng)
+                map.flyTo(e.latlng, 15)
             },
             locationerror() {
                 alert("Unfortunately, we could not find your location")
             }
         })
         return null
-    }
-
-    function FlyToCoord() {
-        const map = useMap()
-        if (coord.lat != null && coord.lng != null){
-            map.flyTo(coord, 15)
-            console.log(coord)
-        }
     }
 
     return (
@@ -49,8 +49,8 @@ export default function Map(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <ZoomControl position="bottomleft"/>
+                    <HandleClick/>
                     <HandleFabClick/>
-                    <FlyToCoord/>
                     <EventHandler/>
                 </MapContainer>
             </PageContent>
