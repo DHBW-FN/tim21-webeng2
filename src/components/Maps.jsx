@@ -5,11 +5,22 @@ import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
 import { RoutingState } from "../js/Context";
 import Routing from "./Routing";
+import { CoordContext } from '../js/Context';
+import { AdressContext } from "../js/Context";
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
     const { routingActive, setRoutingActive} = useContext(RoutingState)
+    const {coord, setCoord} = useContext(CoordContext)
+    const {adress} = useContext(AdressContext)
+
+    function HandleClick(){
+        const map = useMap()
+        map.on("click", (e) => {
+            setCoord(e.latlng)
+        })
+    }
 
     function HandleFabClick(){
         const map = useMap();
@@ -19,6 +30,7 @@ export default function Map(){
     function EventHandler() {
         const map = useMapEvents({
             locationfound(e) {
+                setCoord(e.latlng)
                 map.flyTo(e.latlng, 15)
             },
             locationerror() {
@@ -26,6 +38,13 @@ export default function Map(){
             }
         })
         return null
+    }
+
+    function FlyToAdress(){
+        const map = useMap()
+        if(adress){
+            map.flyTo(coord, 15)
+        }
     }
 
     return (
@@ -42,8 +61,10 @@ export default function Map(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <ZoomControl position="bottomleft"/>
+                    <HandleClick/>
                     <HandleFabClick/>
                     <EventHandler/>
+                    <FlyToAdress/>
                     {routingActive ? <Routing/> : null}; {/*disabling isn't working right now*/}
                 </MapContainer>
             </PageContent>

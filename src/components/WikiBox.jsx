@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Sheet,
     BlockTitle,
@@ -14,12 +14,14 @@ import { CoordContext } from '../js/Context';
 import { AdressContext } from '../js/Context';
 import { RoutingState } from '../js/Context';
 import {$} from "dom7";
+import { CoordContext } from '../js/Context';
 
 export default function WikiBox() {
     const {coord, setCoord} = useContext(CoordContext);
     const {adress, setAdress} = useContext(AdressContext);
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
+    const {coord} = useContext(CoordContext)
     const { routingActive, setRoutingActive} = useContext(RoutingState);
 
 
@@ -31,7 +33,7 @@ export default function WikiBox() {
     }
 
     async function reverseGeo(latitude, longitude) {
-        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lon=${latitude}&lat=${longitude}`)
+        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
             .then(response => response.json())
             .then(data => data.address)
             .then(city => setAddress(city))
@@ -53,6 +55,13 @@ export default function WikiBox() {
     useEffect(() => {
         wikipediaLookup(address.city)
     }, [address])
+
+    //This runs when CoordContext changes
+    useEffect(() => {
+        if (coord.lat != null && coord.lng != null){
+            reverseGeo(coord.lat, coord.lng).city
+        }
+    }, [coord])
 
     let sheetProps = {
         className: "wikibox-sheet",
@@ -79,7 +88,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address.city}:</h1>
-                            <Button onClick={toggleRouting}><Icon f7='location'></Icon></Button>
+                            <Icon f7='location'></Icon>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">
