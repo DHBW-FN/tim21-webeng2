@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
@@ -38,8 +38,8 @@ export default function Map(){
     }
 
     function FlyToAdress(){
+        const map = useMap()
         if(adress){
-            const map = useMap()
             map.flyTo(coord, 15)
         }
     }
