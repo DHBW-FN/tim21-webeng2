@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
@@ -8,7 +8,7 @@ import { CoordContext } from '../js/Context';
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
-    const {setCoord} = useContext(CoordContext)
+    const {coord, setCoord} = useContext(CoordContext)
 
     function HandleFabClick(){
         const map = useMap();
@@ -18,7 +18,6 @@ export default function Map(){
     function EventHandler() {
         const map = useMapEvents({
             locationfound(e) {
-                map.flyTo(e.latlng, 15)
                 setCoord(e.latlng)
             },
             locationerror() {
@@ -26,6 +25,14 @@ export default function Map(){
             }
         })
         return null
+    }
+
+    function FlyToCoord() {
+        const map = useMap()
+        if (coord.lat != null && coord.lng != null){
+            map.flyTo(coord, 15)
+            console.log(coord)
+        }
     }
 
     return (
@@ -43,6 +50,7 @@ export default function Map(){
                     />
                     <ZoomControl position="bottomleft"/>
                     <HandleFabClick/>
+                    <FlyToCoord/>
                     <EventHandler/>
                 </MapContainer>
             </PageContent>
