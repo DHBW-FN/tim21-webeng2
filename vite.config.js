@@ -1,9 +1,5 @@
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 import reactRefresh from '@vitejs/plugin-react';
-
-const __dirname =
-  typeof __dirname === 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
 
 const SRC_DIR = path.resolve(__dirname, './src');
 const PUBLIC_DIR = path.resolve(__dirname, './public');
