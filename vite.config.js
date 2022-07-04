@@ -1,18 +1,16 @@
-
-import path from 'path';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import reactRefresh from '@vitejs/plugin-react';
 
-
+const __dirname =
+  typeof __dirname === 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
 
 const SRC_DIR = path.resolve(__dirname, './src');
 const PUBLIC_DIR = path.resolve(__dirname, './public');
-const BUILD_DIR = path.resolve(__dirname, './www',);
+const BUILD_DIR = path.resolve(__dirname, './www');
 
 export default {
-  plugins: [
-    reactRefresh(),
-
-  ],
+  plugins: [reactRefresh()],
   root: SRC_DIR,
   base: '',
   publicDir: PUBLIC_DIR,
@@ -21,16 +19,15 @@ export default {
     assetsInlineLimit: 0,
     emptyOutDir: true,
     rollupOptions: {
-      treeshake: false,
-    },
+      treeshake: false
+    }
   },
   resolve: {
     alias: {
-      '@': SRC_DIR,
-    },
+      '@': SRC_DIR
+    }
   },
   server: {
-    host: true,
-  },
-
+    host: true
+  }
 };
