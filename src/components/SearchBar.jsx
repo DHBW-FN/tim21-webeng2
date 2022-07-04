@@ -17,9 +17,9 @@ export default function SearchBar() {
     const handleSelect = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
+        setCoord(latLng);
         setAdress(value);
         setsearchAddress(value);
-        setCoord(latLng);
     };
 
     return (
