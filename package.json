@@ -14,7 +14,8 @@
     "build": "cross-env NODE_ENV=production vite build && npx workbox generateSW workbox-config.js",
     "postinstall": "cpy --flat ./node_modules/framework7-icons/fonts/*.* ./src/fonts/ && cpy --flat ./node_modules/material-icons/iconfont/*.* ./src/fonts/",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "browserslist": [
     "IOS >= 13",
@@ -42,12 +43,15 @@
     "cpy-cli": "^4.1.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.3",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.1",
     "postcss-preset-env": "^7.7.1",
+    "prettier": "^2.7.1",
     "vite": "^2.9.9",
     "workbox-cli": "^6.5.3"
   }

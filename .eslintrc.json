@@ -4,8 +4,9 @@
         "es2021": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:react/recommended",
-        "standard"
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -14,9 +15,15 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "plugins": [
         "react"
     ],
     "rules": {
+        "react/react-in-jsx-scope": "off"
     }
 }
