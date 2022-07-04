@@ -1,12 +1,12 @@
 .searchElement {
-    display: flex;
-    justify-content: flex-start;
-    position: absolute;
-    z-index: 10000;
-    width: 25vw;
-    vertical-align: middle;
-    background-color: white;
-    margin: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  z-index: 10000;
+  width: 25vw;
+  vertical-align: middle;
+  background-color: white;
+  margin: 2rem;
 }
 
 #searchInput {
