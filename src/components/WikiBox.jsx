@@ -42,7 +42,7 @@ export default function WikiBox() {
         setRoutingActive(prevRoutingActive => !prevRoutingActive)
         f7.sheet.close('.wikibox-sheet')
         }
-    };
+    }
 
     // This runs when the component is first loaded
     useEffect(() => {
