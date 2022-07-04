@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
     Sheet,
     BlockTitle,
@@ -10,10 +10,12 @@ import {
 } from 'framework7-react';
 import Framework7 from "framework7";
 import {$} from "dom7";
+import { CoordContext } from '../js/Context';
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
+    const {coord, setCoord} = useContext(CoordContext)
 
     async function wikipediaLookup(city){
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -23,7 +25,7 @@ export default function WikiBox() {
     }
 
     async function reverseGeo(latitude, longitude) {
-        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lon=${latitude}&lat=${longitude}`)
+        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
             .then(response => response.json())
             .then(data => data.address)
             .then(city => setAddress(city))
@@ -38,6 +40,13 @@ export default function WikiBox() {
     useEffect(() => {
         wikipediaLookup(address.city)
     }, [address])
+
+    //This runs when CoordContext changes
+    useEffect(() => {
+        if (coord.lat != null && coord.lng != null){
+            reverseGeo(coord.lat, coord.lng).city
+        }
+    }, [coord])
 
     let sheetProps = {
         className: "wikibox-sheet",
