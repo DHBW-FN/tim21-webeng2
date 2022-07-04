@@ -6,10 +6,12 @@ import PlacesAutocomplete, {
     from "react-places-autocomplete";
 import { CoordContext } from "../js/Context";
 import { AdressContext } from "../js/Context";
+import { RoutingState } from "../js/Context";
 
 export default function SearchBar() {
     const { coord, setCoord } = useContext(CoordContext);
-    const { adress, setAdress} = useContext(AdressContext);
+    const { adress, setAdress } = useContext(AdressContext);
+    const { routingActive, setRoutingActive } = useContext(RoutingState);
     
     //this way the global adress only gets set when the user makes a selection    
     const [searchAddress, setsearchAddress] = useState("");
@@ -20,6 +22,7 @@ export default function SearchBar() {
         setCoord(latLng);
         setAdress(value);
         setsearchAddress(value);
+        setRoutingActive(false);
     };
 
     return (
