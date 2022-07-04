@@ -40,7 +40,7 @@ export default function Map(){
     function FlyToAdress(){
         const map = useMap()
         if(adress){
-            map.flyTo(coord, 15)
+            map.flyTo(coord)
         }
     }
 
