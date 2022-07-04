@@ -8,7 +8,7 @@ import { CoordContext } from '../js/Context';
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
-    const {coord, setCoord} = useContext(CoordContext)
+    const {setCoord} = useContext(CoordContext)
 
     function HandleFabClick(){
         const map = useMap();

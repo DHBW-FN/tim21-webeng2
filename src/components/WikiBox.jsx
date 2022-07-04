@@ -15,7 +15,7 @@ import { CoordContext } from '../js/Context';
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
-    const {coord, setCoord} = useContext(CoordContext)
+    const {coord} = useContext(CoordContext)
 
     async function wikipediaLookup(city){
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
