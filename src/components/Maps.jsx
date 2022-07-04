@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
+import { CoordContext } from '../js/Context';
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
+    const {coord, setCoord} = useContext(CoordContext)
 
     function HandleFabClick(){
         const map = useMap();
@@ -17,6 +19,7 @@ export default function Map(){
         const map = useMapEvents({
             locationfound(e) {
                 map.flyTo(e.latlng, 15)
+                setCoord(e.latlng)
             },
             locationerror() {
                 alert("Unfortunately, we could not find your location")
