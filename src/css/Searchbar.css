@@ -1,0 +1,27 @@
+.searchElement {
+  display: flex;
+  justify-content: flex-start;
+  position: absolute;
+  z-index: 10000;
+  width: 25vw;
+  vertical-align: middle;
+  background-color: white;
+  margin: 2rem;
+}
+
+#searchInput {
+  width: 25vw !important;
+  padding: 1rem;
+  height: 3rem;
+  z-index: 11000;
+}
+
+@media only screen and (max-width: 768px) {
+  .searchElement {
+    min-width: 90%;
+  }
+
+  #searchInput {
+    min-width: 90%;
+  }
+}
