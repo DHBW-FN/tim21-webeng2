@@ -4,11 +4,13 @@ import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
 import { CoordContext } from '../js/Context';
+import { AdressContext } from "../js/Context";
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
-    const {setCoord} = useContext(CoordContext)
+    const {coord, setCoord} = useContext(CoordContext)
+    const {adress} = useContext(AdressContext)
 
     function HandleClick(){
         const map = useMap()
@@ -16,7 +18,7 @@ export default function Map(){
             setCoord(e.latlng)
         })
     }
-    
+
     function HandleFabClick(){
         const map = useMap();
         addEventListener('handleFabClick', function () {map.locate()}, false);
@@ -33,6 +35,13 @@ export default function Map(){
             }
         })
         return null
+    }
+
+    function FlyToAdress(){
+        if(adress){
+            const map = useMap()
+            map.flyTo(coord, 15)
+        }
     }
 
     return (
@@ -52,6 +61,7 @@ export default function Map(){
                     <HandleClick/>
                     <HandleFabClick/>
                     <EventHandler/>
+                    <FlyToAdress/>
                 </MapContainer>
             </PageContent>
         </>
