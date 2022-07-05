@@ -1,11 +1,10 @@
-
 import HomePage from '../pages/home.jsx';
 
 const routes = [
   {
     path: '/',
-    component: HomePage,
-  },
+    component: HomePage
+  }
 ];
 
 export default routes;

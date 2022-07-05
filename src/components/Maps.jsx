@@ -6,14 +6,12 @@ import {Fab, Icon, PageContent} from "framework7-react";
 import { RoutingState } from "../js/Context";
 import Routing from "./Routing";
 import { CoordContext } from '../js/Context';
-import { AdressContext } from "../js/Context";
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
     const { routingActive, setRoutingActive} = useContext(RoutingState)
     const {coord, setCoord} = useContext(CoordContext)
-    const {adress} = useContext(AdressContext)
 
     function HandleClick(){
         const map = useMap()
@@ -42,8 +40,8 @@ export default function Map(){
 
     function FlyToAdress(){
         const map = useMap()
-        if(adress){
-            map.flyTo(coord, 15)
+        if(coord.lat != null && coord.lng != null){
+            map.flyTo(coord)
         }
     }
 
