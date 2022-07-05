@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
@@ -42,7 +42,7 @@ export default function Map(){
 
     function FlyToAdress(){
         const map = useMap()
-        if(adress){
+        if(coord.lat != null && coord.lng != null){
             map.flyTo(coord, 15)
         }
     }
@@ -55,7 +55,7 @@ export default function Map(){
                 <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
             </Fab>
             <PageContent className='page-content-map'>
-                <MapContainer center={[47.6567, 9.4650]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
+                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
