@@ -8,7 +8,7 @@ import { CoordContext, AddressContext, RoutingState } from "../js/Context";
 
 export default function SearchBar() {
     const { setCoord } = useContext(CoordContext);
-    const { setAddress} = useContext(AddressContext);
+    const { setAddress } = useContext(AddressContext);
     const { routingActive, setRoutingActive } = useContext(RoutingState);
 
     //this way the global address only gets set when the user makes a selection
