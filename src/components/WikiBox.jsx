@@ -2,8 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import {
     Sheet,
     BlockTitle,
-    List,
-    ListItem,
     Icon,
     Fab,
     f7
@@ -11,19 +9,17 @@ import {
 import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext } from '../js/Context';
-import { UnknownCity, NoWiki, LoadWiki } from '../js/Context';
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
-    const [address, setAddress] = useState(["London"]);
+    const [address, setAddress] = useState(["Waiting for city..."]);
     const {coord} = useContext(CoordContext)
 
     async function wikipediaLookup(city){
-        setWikipedia(LoadWiki)
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
             .then(response => response.json())
             .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
-            .then(data => setWikipedia(data))
+            .then(data => data !== undefined ? setWikipedia(data) : () => {console.warn("No Wikipedia found for " + city); setWikipedia(["No Wikipedia article exists for " + city])})
     }
 
     async function reverseGeo(latitude, longitude) {
@@ -35,15 +31,11 @@ export default function WikiBox() {
                 return component.long_name
             }
         }
-        setAddress(UnknownCity)
+        console.warn("No city found for " + latitude + " " + longitude)
     }
 
     // This updates the wikipedia text every time the address changes
     useEffect(() => {
-        if (address == UnknownCity){
-            setWikipedia(NoWiki)
-            return
-        }
         wikipediaLookup(address)
     }, [address])
 
@@ -78,7 +70,7 @@ export default function WikiBox() {
                     <div className="sheet-modal-swipe-step">
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
-                            <h1>{address}:</h1>
+                            <h1>{address}</h1>
                             <Icon f7='location'></Icon>
                         </div>
                     </div>
