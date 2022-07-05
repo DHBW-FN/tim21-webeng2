@@ -39,7 +39,7 @@ export default function Map(){
 
     function FlyToAdress(){
         const map = useMap()
-        if(adress){
+        if(coord.lat != null && coord.lng != null){
             map.flyTo(coord)
         }
     }
