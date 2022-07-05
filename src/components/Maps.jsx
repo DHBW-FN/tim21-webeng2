@@ -35,7 +35,7 @@ export default function Map(){
         return null
     }
 
-    function FlyToAdress(){
+    function FlyToAddress(){
         const map = useMap()
         if(coord.lat != null && coord.lng != null){
             map.flyTo(coord)
@@ -59,7 +59,7 @@ export default function Map(){
                     <HandleClick/>
                     <HandleFabClick/>
                     <EventHandler/>
-                    <FlyToAdress/>
+                    <FlyToAddress/>
                 </MapContainer>
             </PageContent>
         </>
