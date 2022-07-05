@@ -71,7 +71,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address}</h1>
-                            <Icon f7='compass'></Icon>
+                            <Icon f7='location'></Icon>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">

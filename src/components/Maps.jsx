@@ -47,7 +47,7 @@ export default function Map(){
             <Fab position="right-bottom" slot="fixed" id="fab-button" onClick={() => {
                 dispatchEvent(locateFabClickEvent);
             }}>
-                <Icon f7="location_fill" ios="f7:location_fill" aurora="f7:location_fill"></Icon>
+                <Icon f7="compass" ios="f7:location_fill" aurora="f7:location_fill"></Icon>
             </Fab>
             <PageContent className='page-content-map'>
                 <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
