@@ -77,10 +77,6 @@ export default function WikiBox() {
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">
-                        <List>
-                            <ListItem title="Population">70,000</ListItem>
-                            <ListItem title="State">Baden-Wuerttemberg</ListItem>
-                        </List>
                         <div className="margin-top text-align-center">Swipe up for more details</div>
                     </div>
                     <BlockTitle medium className="margin-top">
