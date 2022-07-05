@@ -10,6 +10,7 @@ import {
     f7
 } from 'framework7-react';
 import Framework7 from "framework7";
+import {$} from "dom7";
 import { CoordContext } from '../js/Context';
 import { TargetAddress } from '../js/Context';
 import { AddressContext } from '../js/Context';
