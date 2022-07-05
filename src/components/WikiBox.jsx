@@ -25,20 +25,20 @@ export default function WikiBox() {
     }
 
     async function reverseGeo(latitude, longitude) {
-        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
-            .then(response => response.json())
-            .then(data => data.address)
-            .then(city => setAddress(city))
+        let response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
+        let json = await response.json()
+        for (const component of json.results[0].address_components) {
+            if (component.types.includes("locality") || component.types.includes("postal_town")){
+                setAddress(component.long_name)
+                return component.long_name
+            }
+        }
+        console.warn("Reverse Geocoding failed!")
     }
-
-    // This runs when the component is first loaded
-    useEffect(() => {
-        reverseGeo(9.4650, 47.6567).city;
-    }, [])
 
     // This updates the wikipedia text every time the address changes
     useEffect(() => {
-        wikipediaLookup(address.city)
+        wikipediaLookup(address)
     }, [address])
 
     //This runs when CoordContext changes
@@ -72,7 +72,7 @@ export default function WikiBox() {
                     <div className="sheet-modal-swipe-step">
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
-                            <h1>{address.city}:</h1>
+                            <h1>{address}:</h1>
                             <Icon f7='location'></Icon>
                         </div>
                     </div>
