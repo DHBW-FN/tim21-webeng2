@@ -11,6 +11,7 @@ import {
 } from 'framework7-react';
 import Framework7 from "framework7";
 import { CoordContext } from '../js/Context';
+import { TargetAddress } from '../js/Context';
 import { AdressContext } from '../js/Context';
 import { RoutingState } from '../js/Context';
 import {$} from "dom7";
@@ -20,8 +21,8 @@ export default function WikiBox() {
     const {adress, setAdress} = useContext(AdressContext);
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for address..."]);
-    const { routingActive, setRoutingActive} = useContext(RoutingState);
-
+    const { setRoutingActive } = useContext(RoutingState);
+    const { targetCoord, setTargetCoord } = useContext(TargetAddress);
 
     async function wikipediaLookup(city){
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -38,9 +39,11 @@ export default function WikiBox() {
     }
 
     function toggleRouting() {
-        if (coord.lat != null) {
-        setRoutingActive(prevRoutingActive => !prevRoutingActive)
-        f7.sheet.close('.wikibox-sheet')
+        if (coord.lat != null && coord.lng != null) {
+            setTargetCoord({lat: coord.lat, lng: coord.lng})
+            console.log(targetCoord)
+            setRoutingActive(prevRoutingActive => !prevRoutingActive)
+            f7.sheet.close('.wikibox-sheet')
         }
     }
 
