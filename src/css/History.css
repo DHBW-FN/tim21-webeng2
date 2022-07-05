@@ -1,15 +1,15 @@
 .historyElement {
-position: relative;
+  position: relative;
 }
 
 .historyText {
-    max-width: 10rem;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  max-width: 10rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
+
 .historyButton {
   position: absolute;
   right: 0;
-
 }
