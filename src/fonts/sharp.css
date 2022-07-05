@@ -5,6 +5,7 @@
   font-display: block;
   src: url("./material-icons-sharp.woff2") format("woff2"), url("./material-icons-sharp.woff") format("woff");
 }
+
 .material-icons-sharp {
   font-family: "Material Icons Sharp", sans-serif;
   font-weight: normal;

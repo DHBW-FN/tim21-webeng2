@@ -5,6 +5,7 @@
   font-display: block;
   src: url("./material-icons-two-tone.woff2") format("woff2"), url("./material-icons-two-tone.woff") format("woff");
 }
+
 .material-icons-two-tone {
   font-family: "Material Icons Two Tone", sans-serif;
   font-weight: normal;
