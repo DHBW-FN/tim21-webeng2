@@ -8,7 +8,6 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:json/recommended",
-        "plugin:css/recommended",
         "plugin:prettier/recommended"
     ],
     "parserOptions": {
