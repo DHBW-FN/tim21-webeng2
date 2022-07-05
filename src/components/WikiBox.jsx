@@ -11,13 +11,15 @@ import {
 import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext } from '../js/Context';
+import { UnknownCity, NoWiki, LoadWiki } from '../js/Context';
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
-    const [address, setAddress] = useState(["Waiting for address..."]);
+    const [address, setAddress] = useState(["London"]);
     const {coord} = useContext(CoordContext)
 
     async function wikipediaLookup(city){
+        setWikipedia(LoadWiki)
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
             .then(response => response.json())
             .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
@@ -33,11 +35,15 @@ export default function WikiBox() {
                 return component.long_name
             }
         }
-        console.warn("Reverse Geocoding failed!")
+        setAddress(UnknownCity)
     }
 
     // This updates the wikipedia text every time the address changes
     useEffect(() => {
+        if (address == UnknownCity){
+            setWikipedia(NoWiki)
+            return
+        }
         wikipediaLookup(address)
     }, [address])
 

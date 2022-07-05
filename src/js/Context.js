@@ -4,3 +4,6 @@ import { createContext } from 'react';
 
 export const CoordContext = createContext({});
 export const AdressContext = createContext({});
+export const UnknownCity = "Unknown City";
+export const NoWiki = "No Wiki data available!";
+export const LoadWiki = "Loading Wiki data...";
