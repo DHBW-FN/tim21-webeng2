@@ -49,7 +49,7 @@ export default function SearchBar() {
                         const style = {
                             backgroundColor: suggestion.active ? "#C9C9C9" : "#fff"
                         };
-                        return <div key={"id"} {...getSuggestionItemProps(suggestion, {style})}>{suggestion.description}</div>
+                        return <div key={suggestion.placeId} {...getSuggestionItemProps(suggestion, {style})}>{suggestion.description}</div>
                     })}
                 </div>
             </div>)}
