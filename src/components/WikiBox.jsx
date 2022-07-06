@@ -4,11 +4,14 @@ import {
     BlockTitle,
     Icon,
     Fab,
-    f7
+    f7,
+    Button
 } from 'framework7-react';
 import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext } from '../js/Context';
+import routeLogo from '../../assets-src/distance.png'
+import '../css/WikiBox.css'
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
@@ -71,7 +74,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address}</h1>
-                            <Icon f7='location'></Icon>
+                            <Button><img id="routeIcon" src = {routeLogo}/></Button>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">
