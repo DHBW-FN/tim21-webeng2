@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import '../css/History.css';
-import { HistoryArray, CoordContext, AdressContext } from '../js/Context';
+import { HistoryArray, CoordContext, AddressContext } from '../js/Context';
 import {
     List,
     ListItem,
@@ -12,7 +12,7 @@ import {
 export default function History(){
     const { history } = useContext(HistoryArray);
     const { setCoord } = useContext(CoordContext);
-    const { setAddress } = useContext(AdressContext);
+    const { setAddress } = useContext(AddressContext);
 
 
     function handleClick(hist) {
