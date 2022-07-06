@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import {
     Sheet,
     BlockTitle,
-    Icon,
     Fab,
     f7,
     Button
@@ -10,7 +9,7 @@ import {
 import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext } from '../js/Context';
-import routeLogo from '../../assets-src/distance.png'
+import NavigateIcon from '/icons/navigate.svg'
 import '../css/WikiBox.css'
 
 export default function WikiBox() {
@@ -74,7 +73,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address}</h1>
-                            <Button><img id="routeIcon" src = {routeLogo}/></Button>
+                            <Button tooltip={"Navigate to " + address}><img src = {NavigateIcon} alt="Start navigation icon" height="100%"/></Button>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">
