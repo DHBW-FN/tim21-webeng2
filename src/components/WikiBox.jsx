@@ -10,7 +10,6 @@ import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext } from '../js/Context';
 import NavigateIcon from '/icons/navigate.svg'
-import '../css/WikiBox.css'
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
