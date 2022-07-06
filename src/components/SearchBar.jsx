@@ -5,16 +5,14 @@ import PlacesAutocomplete, {
         getLatLng} 
     from "react-places-autocomplete";
 import { CoordContext } from "../js/Context";
-import { AdressContext } from "../js/Context";
-import { HistoryArray } from "../js/Context";
+import { AddressContext, HistoryArray } from "../js/Context";
 
 export default function SearchBar() {
-    const { coord, setCoord } = useContext(CoordContext);
-    const { adress, setAdress} = useContext(AdressContext);
+    const { setCoord } = useContext(CoordContext);
+    const { setAddress} = useContext(AddressContext);
     const { history, setHistory } = useContext(HistoryArray);
 
-
-    //this way the global adress only gets set when the user makes a selection    
+    //this way the global address only gets set when the user makes a selection
     const [searchAddress, setsearchAddress] = useState("");
    
     const handleSelect = async value => {
@@ -23,7 +21,7 @@ export default function SearchBar() {
         var bool;
         var i;
         setCoord(latLng);
-        setAdress(value);
+        setAddress(value);
         setsearchAddress(value);
         bool = true
         for (i = 0; i < history.length; i++){
@@ -46,7 +44,7 @@ export default function SearchBar() {
         <PlacesAutocomplete value={searchAddress} onChange={setsearchAddress} onSelect={handleSelect}>
             {({getInputProps, suggestions, getSuggestionItemProps, loading}) => (
             <div id="innerSearchdiv">
-                <input id="searchInput" {...getInputProps({ placeholder: "Type adress ..."})} />
+                <input id="searchInput" {...getInputProps({ placeholder: "Type address ..."})} />
                 <div id="autocompletion-examples">
                     {loading ? <div>...loading</div> : null}
 
