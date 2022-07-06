@@ -12,12 +12,12 @@ import {
 export default function History(){
     const { history } = useContext(HistoryArray);
     const { setCoord } = useContext(CoordContext);
-    const { setAdress } = useContext(AdressContext);
+    const { setAddress } = useContext(AdressContext);
 
 
     function handleClick(hist) {
         setCoord({lat: hist.lat, lng: hist.lng})
-        setAdress(hist.city)
+        setAddress(hist.city)
 
     }
 
