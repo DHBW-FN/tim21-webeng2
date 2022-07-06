@@ -26,11 +26,14 @@ export default function SearchBar() {
 
         for (let i = 0; i < history.length; i++){
             if (history[i].lat === latLng.lat && history[i].lng === latLng.lng){
+                setHistory([history[i], ...history.slice(0, i), ...history.slice(i + 1)]);
                 return;
             }
         }
 
-        setHistory(current => [...current, {lat: latLng.lat, lng: latLng.lng, city: value}]);
+        //adding element to history and removing the oldest element if the history is full (more than 10 items)
+        setHistory([{lat: latLng.lat, lng: latLng.lng, city: value}, ...history.slice(0, 9)]);
+        console.log(history)
     };
 
     return (
