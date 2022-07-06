@@ -30,7 +30,6 @@ export default function SearchBar() {
 
     //adding element to history and removing the oldest element if the history is full (more than 10 items)
     setHistory([{ lat: latLng.lat, lng: latLng.lng, city: value }, ...history.slice(0, 9)]);
-    console.log(history);
   };
 
   return (
