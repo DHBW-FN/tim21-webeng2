@@ -3,13 +3,15 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
-import { CoordContext, START_LOCATION } from "../js/Context";
+import {RoutingState, CoordContext, START_LOCATION, TargetAddress} from "../js/Context";
 import Routing from "./Routing";
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
+    const { routingActive } = useContext(RoutingState)
     const { coord, setCoord } = useContext(CoordContext)
+    const { targetAddress } = useContext(TargetAddress)
 
     function HandleClick(){
         const map = useMap()
