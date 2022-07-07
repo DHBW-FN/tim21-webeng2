@@ -11,7 +11,6 @@ export default function Map(){
     const locateFabClickEvent = new Event('handleFabClick');
     const { routingActive } = useContext(RoutingState)
     const { coord, setCoord } = useContext(CoordContext)
-    const { address } = useContext(AddressContext)
 
     function HandleClick(){
         const map = useMap()

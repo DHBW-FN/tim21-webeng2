@@ -4,7 +4,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import "../css/routing.css";
 import { useMap } from "react-leaflet";
-import {CoordContext, TargetAddress} from "../js/Context";
+import { TargetAddress } from "../js/Context";
 
 const routingControl = L.Routing.control({
     waypoints: [],
