@@ -23,7 +23,7 @@ export default function WikiBox() {
     }
 
     async function reverseGeo(latitude, longitude) {
-        let response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
+        let response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.GOOGLE_API_KEY}`);
         let json = await response.json()
         for (const component of json.results[0].address_components) {
             if (component.types.includes("locality") || component.types.includes("postal_town")){
