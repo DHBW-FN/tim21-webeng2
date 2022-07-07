@@ -45,8 +45,8 @@ export default function WikiBox() {
     }
 
     // This runs when the component is first loaded
-    useEffect(() => {
-        reverseGeo(START_LOCATION.lat, START_LOCATION.lng).city;
+    useEffect(async () => {
+        await reverseGeo(START_LOCATION.lat, START_LOCATION.lng);
     }, [])
 
     // This updates the wikipedia text every time the address changes
