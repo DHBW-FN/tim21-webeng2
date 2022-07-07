@@ -10,8 +10,7 @@ import {
 } from 'framework7-react';
 import { CoordContext } from '../js/Context';
 import { AddressContext } from '../js/Context';
-import { RoutingState } from '../js/Context';
-import { TargetAddress } from '../js/Context';
+import { TargetLocation } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
@@ -23,14 +22,12 @@ import '../css/home.css';
 const HomePage = () => {
   const [coord, setCoord] = useState({lat: null, lng: null});
   const [address, setAddress] = useState("");
-  const [routingActive, setRoutingActive] = useState(false);
-  const [targetCoord, setTargetCoord] = useState({lat: null, lng: null});
+  const [targetLocation, setTargetLocation] = useState({lat: null, lng: null});
 
   return (
   <CoordContext.Provider value={{coord, setCoord}}>
   <AddressContext.Provider value={{address, setAddress}}>
-  <RoutingState.Provider value={{routingActive, setRoutingActive}}>
-  <TargetAddress.Provider value={{targetCoord, setTargetCoord}}>
+  <TargetLocation.Provider value={{targetLocation, setTargetLocation}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -68,8 +65,7 @@ const HomePage = () => {
     <Map/>
 
       </Page>
-  </TargetAddress.Provider>
-  </RoutingState.Provider>
+  </TargetLocation.Provider>
   </AddressContext.Provider>
   </CoordContext.Provider>
 )};

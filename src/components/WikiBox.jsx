@@ -12,13 +12,13 @@ import {
 import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext, START_LOCATION } from '../js/Context';
-import { TargetAddress } from '../js/Context';
+import { TargetLocation } from '../js/Context';
 
 export default function WikiBox() {
     const { coord } = useContext(CoordContext);
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for city..."]);
-    const { setTargetCoord } = useContext(TargetAddress);
+    const { setTargetLocation } = useContext(TargetLocation);
 
     async function wikipediaLookup(city){
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -40,7 +40,7 @@ export default function WikiBox() {
     }
 
     function startNavigation() {
-        setTargetCoord({lat: coord.lat, lng: coord.lng})
+        setTargetLocation({lat: coord.lat, lng: coord.lng})
         f7.sheet.close('.wikibox-sheet')
     }
 
