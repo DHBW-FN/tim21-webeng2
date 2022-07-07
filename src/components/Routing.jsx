@@ -4,7 +4,7 @@ import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import "../css/routing.css";
 import { useMap } from "react-leaflet";
-import { TargetAddress } from "../js/Context";
+import {START_LOCATION, TargetAddress} from "../js/Context";
 
 const routingControl = L.Routing.control({
     waypoints: [],
@@ -20,7 +20,7 @@ export default function Routing() {
     const { targetCoord } = useContext(TargetAddress);
     const map = useMap();
     if (!map) return;
-    routingControl.spliceWaypoints(0, 1, L.latLng(47.67989, 9.47554)); // -> Start LatLng
+    routingControl.spliceWaypoints(0, 1, START_LOCATION); // -> Start LatLng
     routingControl.spliceWaypoints(1, 1, L.latLng(targetCoord.lat, targetCoord.lng)); // -> Target LatLng
     routingControl.addTo(map);
     return null;

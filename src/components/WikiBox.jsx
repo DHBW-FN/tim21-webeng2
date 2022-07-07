@@ -11,7 +11,7 @@ import {
 } from 'framework7-react';
 import Framework7 from "framework7";
 import {$} from "dom7";
-import { CoordContext } from '../js/Context';
+import {CoordContext, START_LOCATION} from '../js/Context';
 import { TargetAddress } from '../js/Context';
 import { RoutingState } from '../js/Context';
 
@@ -52,7 +52,7 @@ export default function WikiBox() {
 
     // This runs when the component is first loaded
     useEffect(() => {
-        reverseGeo(9.4650, 47.6567).city;
+        reverseGeo(START_LOCATION.lat, START_LOCATION.lng).city;
     }, [])
 
     // This updates the wikipedia text every time the address changes
