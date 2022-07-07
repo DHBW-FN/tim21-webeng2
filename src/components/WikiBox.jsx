@@ -15,10 +15,9 @@ import { CoordContext } from '../js/Context';
 import { TargetAddress } from '../js/Context';
 import { AddressContext } from '../js/Context';
 import { RoutingState } from '../js/Context';
-import {$} from "dom7";
 
 export default function WikiBox() {
-    const {coord, setCoord} = useContext(CoordContext);
+    const { coord, setCoord } = useContext(CoordContext);
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for city..."]);
     const { setRoutingActive } = useContext(RoutingState);
