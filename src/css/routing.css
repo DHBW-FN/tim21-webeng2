@@ -1,1 +1,4 @@
-div.leaflet-top.leaflet-right { display: none !important; }
+.leaflet-top,
+.leaflet-right {
+  display: none !important;
+}
