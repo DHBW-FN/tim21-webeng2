@@ -3,10 +3,8 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
-import { RoutingState } from "../js/Context";
+import { RoutingState, CoordContext, AddressContext } from "../js/Context";
 import Routing from "./Routing";
-import { CoordContext } from '../js/Context';
-import { AdressContext } from "../js/Context";
 
 export default function Map(){
 
@@ -40,10 +38,10 @@ export default function Map(){
         return null
     }
 
-    function FlyToAdress(){
+    function FlyToAddress(){
         const map = useMap()
         if(coord.lat != null && coord.lng != null){
-            map.flyTo(coord, 15)
+            map.flyTo(coord)
         }
     }
 
@@ -64,7 +62,7 @@ export default function Map(){
                     <HandleClick/>
                     <HandleFabClick/>
                     <EventHandler/>
-                    <FlyToAdress/>
+                    <FlyToAddress/>
                     {routingActive ? <Routing/> : null}; {/*disabling isn't working right now*/}
                 </MapContainer>
             </PageContent>

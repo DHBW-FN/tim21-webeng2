@@ -9,7 +9,7 @@ import {
     View
 } from 'framework7-react';
 import { CoordContext } from '../js/Context';
-import { AdressContext } from '../js/Context';
+import { AddressContext } from '../js/Context';
 import { RoutingState } from '../js/Context';
 import { TargetAddress } from '../js/Context';
 import WikiBox from '../components/WikiBox';
@@ -21,15 +21,14 @@ import '../css/home.css';
 
 
 const HomePage = () => {
-    //const [coord, setCoord] = useState({lat: 47.65689, lng: 9.47554});
   const [coord, setCoord] = useState({lat: null, lng: null});
-  const [adress, setAdress] = useState("");
+  const [address, setAddress] = useState("");
   const [routingActive, setRoutingActive] = useState(false);
   const [targetCoord, setTargetCoord] = useState({lat: null, lng: null});
 
   return (
   <CoordContext.Provider value={{coord, setCoord}}>
-  <AdressContext.Provider value={{adress, setAdress}}>
+  <AddressContext.Provider value={{address, setAddress}}>
   <RoutingState.Provider value={{routingActive, setRoutingActive}}>
   <TargetAddress.Provider value={{targetCoord, setTargetCoord}}>
   <Page name="home" className='home'>
@@ -71,7 +70,7 @@ const HomePage = () => {
       </Page>
   </TargetAddress.Provider>
   </RoutingState.Provider>
-  </AdressContext.Provider>
+  </AddressContext.Provider>
   </CoordContext.Provider>
 )};
 export default HomePage;
