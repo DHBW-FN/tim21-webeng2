@@ -4,3 +4,4 @@ import { createContext } from 'react';
 
 export const CoordContext = createContext({});
 export const AddressContext = createContext({});
+export const HistoryArray = createContext({});
