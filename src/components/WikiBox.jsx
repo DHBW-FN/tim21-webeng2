@@ -4,12 +4,12 @@ import {
     BlockTitle,
     Fab,
     f7,
-    Button
+    Button,
+    Icon
 } from 'framework7-react';
 import Framework7 from "framework7";
 import {$} from "dom7";
 import { CoordContext } from '../js/Context';
-import NavigateIcon from '/icons/navigate.svg'
 
 export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
@@ -72,7 +72,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address}</h1>
-                            <Button tooltip={"Navigate to " + address}><img src = {NavigateIcon} alt="Start navigation icon" height="100%"/></Button>
+                            <Button tooltip={"Navigate to " + address}><Icon id='navigateIcon' material="directions" size={$('#navigateIcon').parent().height()}/></Button>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">

@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
-import {Fab, Icon, PageContent} from "framework7-react";
+import {Fab, PageContent, Icon} from "framework7-react";
 import { CoordContext } from '../js/Context';
+import {$} from "dom7";
 
 export default function Map(){
 
@@ -47,7 +48,7 @@ export default function Map(){
             <Fab position="right-bottom" slot="fixed" id="fab-button" onClick={() => {
                 dispatchEvent(locateFabClickEvent);
             }}>
-                <Icon f7="location" ios="f7:location_fill" aurora="f7:location_fill"></Icon>
+                <Icon id='locateIcon' material="gps_not_fixed" size={$('#locateIcon').parent().height() * 0.8}/>
             </Fab>
             <PageContent className='page-content-map'>
                 <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
