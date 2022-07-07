@@ -11,15 +11,13 @@ import {
 } from 'framework7-react';
 import Framework7 from "framework7";
 import {$} from "dom7";
-import {CoordContext, START_LOCATION} from '../js/Context';
+import { CoordContext, START_LOCATION } from '../js/Context';
 import { TargetAddress } from '../js/Context';
-import { RoutingState } from '../js/Context';
 
 export default function WikiBox() {
     const { coord } = useContext(CoordContext);
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for city..."]);
-    const { setRoutingActive } = useContext(RoutingState);
     const { setTargetCoord } = useContext(TargetAddress);
 
     async function wikipediaLookup(city){
@@ -41,12 +39,9 @@ export default function WikiBox() {
         console.warn("No city found for " + latitude + " " + longitude)
     }
 
-    function toggleRouting() {
-        if (coord.lat != null && coord.lng != null) {
-            setTargetCoord({lat: coord.lat, lng: coord.lng})
-            setRoutingActive(prevRoutingActive => !prevRoutingActive)
-            f7.sheet.close('.wikibox-sheet')
-        }
+    function startNavigation() {
+        setTargetCoord({lat: coord.lat, lng: coord.lng})
+        f7.sheet.close('.wikibox-sheet')
     }
 
     // This runs when the component is first loaded
@@ -91,7 +86,7 @@ export default function WikiBox() {
                         <div className="display-flex padding justify-content-space-between align-items-center">
 
                             <h1>{address}</h1>
-                            <Button onClick={toggleRouting}><Icon f7='location'></Icon></Button>
+                            <Button onClick={startNavigation}><Icon f7='location'></Icon></Button>
                         </div>
                     </div>
                     <div className="padding-horizontal padding-bottom">

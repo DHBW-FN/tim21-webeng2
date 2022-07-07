@@ -4,12 +4,11 @@ import PlacesAutocomplete, {
         geocodeByAddress,
         getLatLng} 
     from "react-places-autocomplete";
-import { CoordContext, AddressContext, RoutingState } from "../js/Context";
+import { CoordContext, AddressContext } from "../js/Context";
 
 export default function SearchBar() {
     const { setCoord } = useContext(CoordContext);
     const { setAddress } = useContext(AddressContext);
-    const { setRoutingActive } = useContext(RoutingState);
 
     //this way the global address only gets set when the user makes a selection
     const [searchAddress, setsearchAddress] = useState("");
@@ -20,7 +19,6 @@ export default function SearchBar() {
         setCoord(latLng);
         setAddress(value);
         setsearchAddress(value);
-        setRoutingActive(false);
     };
 
     return (

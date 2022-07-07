@@ -3,13 +3,12 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
-import {RoutingState, CoordContext, START_LOCATION} from "../js/Context";
+import { CoordContext, START_LOCATION } from "../js/Context";
 import Routing from "./Routing";
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
-    const { routingActive } = useContext(RoutingState)
     const { coord, setCoord } = useContext(CoordContext)
 
     function HandleClick(){
@@ -62,7 +61,7 @@ export default function Map(){
                     <HandleFabClick/>
                     <EventHandler/>
                     <FlyToAddress/>
-                    {routingActive ? <Routing/> : null}; {/*disabling isn't working right now*/}
+                    <Routing/>
                 </MapContainer>
             </PageContent>
         </>
