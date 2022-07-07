@@ -3,7 +3,7 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
-import { RoutingState, CoordContext } from "../js/Context";
+import {RoutingState, CoordContext, START_LOCATION} from "../js/Context";
 import Routing from "./Routing";
 
 export default function Map(){
@@ -52,7 +52,7 @@ export default function Map(){
                 <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
             </Fab>
             <PageContent className='page-content-map'>
-                <MapContainer center={[47.67989, 9.47554]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
+                <MapContainer center={[START_LOCATION.lat, START_LOCATION.lng]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
