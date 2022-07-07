@@ -20,7 +20,7 @@ export default function WikiBox() {
     const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
     const [address, setAddress] = useState(["Waiting for city..."]);
     const { setRoutingActive } = useContext(RoutingState);
-    const { targetCoord, setTargetCoord } = useContext(TargetAddress);
+    const { setTargetCoord } = useContext(TargetAddress);
 
     async function wikipediaLookup(city){
         return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
@@ -44,7 +44,6 @@ export default function WikiBox() {
     function toggleRouting() {
         if (coord.lat != null && coord.lng != null) {
             setTargetCoord({lat: coord.lat, lng: coord.lng})
-            console.log(targetCoord)
             setRoutingActive(prevRoutingActive => !prevRoutingActive)
             f7.sheet.close('.wikibox-sheet')
         }
