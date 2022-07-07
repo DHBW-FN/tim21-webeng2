@@ -2,8 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import {
     Sheet,
     BlockTitle,
-    List,
-    ListItem,
     Icon,
     Fab,
     Button,
@@ -45,8 +43,8 @@ export default function WikiBox() {
     }
 
     // This runs when the component is first loaded
-    useEffect(async () => {
-        await reverseGeo(START_LOCATION.lat, START_LOCATION.lng);
+    useEffect(() => {
+        reverseGeo(START_LOCATION.lat, START_LOCATION.lng);
     }, [])
 
     // This updates the wikipedia text every time the address changes
