@@ -3,7 +3,7 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
-import { RoutingState, CoordContext, AddressContext } from "../js/Context";
+import { RoutingState, CoordContext } from "../js/Context";
 import Routing from "./Routing";
 
 export default function Map(){
