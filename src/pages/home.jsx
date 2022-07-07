@@ -9,7 +9,7 @@ import {
     View
 } from 'framework7-react';
 import { CoordContext } from '../js/Context';
-import { AdressContext } from '../js/Context';
+import { AddressContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
@@ -20,11 +20,11 @@ import '../css/home.css';
 
 const HomePage = () => {
   const [coord, setCoord] = useState({lat: null, lng: null});
-  const [adress, setAdress] = useState("");
+  const [address, setAddress] = useState("");
 
   return (
   <CoordContext.Provider value={{coord, setCoord}}>
-  <AdressContext.Provider value={{adress, setAdress}}>
+  <AddressContext.Provider value={{address, setAddress}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -62,7 +62,7 @@ const HomePage = () => {
     <Map/>
 
       </Page>
-  </AdressContext.Provider>
+  </AddressContext.Provider>
   </CoordContext.Provider>
 )};
 export default HomePage;
