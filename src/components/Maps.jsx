@@ -11,7 +11,7 @@ export default function Map(){
     const locateFabClickEvent = new Event('handleFabClick');
     const { routingActive } = useContext(RoutingState)
     const { coord, setCoord } = useContext(CoordContext)
-    const { adress } = useContext(AdressContext)
+    const { address } = useContext(AddressContext)
 
     function HandleClick(){
         const map = useMap()
@@ -53,7 +53,7 @@ export default function Map(){
                 <Icon f7="placemark_fill" ios="f7:placemark_fill" aurora="f7:placemark_fill"></Icon>
             </Fab>
             <PageContent className='page-content-map'>
-                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
+                <MapContainer center={[47.67989, 9.47554]} zoom={13} scrollWheelZoom={true} id="map" zoomControl={false}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
