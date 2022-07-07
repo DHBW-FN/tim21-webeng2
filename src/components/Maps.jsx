@@ -11,13 +11,6 @@ export default function Map(){
     const locateFabClickEvent = new Event('handleFabClick');
     const { coord, setCoord } = useContext(CoordContext)
 
-    function HandleClick(){
-        const map = useMap()
-        map.on("click", (e) => {
-            setCoord(e.latlng)
-        })
-    }
-
     function HandleFabClick(){
         const map = useMap();
         addEventListener('handleFabClick', function () {map.locate()}, false);
@@ -31,6 +24,9 @@ export default function Map(){
             },
             locationerror() {
                 alert("Unfortunately, we could not find your location")
+            },
+            click: (e) => {
+                setCoord(e.latlng)
             }
         })
         return null
@@ -57,7 +53,6 @@ export default function Map(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <ZoomControl position="bottomleft"/>
-                    <HandleClick/>
                     <HandleFabClick/>
                     <EventHandler/>
                     <FlyToAddress/>
