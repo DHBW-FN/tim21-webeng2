@@ -60,8 +60,8 @@ export default function Map(){
 
     function EventHandler() {
         const map = useMapEvents({
-            locationfound(e) {
-                setDestination(getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
+            async locationfound(e) {
+                setDestination(await getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
                 map.flyTo(e.latlng, 15)
             },
             locationerror() {
