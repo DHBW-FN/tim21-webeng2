@@ -12,9 +12,9 @@ export const DEFAULT_DESTINATION = {
     lng: 9.4649538
   },
   address: {
-    country: "Germany",
-    city: "Friedrichshafen",
-    street: "Hochstraße",
-    houseNumber: "21"
+    country: 'Germany',
+    city: 'Friedrichshafen',
+    street: 'Hochstraße',
+    houseNumber: '21'
   }
-}
+};
