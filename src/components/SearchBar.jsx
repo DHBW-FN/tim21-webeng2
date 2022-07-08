@@ -1,35 +1,21 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { CoordContext } from '../js/Context';
-import { AddressContext } from '../js/Context';
-import { HistoryArray } from '../js/Context';
+import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
+import { getObjectByCoordinates } from './Maps';
 
 export default function SearchBar() {
-  const { setCoord } = useContext(CoordContext);
-  const { setAddress } = useContext(AddressContext);
-  const { history, setHistory } = useContext(HistoryArray);
+  const { setDestination } = useContext(DestinationContext);
 
   //this way the global address only gets set when the user makes a selection
-  const [searchAddress, setsearchAddress] = useState('');
+  const [searchAddress, setSearchAddress] = useState('');
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
 
-    setCoord(latLng);
-    setAddress(value);
-    setsearchAddress(value);
-
-    for (let i = 0; i < history.length; i++) {
-      if (history[i].lat === latLng.lat && history[i].lng === latLng.lng) {
-        setHistory([history[i], ...history.slice(0, i), ...history.slice(i + 1)]);
-        return;
-      }
-    }
-
-    //adding element to history and removing the oldest element if the history is full (more than 10 items)
-    setHistory([{ lat: latLng.lat, lng: latLng.lng, city: value }, ...history.slice(0, 9)]);
+    setDestination((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_DESTINATION);
+    setSearchAddress(value);
   };
 
   return (
@@ -37,7 +23,7 @@ export default function SearchBar() {
       <div className="searchElement">
         <PlacesAutocomplete
           value={searchAddress}
-          onChange={setsearchAddress}
+          onChange={setSearchAddress}
           onSelect={handleSelect}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div id="innerSearchdiv">

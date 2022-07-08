@@ -8,7 +8,6 @@ import {
 
 
 import routes from '../js/routes';
-import store from '../js/store';
 
 export const MyApp = () => {
 
@@ -17,7 +16,6 @@ export const MyApp = () => {
   const f7params = {
     name: "Navigator", // App name
     theme: 'auto', // Automatic theme detection
-    store: store,
     routes: routes,
     // Register service worker (only on production build)
     serviceWorker: process.env.NODE_ENV ==='production' ? {
