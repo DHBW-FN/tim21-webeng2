@@ -8,8 +8,7 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
-import { CoordContext } from '../js/Context';
-import { AddressContext, HistoryArray } from '../js/Context';
+import { CoordContext, AddressContext, HistoryArray, DestinationContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
@@ -22,6 +21,7 @@ const HomePage = () => {
   const [coord, setCoord] = useState({lat: null, lng: null});
   const [address, setAddress] = useState("");
   const [history, setHistory] = useState([]);
+  const [destination, setDestination] = useState({});
 
 
 
@@ -29,6 +29,7 @@ const HomePage = () => {
   <CoordContext.Provider value={{coord, setCoord}}>
   <AddressContext.Provider value={{address, setAddress}}>
   <HistoryArray.Provider value={{history, setHistory}}>
+  <DestinationContext.Provider value={{destination, setDestination}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -66,6 +67,7 @@ const HomePage = () => {
     <Map/>
 
       </Page>
+  </DestinationContext.Provider>
   </HistoryArray.Provider>
   </AddressContext.Provider>
   </CoordContext.Provider>
