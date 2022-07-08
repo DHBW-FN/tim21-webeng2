@@ -4,7 +4,7 @@ import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import { DestinationContext } from '../js/Context';
+import {DEFAULT_WIKI, DestinationContext} from '../js/Context';
 
 export async function getWikipediaByCity(city) {
   let wiki = fetch(
@@ -12,7 +12,7 @@ export async function getWikipediaByCity(city) {
   )
     .then((response) => response.json())
     .then((data) => data.query.pages[Object.keys(data.query.pages)[0]].extract);
-  return await wiki;
+  return await wiki || DEFAULT_WIKI;
 }
 
 export default function WikiBox() {
@@ -63,7 +63,9 @@ export default function WikiBox() {
             </div>
           </div>
           <div className="padding-horizontal padding-bottom">
-            <div className="margin-top text-align-center">Swipe up for more details</div>
+            {!Framework7.device.desktop ? (
+              <div className="margin-top text-align-center">Swipe up for more details</div>
+            ) : null}
           </div>
           <BlockTitle medium className="margin-top">
             Wiki
