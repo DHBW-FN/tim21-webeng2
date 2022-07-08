@@ -1,48 +1,41 @@
-import React, { useContext } from "react";
+import React, {useContext} from "react";
 import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
 import "../css/leaflet.css";
 import "../css/app.css";
 import {Fab, Icon, PageContent} from "framework7-react";
-import {CoordContext, DestinationContext} from '../js/Context';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { DestinationContext } from '../js/Context';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
-export async function getAddressForCoordinates(latitude, longitude) {
+export async function getAddressByCoordinates(latitude, longitude) {
     const results = await geocodeByAddress(`${latitude}, ${longitude}`);
 
     let address = {}
 
     for (let i = 0; i < results[0].address_components.length; i++) {
         //Country
-        if (results[0].address_components[i].types[0].includes('country')) {
+        if (results[0].address_components[i].types[0] === 'country') {
             address.country = results[0].address_components[i].long_name;
         }
         //City
-        if (results[0].address_components[i].types[0].includes('locality') || results[0].address_components[i].types[0].includes('postal_town')) {
+        if (results[0].address_components[i].types[0] === 'locality' || results[0].address_components[i].types[0] === 'postal_town') {
             address.city = results[0].address_components[i].long_name;
         }
         //Street
-        if (results[0].address_components[i].types[0].includes('route') || results[0].address_components[i].types[0].includes('premise')) {
+        if (results[0].address_components[i].types[0] === 'route' || results[0].address_components[i].types[0] === 'premise') {
             address.street = results[0].address_components[i].long_name;
         }
         //Street number
-        if (results[0].address_components[i].types[0].includes('street_number')) {
+        if (results[0].address_components[i].types[0] === 'street_number') {
             address.streetNumber = results[0].address_components[i].long_name;
         }
     }
 
-    if (address.country && address.city && address.street && address.streetNumber) {
+    if (address.country && address.city) {
         return address
     } else {
         console.error("No address found for " + latitude + " " + longitude + "\n")
-        console.log(results)
-        console.log(address)
         return null
     }
-}
-
-export async function getCoordinatesForAddress(address) {
-    const results = await geocodeByAddress(address);
-    return getLatLng(results[0]);
 }
 
 export async function getObjectByCoordinates(latitude, longitude) {
@@ -51,34 +44,14 @@ export async function getObjectByCoordinates(latitude, longitude) {
             lat: latitude,
             lng: longitude
         },
-        address: await getAddressForCoordinates(latitude, longitude)
-    }
-}
-
-export async function getObjectByAddress(address) {
-    const coordinates = await getCoordinatesForAddress(address);
-    return {
-        coordinates: {
-            lat: coordinates.lat,
-            lng: coordinates.lng
-        },
-        address: address
+        address: await getAddressByCoordinates(await latitude, await longitude)
     };
 }
 
 export default function Map(){
 
     const locateFabClickEvent = new Event('handleFabClick');
-    const {coord, setCoord} = useContext(CoordContext)
-    const { setDestination } = useContext(DestinationContext)
-
-    function HandleClick(){
-        const map = useMap()
-        map.on("click", (e) => {
-            setCoord(e.latlng)
-            setDestination(getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
-        })
-    }
+    const { destination, setDestination } = useContext(DestinationContext)
 
     function HandleFabClick(){
         const map = useMap();
@@ -88,11 +61,14 @@ export default function Map(){
     function EventHandler() {
         const map = useMapEvents({
             locationfound(e) {
-                setCoord(e.latlng)
+                setDestination(getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
                 map.flyTo(e.latlng, 15)
             },
             locationerror() {
                 alert("Unfortunately, we could not find your location")
+            },
+            async click(e) {
+                setDestination(await getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
             }
         })
         return null
@@ -100,8 +76,8 @@ export default function Map(){
 
     function FlyToAddress(){
         const map = useMap()
-        if(coord.lat != null && coord.lng != null){
-            map.flyTo(coord)
+        if(destination.coordinates.lat && destination.coordinates.lng){
+            map.flyTo(destination.coordinates)
         }
     }
 
@@ -119,7 +95,6 @@ export default function Map(){
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <ZoomControl position="bottomleft"/>
-                    <HandleClick/>
                     <HandleFabClick/>
                     <EventHandler/>
                     <FlyToAddress/>

@@ -1,22 +1,18 @@
 import React, {useContext, useEffect} from 'react';
 import '../css/History.css';
-import {HistoryArray, CoordContext, AddressContext, DestinationContext} from '../js/Context';
+import {HistoryArray, DestinationContext} from '../js/Context';
 import { List, ListItem, BlockTitle, Button, Icon } from 'framework7-react';
 
 export default function History() {
   const { history, setHistory } = useContext(HistoryArray);
-  const { setCoord } = useContext(CoordContext);
-  const { setAddress } = useContext(AddressContext);
   const { destination, setDestination } = useContext(DestinationContext);
 
   function handleClick(hist) {
-    setCoord({ lat: hist.coordinates.lat, lng: hist.coordinates.lng });
-    setAddress(hist.address.city);
     setDestination(hist);
   }
 
   useEffect(() => {
-    if(!destination.coordinates || !destination.address.city){
+    if(!destination.coordinates || !destination.address.city || !destination.address.country) {
       return;
     }
 
@@ -39,7 +35,7 @@ export default function History() {
       <List>
         {history.map((value, index, array) => {
           return (
-            <ListItem className="historyElement" key={array[index].address.city}>
+            <ListItem className="historyElement" key={[array[index].coordinates.lat, array[index].coordinates.lng]}>
               <div className="historyText">{array[index].address.city + ', ' + array[index].address.country}</div>
               <Button
                 className="historyButton"
