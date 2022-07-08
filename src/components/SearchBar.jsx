@@ -1,35 +1,49 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { CoordContext } from '../js/Context';
+import {CoordContext, DestinationContext} from '../js/Context';
 import { AddressContext } from '../js/Context';
-import { HistoryArray } from '../js/Context';
 
 export default function SearchBar() {
   const { setCoord } = useContext(CoordContext);
   const { setAddress } = useContext(AddressContext);
-  const { history, setHistory } = useContext(HistoryArray);
+  const { setDestination } = useContext(DestinationContext);
 
   //this way the global address only gets set when the user makes a selection
   const [searchAddress, setsearchAddress] = useState('');
 
-  const handleSelect = async (value) => {
+  const handleSelect = async value => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
+
+    let newDestination = {
+      coordinates: latLng,
+      address: {}
+    }
+    for (let i = 0; i < results[0].address_components.length; i++) {
+      //Country
+      if (results[0].address_components[i].types[0] === 'country') {
+        newDestination.address.country = results[0].address_components[i].long_name;
+      }
+      //City
+      if (results[0].address_components[i].types[0] === 'locality') {
+        newDestination.address.city = results[0].address_components[i].long_name;
+      }
+      //Street
+      if (results[0].address_components[i].types[0] === 'route') {
+        newDestination.address.street = results[0].address_components[i].long_name;
+      }
+      //Street number
+      if (results[0].address_components[i].types[0] === 'street_number') {
+        newDestination.address.streetNumber = results[0].address_components[i].long_name;
+      }
+    }
+
+    setDestination(newDestination);
 
     setCoord(latLng);
     setAddress(value);
     setsearchAddress(value);
-
-    for (let i = 0; i < history.length; i++) {
-      if (history[i].lat === latLng.lat && history[i].lng === latLng.lng) {
-        setHistory([history[i], ...history.slice(0, i), ...history.slice(i + 1)]);
-        return;
-      }
-    }
-
-    //adding element to history and removing the oldest element if the history is full (more than 10 items)
-    setHistory([{ lat: latLng.lat, lng: latLng.lng, city: value }, ...history.slice(0, 9)]);
   };
 
   return (
