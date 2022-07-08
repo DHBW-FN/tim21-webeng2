@@ -43,14 +43,14 @@ export default function SearchBar() {
             <div id="innerSearchdiv">
               <input id="searchInput" {...getInputProps({ placeholder: 'Type address ...' })} />
               <div id="autocompletion-examples">
-                {loading ? <div>...loading</div> : null}
+                {loading ? <div className="loading">...loading</div> : null}
 
                 {suggestions.map((suggestion) => {
                   const style = {
                     backgroundColor: suggestion.active ? '#C9C9C9' : '#fff'
                   };
                   return (
-                    <div
+                    <div className="suggestions"
                       key={suggestion.placeId}
                       {...getSuggestionItemProps(suggestion, { style })}>
                       {suggestion.description}
