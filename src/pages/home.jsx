@@ -51,7 +51,7 @@ const HomePage = () => {
           <Toolbar tabbar bottom className='toolbar'>
           <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
           <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
-          <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
+          <Button panelOpen="right" className='toolbutton'><Icon f7="gear" className='toolicon'></Icon></Button>
       </Toolbar>
     <Panel resizable left reveal swipeOnlyClose>
       <View>

@@ -1,13 +1,12 @@
-import React, {useEffect, useContext} from 'react';
+import React, { useEffect, useContext} from 'react';
 import {
     Sheet,
     BlockTitle,
-    Icon,
-    Fab,
-    f7
-} from 'framework7-react';
-import Framework7 from "framework7";
-import {$} from "dom7";
+     Fab, f7, Button, Icon } from 'framework7-react';
+import Framework7 from 'framework7';
+import { $ } from 'dom7';
+import '../css/app.css';
+import '../css/wikibox.css';
 import {DestinationContext} from "../js/Context";
 
 export async function getWikipediaByCity(city) {
@@ -30,45 +29,49 @@ export default function WikiBox() {
         fetchData();
     }, [destination.address.city])
 
-    let sheetProps = {
-        className: "wikibox-sheet",
-        style: {height: 'auto'},
-        backdrop: true,
-        swipeToClose: true,
-        swipeToStep: true,
-        closeByBackdropClick: true,
-        closeOnEscape: true
-    };
-    if (Framework7.device.desktop) {
-        sheetProps.swipeToStep = false;
-    }
+  let sheetProps = {
+    className: 'wikibox-sheet',
+    style: { height: 'auto' },
+    backdrop: true,
+    swipeToClose: true,
+    swipeToStep: true,
+    closeByBackdropClick: true,
+    closeOnEscape: true
+  };
+  if (Framework7.device.desktop) {
+    sheetProps.swipeToStep = false;
+  }
 
-    return (
-        <>
-            <Fab position='center-top' id="debug-fab-open-wikibox" text="Press to show info" onClick={() => f7.sheet.open($('.wikibox-sheet'))}>
-            </Fab>
-            <Sheet
-                {...sheetProps}
-            >
-                <div className="sheet-modal-inner">
-                    <div className="sheet-modal-swipe-step">
-                        <div className="display-flex padding justify-content-space-between align-items-center">
-
-                            <h1>{destination.address.city}</h1>
-                            <Icon f7='location'></Icon>
-                        </div>
-                    </div>
-                    <div className="padding-horizontal padding-bottom">
-                        <div className="margin-top text-align-center">Swipe up for more details</div>
-                    </div>
-                    <BlockTitle medium className="margin-top">
-                        Wiki
-                    </BlockTitle>
-                    <p>
-                        {destination.wikipedia}
-                    </p>
-                </div>
-            </Sheet>
-        </>
-    );
+  return (
+    <>
+      <Fab
+        position="center-top"
+        id="debug-fab-open-wikibox"
+        text="Press to show info"
+        onClick={() => f7.sheet.open($('.wikibox-sheet'))}></Fab>
+      <Sheet {...sheetProps}>
+        <div className="sheet-modal-inner">
+          <div className="sheet-modal-swipe-step">
+            <div className="display-flex padding justify-content-space-between align-items-center">
+              <h1>{destination.address.city}</h1>
+              <Button id="navigateButton" tooltip={'Navigate to ' + address}>
+                <Icon
+                  id="navigateIcon"
+                  material="directions"
+                  size={$('#navigateButton').height()}
+                />
+              </Button>
+            </div>
+          </div>
+          <div className="padding-horizontal padding-bottom">
+            <div className="margin-top text-align-center">Swipe up for more details</div>
+          </div>
+          <BlockTitle medium className="margin-top">
+            Wiki
+          </BlockTitle>
+          <p>{destination.wikipedia}</p>
+        </div>
+      </Sheet>
+    </>
+  );
 }
