@@ -8,8 +8,7 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
-import { CoordContext } from '../js/Context';
-import { AddressContext, HistoryArray } from '../js/Context';
+import { AddressContext, HistoryArray, DestinationContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from '../components/Maps';
@@ -19,16 +18,27 @@ import '../css/home.css';
 
 
 const HomePage = () => {
-  const [coord, setCoord] = useState({lat: null, lng: null});
   const [address, setAddress] = useState("");
   const [history, setHistory] = useState([]);
+  const [destination, setDestination] = useState({
+    coordinates: {
+      lat: 47.65673289999999,
+      lng: 9.4649538
+    },
+    address: {
+      country: "Germany",
+      city: "Friedrichshafen",
+      street: "Hochstraße",
+      streetNumber: "21"
+    }
+  });
 
 
 
   return (
-  <CoordContext.Provider value={{coord, setCoord}}>
   <AddressContext.Provider value={{address, setAddress}}>
   <HistoryArray.Provider value={{history, setHistory}}>
+  <DestinationContext.Provider value={{destination, setDestination}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -66,8 +76,8 @@ const HomePage = () => {
     <Map/>
 
       </Page>
+  </DestinationContext.Provider>
   </HistoryArray.Provider>
   </AddressContext.Provider>
-  </CoordContext.Provider>
 )};
 export default HomePage;
