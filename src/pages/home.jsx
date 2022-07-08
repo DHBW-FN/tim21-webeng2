@@ -29,7 +29,7 @@ const HomePage = () => {
       country: "Germany",
       city: "Friedrichshafen",
       street: "Hochstraße",
-      houseNumber: "21"
+      streetNumber: "21"
     }
   });
 

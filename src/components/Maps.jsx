@@ -3,8 +3,8 @@ import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-
 import "../css/leaflet.css";
 import "../css/app.css";
 import '../css/maps.css';
-import {Fab, Icon, PageContent} from "framework7-react";
-import { DestinationContext } from '../js/Context';
+import {f7, Fab, Icon, PageContent} from "framework7-react";
+import {DEFAULT_DESTINATION, DestinationContext} from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
 
 export async function getAddressByCoordinates(latitude, longitude) {
@@ -35,11 +35,19 @@ export async function getAddressByCoordinates(latitude, longitude) {
         return address
     } else {
         console.error("No address found for " + latitude + " " + longitude + "\n")
+        console.log(results)
+        console.log(address)
         return null
     }
 }
 
 export async function getObjectByCoordinates(latitude, longitude) {
+  let address = await getAddressByCoordinates(latitude, longitude);
+  if (!address) {
+    console.error("No address found for " + latitude + " " + longitude + "\n")
+    f7.dialog.alert("No address found for lat " + latitude + " lng " + longitude + "\n Using default destination instead.")
+    return null
+  }
     return {
         coordinates: {
             lat: latitude,
@@ -68,14 +76,14 @@ export default function Map(){
     function EventHandler() {
         const map = useMapEvents({
             async locationfound(e) {
-                setDestination(await getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
+                setDestination(await getObjectByCoordinates(e.latlng.lat, e.latlng.lng) || DEFAULT_DESTINATION);
                 map.flyTo(e.latlng, 15)
             },
             locationerror() {
                 alert("Unfortunately, we could not find your location")
             },
             async click(e) {
-                setDestination(await getObjectByCoordinates(e.latlng.lat, e.latlng.lng))
+                setDestination(await getObjectByCoordinates(e.latlng.lat, e.latlng.lng) || DEFAULT_DESTINATION)
             }
         })
         return null

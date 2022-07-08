@@ -54,7 +54,7 @@ export default function WikiBox() {
           <div className="sheet-modal-swipe-step">
             <div className="display-flex padding justify-content-space-between align-items-center">
               <h1>{destination.address.city}</h1>
-              <Button id="navigateButton" tooltip={'Navigate to ' + address}>
+              <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city}>
                 <Icon
                   id="navigateIcon"
                   material="directions"
