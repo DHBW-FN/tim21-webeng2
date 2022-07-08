@@ -1,33 +1,32 @@
-import React, { useEffect, useContext} from 'react';
-import {
-    Sheet,
-    BlockTitle,
-     Fab, f7, Button, Icon } from 'framework7-react';
+import React, { useEffect, useContext } from 'react';
+import { Sheet, BlockTitle, Fab, f7, Button, Icon } from 'framework7-react';
 import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import {DestinationContext} from "../js/Context";
+import { DestinationContext } from '../js/Context';
 
 export async function getWikipediaByCity(city) {
-    let wiki = fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
-      .then(response => response.json())
-      .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
-    return await wiki
+  let wiki = fetch(
+    `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`
+  )
+    .then((response) => response.json())
+    .then((data) => data.query.pages[Object.keys(data.query.pages)[0]].extract);
+  return await wiki;
 }
 
 export default function WikiBox() {
-    const { destination, setDestination } = useContext(DestinationContext);
+  const { destination, setDestination } = useContext(DestinationContext);
 
-    useEffect(() => {
-        async function fetchData() {
-            let wiki = await getWikipediaByCity(destination.address.city);
-            if (destination.coordinates.lat && destination.coordinates.lng) {
-                setDestination({...destination, wikipedia: wiki});
-            }
-        }
-        fetchData();
-    }, [destination.address.city])
+  useEffect(() => {
+    async function fetchData() {
+      let wiki = await getWikipediaByCity(destination.address.city);
+      if (destination.coordinates.lat && destination.coordinates.lng) {
+        setDestination({ ...destination, wikipedia: wiki });
+      }
+    }
+    fetchData();
+  }, [destination.address.city]);
 
   let sheetProps = {
     className: 'wikibox-sheet',
