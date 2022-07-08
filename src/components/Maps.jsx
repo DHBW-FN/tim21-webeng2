@@ -109,7 +109,7 @@ export default function Map(){
       </Fab>
       <PageContent className="page-content-map">
         <MapContainer
-          center={[51.505, -0.09]}
+          center={[DEFAULT_DESTINATION.coordinates.lat, DEFAULT_DESTINATION.coordinates.lng]}
           zoom={13}
           scrollWheelZoom={true}
           id="map"
