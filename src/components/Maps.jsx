@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
-import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from "react-leaflet";
-import "../css/leaflet.css";
-import "../css/app.css";
+import React, { useContext } from "react";
+import { MapContainer, TileLayer, useMapEvents, useMap, ZoomControl } from "react-leaflet";
+import '../css/leaflet.css';
+import '../css/app.css';
 import '../css/maps.css';
-import {f7, Fab, Icon, PageContent} from "framework7-react";
-import {DEFAULT_DESTINATION, DestinationContext} from '../js/Context';
+import { f7, Fab, Icon, PageContent } from "framework7-react";
+import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
 
 export async function getAddressByCoordinates(latitude, longitude) {

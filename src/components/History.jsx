@@ -1,6 +1,6 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../css/History.css';
-import {HistoryArray, DestinationContext} from '../js/Context';
+import { HistoryArray, DestinationContext } from '../js/Context';
 import { List, ListItem, BlockTitle, Button, Icon } from 'framework7-react';
 
 export default function History() {
