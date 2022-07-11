@@ -5,6 +5,7 @@ import { createContext } from 'react';
 export const AddressContext = createContext({});
 export const HistoryArray = createContext({});
 export const DestinationContext = createContext({});
+export const UserSettingsContext = createContext({});
 
 export const DEFAULT_DESTINATION = {
   coordinates: {

@@ -8,16 +8,25 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
-import { AddressContext, HistoryArray, DestinationContext } from '../js/Context';
+import {
+  AddressContext,
+  HistoryArray,
+  DestinationContext, UserSettingsContext
+} from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
-import Map from '../components/Maps';
 import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
+import Map from "../components/Maps";
 
 
 const HomePage = () => {
+  const [userSettings, setUserSettings] = useState({
+    language: 'en',
+    showRouting: false,
+    }
+  );
   const [address, setAddress] = useState("");
   const [history, setHistory] = useState([]);
   const [destination, setDestination] = useState({
@@ -36,6 +45,7 @@ const HomePage = () => {
 
 
   return (
+  <UserSettingsContext.Provider value={{userSettings, setUserSettings}}>
   <AddressContext.Provider value={{address, setAddress}}>
   <HistoryArray.Provider value={{history, setHistory}}>
   <DestinationContext.Provider value={{destination, setDestination}}>
@@ -79,5 +89,6 @@ const HomePage = () => {
   </DestinationContext.Provider>
   </HistoryArray.Provider>
   </AddressContext.Provider>
+  </UserSettingsContext.Provider>
 )};
 export default HomePage;
