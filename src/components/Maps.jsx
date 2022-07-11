@@ -6,7 +6,7 @@ import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
 import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
-import {getWikipediaByCity} from "./WikiBox";
+import { getWikipediaByCity } from './WikiBox';
 
 export async function getAddressByCoordinates(latitude, longitude) {
   const results = await geocodeByAddress(`${latitude}, ${longitude}`);
