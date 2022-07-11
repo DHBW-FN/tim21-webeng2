@@ -58,7 +58,7 @@ export default function WikiBox() {
               </Button>
             </div>
           </div>
-          <div className="page-content" id="wikibox-page-content" style={{maxHeight: '100%' - $('wikibox-modal-city').height()}}>
+          <div className="page-content" id="wikibox-page-content" style={{maxHeight: f7.height - $('wikibox-modal-city').height()}}>
           <div className="padding-horizontal padding-bottom">
             {!Framework7.device.desktop ? (
               <div className="margin-top text-align-center">Swipe up for more details</div>
