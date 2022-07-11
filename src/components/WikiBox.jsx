@@ -21,7 +21,7 @@ export default function WikiBox() {
 
   let sheetProps = {
     className: 'wikibox-sheet',
-    style: { height: 'auto' },
+    style: { height: 'auto' , maxHeight: '100%'},
     backdrop: true,
     swipeToClose: true,
     swipeToStep: true,
