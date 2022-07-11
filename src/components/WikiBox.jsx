@@ -4,7 +4,7 @@ import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import {DEFAULT_WIKI, DestinationContext, UserSettingsContext} from '../js/Context';
+import { DEFAULT_WIKI, DestinationContext, UserSettingsContext } from '../js/Context';
 
 export async function getWikipediaByCity(city) {
   let wiki = fetch(

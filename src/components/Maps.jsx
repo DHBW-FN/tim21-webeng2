@@ -4,7 +4,7 @@ import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
-import {DEFAULT_DESTINATION, DestinationContext, UserSettingsContext} from '../js/Context';
+import { DEFAULT_DESTINATION, DestinationContext, UserSettingsContext } from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { getWikipediaByCity } from './WikiBox';
 import Routing from "./Routing";

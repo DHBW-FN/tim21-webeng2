@@ -8,17 +8,13 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
-import {
-  AddressContext,
-  HistoryArray,
-  DestinationContext, UserSettingsContext
-} from '../js/Context';
+import { AddressContext, HistoryArray, DestinationContext, UserSettingsContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
+import Map from "../components/Maps";
 import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
-import Map from "../components/Maps";
 
 
 const HomePage = () => {
