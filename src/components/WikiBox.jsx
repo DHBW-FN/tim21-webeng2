@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Sheet, BlockTitle, Fab, f7, Button, Icon } from 'framework7-react';
 import Framework7 from 'framework7';
 import { $ } from 'dom7';
@@ -16,17 +16,7 @@ export async function getWikipediaByCity(city) {
 }
 
 export default function WikiBox() {
-  const { destination, setDestination } = useContext(DestinationContext);
-
-  useEffect(() => {
-    async function fetchData() {
-      let wiki = await getWikipediaByCity(destination.address.city);
-      if (destination.coordinates.lat && destination.coordinates.lng) {
-        setDestination({ ...destination, wikipedia: wiki });
-      }
-    }
-    fetchData();
-  }, [destination.address.city]);
+  const { destination } = useContext(DestinationContext);
 
   let sheetProps = {
     className: 'wikibox-sheet',
