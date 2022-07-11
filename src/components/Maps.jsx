@@ -98,11 +98,6 @@ export default function Map() {
       },
       locationerror() {
         alert('Unfortunately, we could not find your location');
-      },
-      async click(e) {
-        setDestination(
-          (await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)) || DEFAULT_DESTINATION
-        );
       }
     });
     return null;
