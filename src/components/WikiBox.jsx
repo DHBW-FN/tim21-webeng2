@@ -52,7 +52,7 @@ export default function WikiBox() {
               </Button>
             </div>
           </div>
-          <div className="page-content" style={{height: "auto", maxHeight: "87vh", marginLeft: "1.5rem", marginRight: "1.5rem", marginBottom: "1rem", textAlign: "justify"}}>
+          <div className="page-content" style={{height: "auto", maxHeight: "80vh", marginLeft: "1.5rem", marginRight: "1.5rem", marginBottom: "1rem", textAlign: "justify"}}>
           <div className="padding-horizontal padding-bottom">
             {!Framework7.device.desktop ? (
               <div className="margin-top text-align-center">Swipe up for more details</div>
