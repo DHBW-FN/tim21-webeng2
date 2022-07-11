@@ -4,7 +4,7 @@ import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import {DEFAULT_WIKI, DestinationContext} from '../js/Context';
+import { DEFAULT_WIKI, DestinationContext, UserSettingsContext } from '../js/Context';
 
 export async function getWikipediaByCity(city) {
   let wiki = fetch(
@@ -17,6 +17,7 @@ export async function getWikipediaByCity(city) {
 
 export default function WikiBox() {
   const { destination } = useContext(DestinationContext);
+  const { userSettings, setUserSettings } = useContext(UserSettingsContext);
 
   let sheetProps = {
     className: 'wikibox-sheet',
@@ -31,6 +32,11 @@ export default function WikiBox() {
     sheetProps.swipeToStep = false;
   }
 
+  async function startNavigation() {
+    f7.sheet.close('.wikibox-sheet');
+    setUserSettings({ ...userSettings, showRouting: true });
+  }
+
   return (
     <>
       <Fab
@@ -43,7 +49,7 @@ export default function WikiBox() {
           <div className="sheet-modal-swipe-step">
             <div className="display-flex padding justify-content-space-between align-items-center">
               <h1>{destination.address.city}</h1>
-              <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city}>
+              <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city} onClick={startNavigation} >
                 <Icon
                   id="navigateIcon"
                   material="directions"
