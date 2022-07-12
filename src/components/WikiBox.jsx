@@ -16,7 +16,7 @@ export async function getWikipediaByCity(city) {
 }
 
 export default function WikiBox() {
-  const { destination } = useContext(DestinationContext);
+  const { destination, setDestination } = useContext(DestinationContext);
   const { userSettings, setUserSettings } = useContext(UserSettingsContext);
 
   let sheetProps = {
@@ -37,13 +37,18 @@ export default function WikiBox() {
     setUserSettings({ ...userSettings, showRouting: true });
   }
 
+  async function openWikibox() {
+    f7.sheet.open($('.wikibox-sheet'));
+    setDestination({ ...destination, wikipedia: await getWikipediaByCity(destination.address.city) });
+  }
+
   return (
     <>
       <Fab
         position="center-top"
         id="debug-fab-open-wikibox"
         text="Press to show info"
-        onClick={() => f7.sheet.open($('.wikibox-sheet'))}></Fab>
+        onClick={openWikibox}></Fab>
       <Sheet {...sheetProps}>
         <div className="sheet-modal-inner">
           <div className="sheet-modal-swipe-step">
