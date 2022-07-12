@@ -6,7 +6,6 @@ import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
 import { DEFAULT_DESTINATION, DestinationContext, UserSettingsContext } from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
-import { getWikipediaByCity } from './WikiBox';
 import Routing from "./Routing";
 
 export async function getAddressByCoordinates(latitude, longitude) {
@@ -72,20 +71,8 @@ export async function getObjectByCoordinates(latitude, longitude) {
 }
 
 export default function Map() {
-  const locateFabClickEvent = new Event('handleFabClick');
   const { destination, setDestination } = useContext(DestinationContext);
   const { userSettings } = useContext(UserSettingsContext);
-
-  function HandleFabClick() {
-    const map = useMap();
-    addEventListener(
-      'handleFabClick',
-      function () {
-        map.locate();
-      },
-      false
-    );
-  }
 
   function EventHandler() {
     const map = useMapEvents({
@@ -116,7 +103,11 @@ export default function Map() {
         slot="fixed"
         id="locateButton"
         onClick={() => {
-          dispatchEvent(locateFabClickEvent);
+          navigator.geolocation.getCurrentPosition(
+            async position => {
+              setDestination(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+            }
+          )
         }}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
@@ -132,7 +123,6 @@ export default function Map() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ZoomControl position="bottomleft" />
-          <HandleFabClick />
           <EventHandler />
           <FlyToAddress />
           {userSettings.showRouting ? <Routing />: null}
