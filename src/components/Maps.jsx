@@ -67,8 +67,7 @@ export async function getObjectByCoordinates(latitude, longitude) {
       lat: latitude,
       lng: longitude
     },
-    address: await getAddressByCoordinates(await latitude, await longitude),
-    wikipedia: await getWikipediaByCity(await address.city)
+    address: await getAddressByCoordinates(await latitude, await longitude)
   };
 }
 
