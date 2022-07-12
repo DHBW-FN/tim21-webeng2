@@ -106,6 +106,10 @@ export default function Map() {
           navigator.geolocation.getCurrentPosition(
             async position => {
               setDestination(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+            },
+            error => {
+              console.error(error);
+              f7.dialog.alert('Unfortunately, we could not find your location');
             }
           )
         }}>
