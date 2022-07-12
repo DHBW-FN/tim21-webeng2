@@ -9,7 +9,15 @@ import { geocodeByAddress } from 'react-places-autocomplete';
 import Routing from "./Routing";
 
 export async function getAddressByCoordinates(latitude, longitude) {
-  const results = await geocodeByAddress(`${latitude}, ${longitude}`);
+  let results;
+  try {
+    results = await geocodeByAddress(`${latitude}, ${longitude}`);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+
+  console.log(results);
 
   let address = {};
 
@@ -57,9 +65,10 @@ export async function getObjectByCoordinates(latitude, longitude) {
         latitude +
         ' lng ' +
         longitude +
-        '\n Using default destination instead.'
+        '\n Using default destination instead.',
+      'Error: Unable to locate'
     );
-    return null;
+    return DEFAULT_DESTINATION;
   }
   return {
     coordinates: {
@@ -78,7 +87,7 @@ export default function Map() {
     const map = useMapEvents({
       async locationfound(e) {
         setDestination(
-          (await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)) || DEFAULT_DESTINATION
+          await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)
         );
         map.flyTo(e.latlng, 15);
       },
