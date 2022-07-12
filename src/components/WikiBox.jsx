@@ -38,8 +38,8 @@ export default function WikiBox() {
   }
 
   async function openWikibox() {
-    setDestination({ ...destination, wikipedia: await getWikipediaByCity(destination.address.city) });
     f7.sheet.open($('.wikibox-sheet'));
+    setDestination({ ...destination, wikipedia: await getWikipediaByCity(destination.address.city) });
   }
 
   return (
