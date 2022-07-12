@@ -1,8 +1,11 @@
 # Navigator
 
 ## Code Status
-[![CodeFactor](https://www.codefactor.io/repository/github/dhbw-fn/web-eng-2/badge?s=c410c808c745281459230001890de660f2f7b640)](https://www.codefactor.io/repository/github/dhbw-fn/web-eng-2)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6ff6dc97585d4fc3b0f515856d615265)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DHBW-FN/web-eng-2&amp;utm_campaign=Badge_Grade)
+
+## Previews
+[main](https://webeng2.dhbw-fn.de)  
+[develop](https://webeng2-dev.dhbw-fn.de)
 
 ## Framework7 CLI Options
 
@@ -10,7 +13,6 @@ Framework7 app created with following options:
 
 ```
 {
-  "cwd": "/Users/marioschwartz/UNI/WebEng2_group/web-eng-2",
   "type": [
     "web",
     "pwa"
@@ -43,6 +45,8 @@ npm install
 * 🔥 `start` - run development server
 * 🔧 `dev` - run development server
 * 🔧 `build` - build web app for production
+* 🔍 `lint` - lint code base
+* 🧹 `lint:fix` - lint code base and apply possible automatic fixes
 
 ## Vite
 
@@ -75,7 +79,3 @@ framework7 assets --ui
 
 * [Framework7 Icons Reference](https://framework7.io/icons/)
 * [Community Forum](https://forum.framework7.io)
-
-## Previews
-[main](https://webeng2.dhbw-fn.de)  
-[develop](https://webeng2-dev.dhbw-fn.de)
