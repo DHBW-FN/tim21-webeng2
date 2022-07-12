@@ -16,7 +16,7 @@ export const DEFAULT_DESTINATION = {
     country: 'Germany',
     city: 'Friedrichshafen',
     street: 'Hochstraße',
-    houseNumber: '21'
+    streetNumber: '21'
   }
 };
 export const DEFAULT_WIKI = "No Wikipedia found for this destination :(";
