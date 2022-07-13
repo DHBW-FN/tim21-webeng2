@@ -18,7 +18,9 @@ const routingControl = L.Routing.control({
         iconSize: [25, 41],
         iconAnchor: [13, 41],
         iconUrl: 'icons/favicon.png'
-  })})}
+      })
+    });
+  }
 });
 
 export default function Routing() {
