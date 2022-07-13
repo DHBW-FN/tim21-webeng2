@@ -6,7 +6,6 @@ import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
 import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
-import { getWikipediaByCity } from './WikiBox';
 import Routing from './Routing';
 
 export async function getAddressByCoordinates(latitude, longitude) {
@@ -17,8 +16,6 @@ export async function getAddressByCoordinates(latitude, longitude) {
     console.error(error);
     return null;
   }
-
-  console.log(results);
 
   let address = {};
 
