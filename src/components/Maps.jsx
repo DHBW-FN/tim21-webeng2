@@ -17,8 +17,6 @@ export async function getAddressByCoordinates(latitude, longitude) {
     return null;
   }
 
-  console.log(results);
-
   let address = {};
 
   for (let i = 0; i < results[0].address_components.length; i++) {
