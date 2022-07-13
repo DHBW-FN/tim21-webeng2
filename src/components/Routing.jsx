@@ -11,9 +11,14 @@ const routingControl = L.Routing.control({
   draggableWaypoints: false,
   routeWhileDragging: false,
   autoRoute: true,
-  createMarker: function () {
-    return null;
-  }
+  createMarker: function (i, wp) {
+    return L.marker(wp.latLng, {
+      draggable: false,
+      icon: L.icon({
+        iconSize: [25, 41],
+        iconAnchor: [13, 41],
+        iconUrl: 'icons/favicon.png'
+  })})}
 });
 
 export default function Routing() {
