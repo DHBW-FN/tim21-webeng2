@@ -1,87 +1,84 @@
-import React, {useState, useEffect} from 'react';
-import {
-    Sheet,
-    BlockTitle,
-    List,
-    ListItem,
-    Icon,
-    Fab,
-    f7
-} from 'framework7-react';
-import Framework7 from "framework7";
-import {$} from "dom7";
+import React, { useContext } from 'react';
+import { Sheet, BlockTitle, Fab, f7, Button, Icon } from 'framework7-react';
+import Framework7 from 'framework7';
+import { $ } from 'dom7';
+import '../css/app.css';
+import '../css/wikibox.css';
+import { DEFAULT_WIKI, DestinationContext, UserSettingsContext } from '../js/Context';
+
+export async function getWikipediaByCity(city) {
+  let wiki = fetch(
+    `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`
+  )
+    .then((response) => response.json())
+    .then((data) => data.query.pages[Object.keys(data.query.pages)[0]].extract);
+  return await wiki || DEFAULT_WIKI;
+}
 
 export default function WikiBox() {
-    const [wikipedia, setWikipedia] = useState(["Waiting for Wikipedia..."]);
-    const [address, setAddress] = useState(["Waiting for address..."]);
+  const { destination, setDestination } = useContext(DestinationContext);
+  const { userSettings, setUserSettings } = useContext(UserSettingsContext);
 
-    async function wikipediaLookup(city){
-        return await fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
-            .then(response => response.json())
-            .then(data => data.query.pages[Object.keys(data.query.pages)[0]].extract)
-            .then(data => setWikipedia(data))
-    }
+  let sheetProps = {
+    className: 'wikibox-sheet',
+    style: { height: 'auto' , maxHeight: '100%'},
+    backdrop: true,
+    swipeToClose: true,
+    swipeToStep: true,
+    closeByBackdropClick: true,
+    closeOnEscape: true
+  };
+  if (Framework7.device.desktop) {
+    sheetProps.swipeToStep = false;
+  }
 
-    async function reverseGeo(latitude, longitude) {
-        return await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lon=${latitude}&lat=${longitude}`)
-            .then(response => response.json())
-            .then(data => data.address)
-            .then(city => setAddress(city))
-    }
+  async function startNavigation() {
+    f7.sheet.close('.wikibox-sheet');
+    setUserSettings({ ...userSettings, showRouting: true });
+  }
 
-    // This runs when the component is first loaded
-    useEffect(() => {
-        reverseGeo(9.4650, 47.6567).city;
-    }, [])
+  async function openWikibox() {
+    f7.sheet.open($('.wikibox-sheet'));
+    setDestination({ ...destination, wikipedia: await getWikipediaByCity(destination.address.city) });
+  }
 
-    // This updates the wikipedia text every time the address changes
-    useEffect(() => {
-        wikipediaLookup(address.city)
-    }, [address])
-
-    let sheetProps = {
-        className: "wikibox-sheet",
-        style: {height: 'auto'},
-        backdrop: true,
-        swipeToClose: true,
-        swipeToStep: true,
-        closeByBackdropClick: true,
-        closeOnEscape: true
-    };
-    if (Framework7.device.desktop) {
-        sheetProps.swipeToStep = false;
-    }
-
-    return (
-        <>
-            <Fab position='center-top' id="debug-fab-open-wikibox" text="Press to show info" onClick={() => f7.sheet.open($('.wikibox-sheet'))}>
-            </Fab>
-            <Sheet
-                {...sheetProps}
-            >
-                <div className="sheet-modal-inner">
-                    <div className="sheet-modal-swipe-step">
-                        <div className="display-flex padding justify-content-space-between align-items-center">
-
-                            <h1>{address.city}:</h1>
-                            <Icon f7='location'></Icon>
-                        </div>
-                    </div>
-                    <div className="padding-horizontal padding-bottom">
-                        <List>
-                            <ListItem title="Population">70,000</ListItem>
-                            <ListItem title="State">Baden-Wuerttemberg</ListItem>
-                        </List>
-                        <div className="margin-top text-align-center">Swipe up for more details</div>
-                    </div>
-                    <BlockTitle medium className="margin-top">
-                        Wiki
-                    </BlockTitle>
-                    <p>
-                        {wikipedia}
-                    </p>
-                </div>
-            </Sheet>
-        </>
-    );
+  return (
+    <>
+      <Fab
+        position="center-top"
+        id="debug-fab-open-wikibox"
+        text="Press to show info"
+        onClick={openWikibox}></Fab>
+      <Sheet {...sheetProps}>
+        <div className="sheet-modal-inner">
+          <div className="sheet-modal-swipe-step" id="wikibox-modal-city">
+            <div className="display-flex padding justify-content-space-between align-items-center" id="wikibox-header">
+              <h1>{destination.address.city}</h1>
+              <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city} onClick={startNavigation} >
+                <Icon
+                  id="navigateIcon"
+                  material="directions"
+                  size={$('#navigateButton').height()}
+                />
+              </Button>
+            </div>
+          </div>
+          <div
+            className="page-content"
+            id="wikibox-page-content"
+            style={{ maxHeight: window.innerHeight - $('#wikibox-modal-city').height()}}>
+            <div className="padding-horizontal padding-bottom">
+              {!Framework7.device.desktop ? (
+                <div className="margin-top text-align-center">Swipe up for more details</div>
+              ) : null}
+            </div>
+            <BlockTitle medium className="margin-top">
+              Wiki
+            </BlockTitle>
+            <p>{destination.wikipedia}</p>
+          </div>
+        </div>
+      </Sheet>
+    </>
+  );
 }

@@ -1,0 +1,15 @@
+#navigateIcon {
+  font-size: calc(var(--f7-button-height));
+}
+
+#wikibox-page-content {
+  margin: 0 1.5rem 1rem;
+  text-align: justify;
+}
+
+#wikibox-header,
+#wikibox-modal-city,
+.sheet-modal-inner,
+.wikibox-sheet {
+  height: 100%;
+}

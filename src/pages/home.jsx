@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Page,
     Toolbar,
@@ -8,24 +8,57 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
+import { AddressContext, HistoryArray, DestinationContext, UserSettingsContext } from '../js/Context';
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
-import Map from '../components/Maps';
+import Map from "../components/Maps";
+import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
 
-const HomePage = () => (
-  
+
+const HomePage = () => {
+  const [userSettings, setUserSettings] = useState({
+    language: 'en',
+    showRouting: false,
+    }
+  );
+  const [address, setAddress] = useState("");
+  const [history, setHistory] = useState([]);
+  const [destination, setDestination] = useState({
+    coordinates: {
+      lat: 47.65673289999999,
+      lng: 9.4649538
+    },
+    address: {
+      country: "Germany",
+      city: "Friedrichshafen",
+      street: "Hochstraße",
+      streetNumber: "21"
+    }
+  });
+
+
+
+  return (
+  <UserSettingsContext.Provider value={{userSettings, setUserSettings}}>
+  <AddressContext.Provider value={{address, setAddress}}>
+  <HistoryArray.Provider value={{history, setHistory}}>
+  <DestinationContext.Provider value={{destination, setDestination}}>
   <Page name="home" className='home'>
-    {/*Only for testing purpose replace later*/}
-    <WikiBox />
-    {/* Toolbar */}
-    <Toolbar tabbar bottom className='toolbar'>
-      <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
-      <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
-      <Button panelOpen="right" className='toolbutton'><Icon f7="person_crop_circle" className='toolicon'></Icon></Button>
-    </Toolbar>
+      {/*Only for testing purpose replace later*/}
+
+      {/*Only for testing purpose replace later*/}
+      <WikiBox />
+     {/* Toolbar */}
+
     {/* Page content */}
+    <SearchBar></SearchBar>
+          <Toolbar tabbar bottom className='toolbar'>
+          <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
+          <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
+          <Button panelOpen="right" className='toolbutton'><Icon f7="gear" className='toolicon'></Icon></Button>
+      </Toolbar>
     <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
@@ -47,6 +80,11 @@ const HomePage = () => (
       </View>
     </Panel>
     <Map/>
-  </Page>
-);
+
+      </Page>
+  </DestinationContext.Provider>
+  </HistoryArray.Provider>
+  </AddressContext.Provider>
+  </UserSettingsContext.Provider>
+)};
 export default HomePage;
