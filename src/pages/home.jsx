@@ -8,7 +8,14 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
-import { AddressContext, HistoryArray, DestinationContext, UserSettingsContext } from '../js/Context';
+import {
+  AddressContext,
+  HistoryArray,
+  DestinationContext,
+  UserSettingsContext,
+  OriginContext,
+  DEFAULT_DESTINATION
+} from "../js/Context";
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from "../components/Maps";
@@ -25,18 +32,8 @@ const HomePage = () => {
   );
   const [address, setAddress] = useState("");
   const [history, setHistory] = useState([]);
-  const [destination, setDestination] = useState({
-    coordinates: {
-      lat: 47.65673289999999,
-      lng: 9.4649538
-    },
-    address: {
-      country: "Germany",
-      city: "Friedrichshafen",
-      street: "Hochstraße",
-      streetNumber: "21"
-    }
-  });
+  const [destination, setDestination] = useState(DEFAULT_DESTINATION);
+  const [origin, setOrigin] = useState({});
 
 
 
@@ -45,6 +42,7 @@ const HomePage = () => {
   <AddressContext.Provider value={{address, setAddress}}>
   <HistoryArray.Provider value={{history, setHistory}}>
   <DestinationContext.Provider value={{destination, setDestination}}>
+  <OriginContext.Provider value={{origin, setOrigin}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -82,6 +80,7 @@ const HomePage = () => {
     <Map/>
 
       </Page>
+  </OriginContext.Provider>
   </DestinationContext.Provider>
   </HistoryArray.Provider>
   </AddressContext.Provider>
