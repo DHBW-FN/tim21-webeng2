@@ -4,7 +4,7 @@ import 'leaflet-routing-machine';
 import '../css/routing.css';
 import { useMap } from 'react-leaflet';
 
-const routingControl = L.Routing.control({
+export const routingControl = L.Routing.control({
   waypoints: [],
   draggableWaypoints: false,
   routeWhileDragging: false,
@@ -37,5 +37,3 @@ export default function Routing() {
   routingControl.addTo(map);
   return null;
 }
-
-export { routingControl };
