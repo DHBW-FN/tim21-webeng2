@@ -10,7 +10,15 @@ import { getWikipediaByCity } from './WikiBox';
 import Routing from './Routing';
 
 export async function getAddressByCoordinates(latitude, longitude) {
-  const results = await geocodeByAddress(`${latitude}, ${longitude}`);
+  let results;
+  try {
+    results = await geocodeByAddress(`${latitude}, ${longitude}`);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+
+  console.log(results);
 
   let address = {};
 
@@ -58,40 +66,28 @@ export async function getObjectByCoordinates(latitude, longitude) {
         latitude +
         ' lng ' +
         longitude +
-        '\n Using default destination instead.'
+        '\n Using default destination instead.',
+      'Error: Unable to locate'
     );
-    return null;
+    return DEFAULT_DESTINATION;
   }
   return {
     coordinates: {
       lat: latitude,
       lng: longitude
     },
-    address: await getAddressByCoordinates(await latitude, await longitude),
-    wikipedia: await getWikipediaByCity(await address.city)
+    address: address
   };
 }
 
 export default function Map() {
-  const locateFabClickEvent = new Event('handleFabClick');
   const { destination, setDestination } = useContext(DestinationContext);
-
-  function HandleFabClick() {
-    const map = useMap();
-    addEventListener(
-      'handleFabClick',
-      function () {
-        map.locate();
-      },
-      false
-    );
-  }
 
   function EventHandler() {
     const map = useMapEvents({
       async locationfound(e) {
         setDestination(
-          (await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)) || DEFAULT_DESTINATION
+          await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)
         );
         map.flyTo(e.latlng, 15);
       },
@@ -116,7 +112,15 @@ export default function Map() {
         slot="fixed"
         id="locateButton"
         onClick={() => {
-          dispatchEvent(locateFabClickEvent);
+          navigator.geolocation.getCurrentPosition(
+            async position => {
+              setDestination(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+            },
+            error => {
+              console.error(error);
+              f7.dialog.alert('Unfortunately, we could not find your location');
+            }
+          )
         }}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
@@ -132,7 +136,6 @@ export default function Map() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ZoomControl position="bottomleft" />
-          <HandleFabClick />
           <EventHandler />
           <FlyToAddress />
           <Routing />

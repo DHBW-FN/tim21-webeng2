@@ -17,11 +17,11 @@ export async function getWikipediaByCity(city) {
 }
 
 export default function WikiBox() {
-  const { destination } = useContext(DestinationContext);
+  const { destination, setDestination } = useContext(DestinationContext);
 
   let sheetProps = {
     className: 'wikibox-sheet',
-    style: { height: 'auto' },
+    style: { height: 'auto' , maxHeight: '100%'},
     backdrop: true,
     swipeToClose: true,
     swipeToStep: true,
@@ -37,17 +37,22 @@ export default function WikiBox() {
     setRoutingDestination(DEFAULT_DESTINATION.coordinates, destination.coordinates);
   }
 
+  async function openWikibox() {
+    f7.sheet.open($('.wikibox-sheet'));
+    setDestination({ ...destination, wikipedia: await getWikipediaByCity(destination.address.city) });
+  }
+
   return (
     <>
       <Fab
         position="center-top"
         id="debug-fab-open-wikibox"
         text="Press to show info"
-        onClick={() => f7.sheet.open($('.wikibox-sheet'))}></Fab>
+        onClick={openWikibox}></Fab>
       <Sheet {...sheetProps}>
         <div className="sheet-modal-inner">
-          <div className="sheet-modal-swipe-step">
-            <div className="display-flex padding justify-content-space-between align-items-center">
+          <div className="sheet-modal-swipe-step" id="wikibox-modal-city">
+            <div className="display-flex padding justify-content-space-between align-items-center" id="wikibox-header">
               <h1>{destination.address.city}</h1>
               <Button
                 id="navigateButton"
@@ -61,15 +66,20 @@ export default function WikiBox() {
               </Button>
             </div>
           </div>
-          <div className="padding-horizontal padding-bottom">
-            {!Framework7.device.desktop ? (
-              <div className="margin-top text-align-center">Swipe up for more details</div>
-            ) : null}
+          <div
+            className="page-content"
+            id="wikibox-page-content"
+            style={{ maxHeight: window.innerHeight - $('#wikibox-modal-city').height()}}>
+            <div className="padding-horizontal padding-bottom">
+              {!Framework7.device.desktop ? (
+                <div className="margin-top text-align-center">Swipe up for more details</div>
+              ) : null}
+            </div>
+            <BlockTitle medium className="margin-top">
+              Wiki
+            </BlockTitle>
+            <p>{destination.wikipedia}</p>
           </div>
-          <BlockTitle medium className="margin-top">
-            Wiki
-          </BlockTitle>
-          <p>{destination.wikipedia}</p>
         </div>
       </Sheet>
     </>
