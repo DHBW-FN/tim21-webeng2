@@ -19,4 +19,4 @@ export const DEFAULT_DESTINATION = {
     houseNumber: '21'
   }
 };
-export const DEFAULT_WIKI = "No Wikipedia found for this destination :(";
+export const DEFAULT_WIKI = 'No Wikipedia found for this destination :(';

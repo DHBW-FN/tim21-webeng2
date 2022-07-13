@@ -4,7 +4,8 @@ import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import { DEFAULT_WIKI, DestinationContext, UserSettingsContext } from '../js/Context';
+import { DEFAULT_DESTINATION, DEFAULT_WIKI, DestinationContext } from '../js/Context';
+import { setRoutingDestination } from '../js/Routing';
 
 export async function getWikipediaByCity(city) {
   let wiki = fetch(
@@ -12,12 +13,11 @@ export async function getWikipediaByCity(city) {
   )
     .then((response) => response.json())
     .then((data) => data.query.pages[Object.keys(data.query.pages)[0]].extract);
-  return await wiki || DEFAULT_WIKI;
+  return (await wiki) || DEFAULT_WIKI;
 }
 
 export default function WikiBox() {
   const { destination } = useContext(DestinationContext);
-  const { userSettings, setUserSettings } = useContext(UserSettingsContext);
 
   let sheetProps = {
     className: 'wikibox-sheet',
@@ -34,7 +34,7 @@ export default function WikiBox() {
 
   async function startNavigation() {
     f7.sheet.close('.wikibox-sheet');
-    setUserSettings({ ...userSettings, showRouting: true });
+    setRoutingDestination(DEFAULT_DESTINATION.coordinates, destination.coordinates);
   }
 
   return (
@@ -49,7 +49,10 @@ export default function WikiBox() {
           <div className="sheet-modal-swipe-step">
             <div className="display-flex padding justify-content-space-between align-items-center">
               <h1>{destination.address.city}</h1>
-              <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city} onClick={startNavigation} >
+              <Button
+                id="navigateButton"
+                tooltip={'Navigate to ' + destination.address.city}
+                onClick={startNavigation}>
                 <Icon
                   id="navigateIcon"
                   material="directions"

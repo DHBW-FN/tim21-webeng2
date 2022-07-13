@@ -4,10 +4,10 @@ import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
-import { DEFAULT_DESTINATION, DestinationContext, UserSettingsContext } from '../js/Context';
+import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { getWikipediaByCity } from './WikiBox';
-import Routing from "./Routing";
+import Routing from './Routing';
 
 export async function getAddressByCoordinates(latitude, longitude) {
   const results = await geocodeByAddress(`${latitude}, ${longitude}`);
@@ -75,7 +75,6 @@ export async function getObjectByCoordinates(latitude, longitude) {
 export default function Map() {
   const locateFabClickEvent = new Event('handleFabClick');
   const { destination, setDestination } = useContext(DestinationContext);
-  const { userSettings } = useContext(UserSettingsContext);
 
   function HandleFabClick() {
     const map = useMap();
@@ -136,7 +135,7 @@ export default function Map() {
           <HandleFabClick />
           <EventHandler />
           <FlyToAddress />
-          {userSettings.showRouting ? <Routing />: null}
+          <Routing />
         </MapContainer>
       </PageContent>
     </>
