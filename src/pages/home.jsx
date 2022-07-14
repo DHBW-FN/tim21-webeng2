@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {
-  Page,
-  Toolbar,
-  Icon,
-  Button,
-  Panel,
-  BlockTitle,
-  View
+    Page,
+    Toolbar,
+    Icon,
+    Button,
+    Panel,
+    BlockTitle,
+    View
 } from 'framework7-react';
 import {
   AddressContext,
@@ -26,8 +26,8 @@ import '../css/home.css';
 
 const HomePage = () => {
   const [userSettings, setUserSettings] = useState({
-      language: 'en',
-      showRouting: false,
+    language: 'en',
+    showRouting: false,
     }
   );
   const [address, setAddress] = useState("");
