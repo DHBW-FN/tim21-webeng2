@@ -48,7 +48,7 @@ const HomePage = () => {
 
       {/*Only for testing purpose replace later*/}
       <WikiBox />
-    {/* Toolbar */}
+     {/* Toolbar */}
 
     {/* Page content */}
     <SearchBar></SearchBar>
