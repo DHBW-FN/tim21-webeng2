@@ -51,31 +51,31 @@ const HomePage = () => {
 
     {/* Page content */}
     <SearchBar></SearchBar>
-    <Toolbar tabbar bottom className='toolbar'>
-        <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
-        <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
-        <Button panelOpen="right" className='toolbutton'><Icon f7="gear" className='toolicon'></Icon></Button>
-    </Toolbar>
-  <Panel resizable left reveal swipeOnlyClose>
-    <View>
-      <Page>
-        <BlockTitle>
-          <History></History>
-        </BlockTitle>
-      </Page>
-    </View>
-  </Panel>
-    <Panel resizable right reveal>
+          <Toolbar tabbar bottom className='toolbar'>
+          <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
+          <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
+          <Button panelOpen="right" className='toolbutton'><Icon f7="gear" className='toolicon'></Icon></Button>
+      </Toolbar>
+    <Panel resizable left reveal swipeOnlyClose>
       <View>
         <Page>
           <BlockTitle>
-            <h1>
-              Account
-            </h1>
+            <History></History>
           </BlockTitle>
         </Page>
       </View>
     </Panel>
+      <Panel resizable right reveal>
+        <View>
+          <Page>
+            <BlockTitle>
+              <h1>
+                Account
+              </h1>
+            </BlockTitle>
+          </Page>
+        </View>
+      </Panel>
     <Map/>
   </Page>
   </OriginContext.Provider>
