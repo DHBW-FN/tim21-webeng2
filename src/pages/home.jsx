@@ -65,17 +65,17 @@ const HomePage = () => {
         </Page>
       </View>
     </Panel>
-      <Panel resizable right reveal>
-        <View>
-          <Page>
-            <BlockTitle>
-              <h1>
-                Account
-              </h1>
-            </BlockTitle>
-          </Page>
-        </View>
-      </Panel>
+    <Panel resizable right reveal>
+      <View>
+        <Page>
+          <BlockTitle>
+            <h1>
+              Account
+            </h1>
+          </BlockTitle>
+        </Page>
+      </View>
+    </Panel>
     <Map/>
   </Page>
   </OriginContext.Provider>
