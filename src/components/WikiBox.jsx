@@ -11,11 +11,7 @@ export async function getWikipediaByCity(city) {
   return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`)
     .then(response => response.json())
     .then(json => {
-      let extract = json.query.pages[Object.keys(json.query.pages)[0]].extract;
-      if ("redirects" in json.query || extract == null) { // if no data or only similar is found fall back to default
-        return DEFAULT_WIKI;
-      }
-      return extract;
+      return json.query.pages[Object.keys(json.query.pages)[0]].extract || DEFAULT_WIKI;
     })
 }
 
