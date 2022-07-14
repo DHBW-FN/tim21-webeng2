@@ -32,4 +32,4 @@ export const DEFAULT_ORIGIN = {
     streetNumber: '21'
   }
 };
-export const DEFAULT_WIKI = 'No Wikipedia found for this destination :(';
+export const DEFAULT_WIKI = "No Wikipedia found for this destination :(";

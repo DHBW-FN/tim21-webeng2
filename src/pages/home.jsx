@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { Page, Toolbar, Icon, Button, Panel, BlockTitle, View } from 'framework7-react';
+import React, {useState} from 'react';
+import {
+  Page,
+  Toolbar,
+  Icon,
+  Button,
+  Panel,
+  BlockTitle,
+  View
+} from 'framework7-react';
 import {
   AddressContext,
   HistoryArray,
@@ -7,10 +15,10 @@ import {
   UserSettingsContext,
   OriginContext,
   DEFAULT_DESTINATION
-} from '../js/Context';
+} from "../js/Context";
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
-import Map from '../components/Maps';
+import Map from "../components/Maps";
 import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
@@ -19,7 +27,8 @@ const HomePage = () => {
   const [userSettings, setUserSettings] = useState({
     language: 'en',
     showRouting: false
-  });
+    }
+  );
   const [address, setAddress] = useState('');
   const [history, setHistory] = useState([]);
   const [destination, setDestination] = useState(DEFAULT_DESTINATION);

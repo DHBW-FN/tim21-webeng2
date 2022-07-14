@@ -12,7 +12,7 @@ import {
   UserSettingsContext
 } from "../js/Context";
 import { geocodeByAddress } from 'react-places-autocomplete';
-import Routing from './Routing';
+import Routing from "./Routing";
 
 export async function getAddressByCoordinates(latitude, longitude) {
   let results;
