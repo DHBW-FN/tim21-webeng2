@@ -70,18 +70,19 @@ const HomePage = () => {
         <Page>
         <BlockTitle>
           <h1>
-            Account
+          Account
           </h1>
         </BlockTitle>
         </Page>
       </View>
     </Panel>
     <Map/>
-  </Page>
+
+      </Page>
   </OriginContext.Provider>
   </DestinationContext.Provider>
   </HistoryArray.Provider>
   </AddressContext.Provider>
   </UserSettingsContext.Provider>
-  )};
+)};
 export default HomePage;
