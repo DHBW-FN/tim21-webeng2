@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {
-  Page,
-  Toolbar,
-  Icon,
-  Button,
-  Panel,
-  BlockTitle,
-  View
+    Page,
+    Toolbar,
+    Icon,
+    Button,
+    Panel,
+    BlockTitle,
+    View
 } from 'framework7-react';
 import {
   AddressContext,
