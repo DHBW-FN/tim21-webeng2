@@ -26,10 +26,10 @@ import '../css/home.css';
 const HomePage = () => {
   const [userSettings, setUserSettings] = useState({
     language: 'en',
-    showRouting: false
+    showRouting: false,
     }
   );
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState("");
   const [history, setHistory] = useState([]);
   const [destination, setDestination] = useState(DEFAULT_DESTINATION);
   const [origin, setOrigin] = useState({});
@@ -41,14 +41,13 @@ const HomePage = () => {
           <DestinationContext.Provider value={{ destination, setDestination }}>
             <OriginContext.Provider value={{ origin, setOrigin }}>
               <Page name="home" className="home">
-                {/*Only for testing purpose replace later*/}
 
                 {/*Only for testing purpose replace later*/}
                 <WikiBox />
-                {/* Toolbar */}
 
                 {/* Page content */}
                 <SearchBar></SearchBar>
+                {/* Toolbar */}
                 <Toolbar tabbar bottom className="toolbar">
                   <Button panelOpen="left" className="toolbutton">
                     <Icon f7="memories" className="toolicon"></Icon>
