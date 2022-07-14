@@ -1,4 +1,4 @@
-import L from 'leaflet';
+import L from 'leaflet'; // This import needs to be declared even if unused.
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 import '../css/routing.css';

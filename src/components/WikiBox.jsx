@@ -4,7 +4,7 @@ import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import { DEFAULT_DESTINATION, DEFAULT_WIKI, DestinationContext } from '../js/Context';
+import { DEFAULT_WIKI, DestinationContext, OriginContext } from '../js/Context';
 import { setRoutingDestination } from '../js/Routing';
 
 export async function getWikipediaByCity(city) {
@@ -18,6 +18,7 @@ export async function getWikipediaByCity(city) {
 
 export default function WikiBox() {
   const { destination, setDestination } = useContext(DestinationContext);
+  const { origin } = useContext(OriginContext);
 
   let sheetProps = {
     className: 'wikibox-sheet',
@@ -34,7 +35,7 @@ export default function WikiBox() {
 
   async function startNavigation() {
     f7.sheet.close('.wikibox-sheet');
-    setRoutingDestination(DEFAULT_DESTINATION.coordinates, destination.coordinates);
+    setRoutingDestination(origin.coordinates, destination.coordinates);
   }
 
   async function openWikibox() {
