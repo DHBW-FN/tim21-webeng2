@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MapContainer, TileLayer, useMapEvents, useMap, ZoomControl } from 'react-leaflet';
 import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
-import { DEFAULT_DESTINATION, DestinationContext, UserSettingsContext } from '../js/Context';
+import {
+  DEFAULT_DESTINATION,
+  DEFAULT_ORIGIN,
+  DestinationContext,
+  OriginContext,
+  UserSettingsContext
+} from "../js/Context";
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Routing from "./Routing";
 
@@ -16,8 +22,6 @@ export async function getAddressByCoordinates(latitude, longitude) {
     console.error(error);
     return null;
   }
-
-  console.log(results);
 
   let address = {};
 
@@ -81,6 +85,7 @@ export async function getObjectByCoordinates(latitude, longitude) {
 
 export default function Map() {
   const { destination, setDestination } = useContext(DestinationContext);
+  const { origin, setOrigin } = useContext(OriginContext);
   const { userSettings } = useContext(UserSettingsContext);
 
   function EventHandler() {
@@ -98,10 +103,63 @@ export default function Map() {
     return null;
   }
 
+  /**
+   * Run functions on page load
+   */
+  useEffect(() => {
+    getCurrentLocation()
+      .then(location => {
+      setOrigin(location);
+      setDestination(location);
+      })
+      .catch(error => {
+        console.log(error);
+        setOrigin(DEFAULT_ORIGIN);
+        setDestination(DEFAULT_DESTINATION);
+      });
+  }, []);
+
+  /**
+   * Locate user
+   */
+  function locate() {
+    getCurrentLocation()
+      .then(location => {
+        setOrigin(location);
+      })
+      .catch(error => {
+        console.log(error);
+        f7.dialog.alert(
+          'Unfortunately, we could not find your location',
+          'Error: Unable to locate'
+        );
+        setOrigin(DEFAULT_ORIGIN);
+      });
+  }
+
+  /**
+   * Get current location of user
+   * @returns {Promise<unknown>} - Promise containing user location object
+   */
+  function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        async position => {
+          resolve(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+        },
+        error => {
+          reject(error);
+        }
+      );
+    });
+  }
+
   function FlyToAddress() {
     const map = useMap();
     if (destination.coordinates.lat && destination.coordinates.lng) {
       map.flyTo(destination.coordinates);
+    } else {
+      map.flyTo(origin.coordinates);
     }
   }
 
@@ -111,17 +169,7 @@ export default function Map() {
         position="right-bottom"
         slot="fixed"
         id="locateButton"
-        onClick={() => {
-          navigator.geolocation.getCurrentPosition(
-            async position => {
-              setDestination(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
-            },
-            error => {
-              console.error(error);
-              f7.dialog.alert('Unfortunately, we could not find your location');
-            }
-          )
-        }}>
+        onClick={locate}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
       <PageContent className="page-content-map">
@@ -138,7 +186,7 @@ export default function Map() {
           <ZoomControl position="bottomleft" />
           <EventHandler />
           <FlyToAddress />
-          {userSettings.showRouting ? <Routing />: null}
+          {userSettings.showRouting.value ? <Routing />: null}
         </MapContainer>
       </PageContent>
     </>

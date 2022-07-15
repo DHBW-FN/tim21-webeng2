@@ -8,35 +8,52 @@ import {
     BlockTitle,
     View
 } from 'framework7-react';
-import { AddressContext, HistoryArray, DestinationContext, UserSettingsContext } from '../js/Context';
+import {
+  AddressContext,
+  HistoryArray,
+  DestinationContext,
+  UserSettingsContext,
+  OriginContext,
+  DEFAULT_DESTINATION, DEFAULT_USER_SETTINGS
+} from "../js/Context";
 import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from "../components/Maps";
 import SearchBar from '../components/SearchBar';
 import '../css/app.css';
 import '../css/home.css';
+import Account from "../components/Account";
+
+function loadUserSettings() {
+  let settings = JSON.parse(localStorage.getItem('userSettings'));
+
+  if (settings === null) {
+    console.log("No user settings found, using default settings");
+    settings = DEFAULT_USER_SETTINGS;
+  }
+
+  // add default values if missing
+  Object
+    .keys(DEFAULT_USER_SETTINGS)
+    .filter(key => settings[key] === undefined)
+    .forEach(key => settings[key] = DEFAULT_USER_SETTINGS[key]);
+
+  // remove deprecated values
+  Object
+    .keys(settings)
+    .filter(k => !(k in DEFAULT_USER_SETTINGS))
+    .forEach(k => delete settings[k]);
+
+  return settings;
+}
 
 
 const HomePage = () => {
-  const [userSettings, setUserSettings] = useState({
-    language: 'en',
-    showRouting: false,
-    }
-  );
+  const [userSettings, setUserSettings] = useState(loadUserSettings());
   const [address, setAddress] = useState("");
   const [history, setHistory] = useState([]);
-  const [destination, setDestination] = useState({
-    coordinates: {
-      lat: 47.65673289999999,
-      lng: 9.4649538
-    },
-    address: {
-      country: "Germany",
-      city: "Friedrichshafen",
-      street: "Hochstraße",
-      streetNumber: "21"
-    }
-  });
+  const [destination, setDestination] = useState(DEFAULT_DESTINATION);
+  const [origin, setOrigin] = useState({});
 
 
 
@@ -45,6 +62,7 @@ const HomePage = () => {
   <AddressContext.Provider value={{address, setAddress}}>
   <HistoryArray.Provider value={{history, setHistory}}>
   <DestinationContext.Provider value={{destination, setDestination}}>
+  <OriginContext.Provider value={{origin, setOrigin}}>
   <Page name="home" className='home'>
       {/*Only for testing purpose replace later*/}
 
@@ -70,18 +88,13 @@ const HomePage = () => {
     </Panel>
     <Panel resizable right reveal>
       <View>
-        <Page>
-        <BlockTitle>
-          <h1>
-          Account
-          </h1>
-        </BlockTitle>
-        </Page>
+        <Account />
       </View>
     </Panel>
     <Map/>
 
       </Page>
+  </OriginContext.Provider>
   </DestinationContext.Provider>
   </HistoryArray.Provider>
   </AddressContext.Provider>
