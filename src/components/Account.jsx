@@ -1,9 +1,9 @@
 /**
  * The Account component is used to display the account information.
  */
-import { useContext, useEffect } from "react";
-import { BlockTitle, List, ListItem, Page, Toggle } from "framework7-react";
-import { UserSettingsContext } from "../js/Context";
+import { useContext, useEffect } from 'react';
+import { BlockTitle, List, ListItem, Page, Toggle } from 'framework7-react';
+import { UserSettingsContext } from '../js/Context';
 
 /**
  * Generates the account page.
@@ -14,7 +14,7 @@ export default function Account() {
   const { userSettings, setUserSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
-    localStorage.setItem("userSettings", JSON.stringify(userSettings));
+    localStorage.setItem('userSettings', JSON.stringify(userSettings));
   }, [userSettings]);
 
   /**
@@ -25,13 +25,19 @@ export default function Account() {
    */
   function getSettingComponent(key) {
     switch (typeof userSettings[key].value) {
-      case "boolean":
+      case 'boolean':
         return (
           <ListItem key={key}>
             <span>{userSettings[key].name}</span>
-            <Toggle checked={userSettings[key].value} onChange={() => {
-              setUserSettings({ ...userSettings, [key]: { ...userSettings[key], value: !userSettings[key].value } });
-            }} />
+            <Toggle
+              checked={userSettings[key].value}
+              onChange={() => {
+                setUserSettings({
+                  ...userSettings,
+                  [key]: { ...userSettings[key], value: !userSettings[key].value }
+                });
+              }}
+            />
           </ListItem>
         );
     }
