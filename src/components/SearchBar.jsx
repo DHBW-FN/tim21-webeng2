@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
-import { getObjectByCoordinates } from './Maps';
+import { DestinationContext } from '../js/Context';
+import { parseAddressComponents } from "./Maps";
 
 export default function SearchBar() {
   const { setDestination } = useContext(DestinationContext);
@@ -12,9 +12,11 @@ export default function SearchBar() {
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
 
-    setDestination((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_DESTINATION);
+    setDestination({
+      coordinates: await getLatLng(results[0]),
+      address: parseAddressComponents(results[0].address_components)
+    });
     setSearchAddress(value);
   };
 

@@ -11,44 +11,39 @@ import {
   OriginContext,
   UserSettingsContext
 } from "../js/Context";
-import { geocodeByAddress } from 'react-places-autocomplete';
 import Routing from "./Routing";
 
+export function parseAddressComponents(addressComponents) {
+  const address = {};
+  addressComponents.forEach(component => {
+    if (component.types.includes('street_number')) {
+      address.streetNumber = component.long_name;
+    } else if (component.types.includes('route') || component.types.includes('premise')) {
+      address.street = component.long_name;
+    } else if (component.types.includes('locality') || component.types.includes('postal_town')) {
+      address.city = component.long_name;
+    } else if (component.types.includes('country')) {
+      address.country = component.long_name;
+    }
+  });
+  return address;
+}
+
+/**
+ * Get the address from the latlng
+ * Attention: This returns the address in local language e.g. Köln instead of Cologne
+ *
+ * @param latitude - latitude of the address
+ * @param longitude - longitude of the address
+ * @returns {Promise<{}|null>} - returns an object with the address
+ */
+
 export async function getAddressByCoordinates(latitude, longitude) {
-  let results;
-  try {
-    results = await geocodeByAddress(`${latitude}, ${longitude}`);
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  let results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
+    .then(response => response.json())
+    .then(data => data.results);
 
-  let address = {};
-
-  for (let i = 0; i < results[0].address_components.length; i++) {
-    //Country
-    if (results[0].address_components[i].types[0] === 'country') {
-      address.country = results[0].address_components[i].long_name;
-    }
-    //City
-    if (
-      results[0].address_components[i].types[0] === 'locality' ||
-      results[0].address_components[i].types[0] === 'postal_town'
-    ) {
-      address.city = results[0].address_components[i].long_name;
-    }
-    //Street
-    if (
-      results[0].address_components[i].types[0] === 'route' ||
-      results[0].address_components[i].types[0] === 'premise'
-    ) {
-      address.street = results[0].address_components[i].long_name;
-    }
-    //Street number
-    if (results[0].address_components[i].types[0] === 'street_number') {
-      address.streetNumber = results[0].address_components[i].long_name;
-    }
-  }
+  const address = parseAddressComponents(results[0].address_components);
 
   if (address.country && address.city) {
     return address;
