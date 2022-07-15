@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { DEFAULT_DESTINATION, DestinationContext, OriginContext } from "../js/Context";
+import { DEFAULT_DESTINATION, DEFAULT_ORIGIN, DestinationContext, OriginContext } from "../js/Context";
 import { getObjectByCoordinates } from './Maps';
 
 
