@@ -3,6 +3,7 @@ import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { DEFAULT_DESTINATION, DEFAULT_ORIGIN, DestinationContext, OriginContext } from "../js/Context";
 import { getObjectByCoordinates } from './Maps';
+import PropTypes from "prop-types";
 
 
 export default function Searchbar() {
@@ -32,6 +33,14 @@ export default function Searchbar() {
 }
 
 function SearchbarElement({ handleSelect, placeholder }) {
+  SearchbarElement.propTypes = {
+    handleSelect: PropTypes.func.isRequired,
+    placeholder: PropTypes.string
+  }
+  SearchbarElement.defaultProps = {
+    placeholder: "Type address"
+  }
+
   //this way the global address only gets set when the user makes a selection
   const [searchAddress, setSearchAddress] = useState('');
 
