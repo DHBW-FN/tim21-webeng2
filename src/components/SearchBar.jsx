@@ -1,22 +1,48 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { DEFAULT_DESTINATION, DestinationContext } from '../js/Context';
+import { DEFAULT_DESTINATION, DEFAULT_ORIGIN, DestinationContext, OriginContext } from "../js/Context";
 import { getObjectByCoordinates } from './Maps';
+import PropTypes from "prop-types";
 
-export default function SearchBar() {
+
+export default function Searchbar() {
   const { setDestination } = useContext(DestinationContext);
+  const { setOrigin } = useContext(OriginContext);
 
-  //this way the global address only gets set when the user makes a selection
-  const [searchAddress, setSearchAddress] = useState('');
+  const originHandleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
 
-  const handleSelect = async (value) => {
+    setOrigin((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_ORIGIN);
+  };
+
+  const destinationHandleSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
 
     setDestination((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_DESTINATION);
-    setSearchAddress(value);
   };
+
+  return(
+    <div className="searchbar">
+      <SearchbarElement handleSelect={originHandleSelect} placeholder="Type origin address"/>
+      <SearchbarElement handleSelect={destinationHandleSelect} placeholder="Type destination address"/>
+    </div>
+  )
+}
+
+function SearchbarElement({ handleSelect, placeholder }) {
+  SearchbarElement.propTypes = {
+    handleSelect: PropTypes.func.isRequired,
+    placeholder: PropTypes.string
+  }
+  SearchbarElement.defaultProps = {
+    placeholder: "Type address"
+  }
+
+  //this way the global address only gets set when the user makes a selection
+  const [searchAddress, setSearchAddress] = useState('');
 
   return (
     <>
@@ -24,10 +50,13 @@ export default function SearchBar() {
         <PlacesAutocomplete
           value={searchAddress}
           onChange={setSearchAddress}
-          onSelect={handleSelect}>
+          onSelect={(value) => {
+            handleSelect(value);
+            setSearchAddress(value);
+          }}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div id="innerSearchdiv">
-              <input id="searchInput" {...getInputProps({ placeholder: 'Type address ...' })} />
+            <div>
+              <input id="searchInput" {...getInputProps({ placeholder: placeholder })} />
               <div id="autocompletion-examples">
                 {loading ? <div className="loading">...loading</div> : null}
 
@@ -37,8 +66,8 @@ export default function SearchBar() {
                   };
                   return (
                     <div className="suggestions"
-                      key={suggestion.placeId}
-                      {...getSuggestionItemProps(suggestion, { style })}>
+                         key={suggestion.placeId}
+                         {...getSuggestionItemProps(suggestion, { style })}>
                       {suggestion.description}
                     </div>
                   );
