@@ -5,6 +5,7 @@ import '../css/routing.css';
 import { routingControl } from '../components/Routing';
 
 export function setRoutingDestination(start, end) {
+  routingControl.setWaypoints([]);
   routingControl.spliceWaypoints(0, 1, start); // -> Start LatLng
   routingControl.spliceWaypoints(1, 1, end); // -> Target LatLng
 }
