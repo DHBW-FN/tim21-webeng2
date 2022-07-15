@@ -37,7 +37,6 @@ export function parseAddressComponents(addressComponents) {
  * @param longitude - longitude of the address
  * @returns {Promise<{}|null>} - returns an object with the address
  */
-
 export async function getAddressByCoordinates(latitude, longitude) {
   let results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
     .then(response => response.json())
