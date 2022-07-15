@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useContext } from 'react';
 import { Sheet, BlockTitle, Fab, f7, Button, Icon } from 'framework7-react';
 import Framework7 from 'framework7';
