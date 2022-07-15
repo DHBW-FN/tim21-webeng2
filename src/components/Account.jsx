@@ -1,8 +1,15 @@
+/**
+ * The Account component is used to display the account information.
+ */
 import { useContext, useEffect } from "react";
 import { BlockTitle, List, ListItem, Page, Toggle } from "framework7-react";
 import { UserSettingsContext } from "../js/Context";
 
-
+/**
+ * Generates the account page.
+ *
+ * @returns {JSX.Element} - The account page.
+ */
 export default function Account() {
   const { userSettings, setUserSettings } = useContext(UserSettingsContext);
 
@@ -10,7 +17,13 @@ export default function Account() {
     localStorage.setItem("userSettings", JSON.stringify(userSettings));
   }, [userSettings]);
 
-  function getSetting(key) {
+  /**
+   * Get the html code for the setting
+   *
+   * @param key - the key of the setting
+   * @returns {JSX.Element} - the html code for the setting
+   */
+  function getSettingComponent(key) {
     console.log("getSetting: " + key);
     switch (typeof userSettings[key].value) {
       case "boolean":
@@ -32,7 +45,7 @@ export default function Account() {
       </BlockTitle>
       <List simpleList>
         {Object.keys(userSettings).map((key) => {
-          return getSetting(key);
+          return getSettingComponent(key);
         })}
       </List>
     </Page>
