@@ -13,7 +13,7 @@ export async function getWikipediaByCity(city) {
   )
     .then((response) => response.json())
     .then((data) => data.query.pages[Object.keys(data.query.pages)[0]].extract);
-  return (await wiki) || DEFAULT_WIKI;
+  return await wiki || DEFAULT_WIKI;
 }
 
 export default function WikiBox() {
