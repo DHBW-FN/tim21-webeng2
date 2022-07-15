@@ -36,7 +36,8 @@ export const DEFAULT_WIKI = "No Wikipedia found for this destination :(";
 export const DEFAULT_USER_SETTINGS = {
   language: {
     name: 'Language',
-    value: 'en'
+    value: 'en',
+    options: ["en"]
   },
   showRouting: {
     name: 'Show routing',
