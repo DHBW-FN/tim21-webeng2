@@ -13,3 +13,11 @@
 .wikibox-sheet {
   height: 100%;
 }
+
+.light {
+  background-color: white;
+}
+
+.dark {
+  background-color: black;
+}

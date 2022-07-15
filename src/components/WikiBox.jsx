@@ -1,10 +1,15 @@
-import React, { useContext } from 'react';
+import React, {useContext, useState} from 'react';
 import { Sheet, BlockTitle, Fab, f7, Button, Icon } from 'framework7-react';
 import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
 import { DEFAULT_WIKI, DestinationContext, UserSettingsContext } from '../js/Context';
+import {createContext} from "react";
+
+export const ThemeContext = createContext(null);
+
+
 
 export async function getWikipediaByCity(city) {
   let wiki = fetch(
@@ -18,6 +23,11 @@ export async function getWikipediaByCity(city) {
 export default function WikiBox() {
   const { destination, setDestination } = useContext(DestinationContext);
   const { userSettings, setUserSettings } = useContext(UserSettingsContext);
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
 
   let sheetProps = {
     className: 'wikibox-sheet',
@@ -43,42 +53,47 @@ export default function WikiBox() {
   }
 
   return (
-    <>
+      <ThemeContext.Provider value={{theme, toggleTheme}}>
+
+      <>
       <Fab
         position="center-top"
         id="debug-fab-open-wikibox"
         text="Press to show info"
         onClick={openWikibox}></Fab>
       <Sheet {...sheetProps}>
-        <div className="sheet-modal-inner">
-          <div className="sheet-modal-swipe-step" id="wikibox-modal-city">
-            <div className="display-flex padding justify-content-space-between align-items-center" id="wikibox-header">
-              <h1>{destination.address.city}</h1>
-              <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city} onClick={startNavigation} >
-                <Icon
-                  id="navigateIcon"
-                  material="directions"
-                  size={$('#navigateButton').height()}
-                />
-              </Button>
+        <div  className={theme}>
+          <div className="sheet-modal-inner">
+            <div className="sheet-modal-swipe-step" id="wikibox-modal-city">
+              <div className="display-flex padding justify-content-space-between align-items-center" id="wikibox-header">
+                <h1>{destination.address.city}</h1>
+                <Button id="navigateButton" tooltip={'Navigate to ' + destination.address.city} onClick={startNavigation} >
+                  <Icon
+                    id="navigateIcon"
+                    material="directions"
+                    size={$('#navigateButton').height()}
+                  />
+                </Button>
+              </div>
             </div>
-          </div>
-          <div
-            className="page-content"
-            id="wikibox-page-content"
-            style={{ maxHeight: window.innerHeight - $('#wikibox-modal-city').height()}}>
-            <div className="padding-horizontal padding-bottom">
-              {!Framework7.device.desktop ? (
-                <div className="margin-top text-align-center">Swipe up for more details</div>
-              ) : null}
+            <div
+              className="page-content"
+              id="wikibox-page-content"
+              style={{ maxHeight: window.innerHeight - $('#wikibox-modal-city').height()}}>
+              <div className="padding-horizontal padding-bottom">
+                {!Framework7.device.desktop ? (
+                  <div className="margin-top text-align-center">Swipe up for more details</div>
+                ) : null}
+              </div>
+              <BlockTitle medium className="margin-top">
+                Wiki
+              </BlockTitle>
+              <p>{destination.wikipedia}</p>
             </div>
-            <BlockTitle medium className="margin-top">
-              Wiki
-            </BlockTitle>
-            <p>{destination.wikipedia}</p>
           </div>
         </div>
       </Sheet>
     </>
+      </ThemeContext.Provider>
   );
 }
