@@ -9,7 +9,7 @@ export const routingControl = L.Routing.control({
   draggableWaypoints: false,
   routeWhileDragging: false,
   autoRoute: true,
-  fitBounds: false,
+  fitSelectedRoutes: 'smart',
   createMarker: function (i, wp) {
     return L.marker(wp.latLng, {
       draggable: false,

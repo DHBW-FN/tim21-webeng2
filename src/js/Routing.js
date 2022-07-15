@@ -8,3 +8,8 @@ export function setRoutingDestination(start, end) {
   routingControl.spliceWaypoints(0, 1, start); // -> Start LatLng
   routingControl.spliceWaypoints(1, 1, end); // -> Target LatLng
 }
+
+//experimental & untested
+export function removeRoute() {
+  L.Routing.removeControl(routingControl);
+}
