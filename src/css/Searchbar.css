@@ -1,18 +1,17 @@
-.searchElement {
+.searchbar {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  --f7-searchbar-in-page-content-margin: 2rem;
+  --f7-searchbar-in-page-content-box-shadow: none;
   position: absolute;
   z-index: 10000;
-  width: 25vw;
-  vertical-align: middle;
-  background-color: white;
-  margin: 2rem;
-  margin-top: 6rem;
+  width: 25vw !important;
+  background: none;
 }
 
-#innerSearchdiv {
-  width: 100%;
-  margin: 0;
+.searchElement {
+  margin: 0.5rem;
+  background: white;
 }
 
 #searchInput {
@@ -37,15 +36,8 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .searchElement {
-    min-width: 90%;
-    justify-content: center;
-    align-content: center;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-
-  #searchInput {
+  .searchbar {
+    --f7-searchbar-in-page-content-margin: 5%;
     min-width: 90%;
   }
 }

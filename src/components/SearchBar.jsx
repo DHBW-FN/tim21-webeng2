@@ -37,7 +37,7 @@ function DestinationSearchBar() {
           onChange={setSearchAddress}
           onSelect={handleSelect}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div id="innerSearchdiv">
+            <div>
               <input id="searchInput" {...getInputProps({ placeholder: 'Type destination address ...' })} />
               <div id="autocompletion-examples">
                 {loading ? <div className="loading">...loading</div> : null}
@@ -85,7 +85,7 @@ function OriginSearchBar() {
           onChange={setSearchAddress}
           onSelect={handleSelect}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div id="innerSearchdiv">
+            <div>
               <input id="searchInput" {...getInputProps({ placeholder: 'Type start address ...' })} />
               <div id="autocompletion-examples">
                 {loading ? <div className="loading">...loading</div> : null}
