@@ -1,6 +1,7 @@
 .searchbar {
   display: flex;
   flex-direction: column;
+
   --f7-searchbar-in-page-content-margin: 2rem;
   --f7-searchbar-in-page-content-box-shadow: none;
   position: absolute;
