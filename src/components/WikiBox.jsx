@@ -34,7 +34,7 @@ export default function WikiBox() {
 
   async function startNavigation() {
     f7.sheet.close('.wikibox-sheet');
-    setUserSettings({ ...userSettings, showRouting: true });
+    setUserSettings({ ...userSettings, showRouting: {...userSettings.showRouting, value: true}});
   }
 
   async function openWikibox() {

@@ -180,7 +180,7 @@ export default function Map() {
           <ZoomControl position="bottomleft" />
           <EventHandler />
           <FlyToAddress />
-          {userSettings.showRouting ? <Routing />: null}
+          {userSettings.showRouting.value ? <Routing />: null}
         </MapContainer>
       </PageContent>
     </>
