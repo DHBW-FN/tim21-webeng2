@@ -28,7 +28,7 @@ export default function Account() {
   return (
     <Page>
       <BlockTitle>
-        <h1>Account</h1>
+        <h1>Settings</h1>
       </BlockTitle>
       <List simpleList>
         {Object.keys(userSettings).map((key) => {
