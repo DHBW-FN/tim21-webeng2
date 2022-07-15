@@ -1,7 +1,7 @@
 /**
  * The Account component is used to display the account information.
  */
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BlockTitle, List, ListItem, Page, Toggle } from 'framework7-react';
 import { UserSettingsContext } from '../js/Context';
 
