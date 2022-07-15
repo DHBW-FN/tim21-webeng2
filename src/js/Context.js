@@ -33,3 +33,8 @@ export const DEFAULT_ORIGIN = {
   }
 };
 export const DEFAULT_WIKI = "No Wikipedia found for this destination :(";
+export const DEFAULT_USER_SETTINGS = {
+  language: 'en',
+  showRouting: false,
+  darkMode: false
+}
