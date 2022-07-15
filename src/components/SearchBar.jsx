@@ -6,87 +6,48 @@ import { getObjectByCoordinates } from './Maps';
 
 
 export default function Searchbar() {
-  return(
-    <div className="searchbar">
-      <OriginSearchBar />
-      <DestinationSearchBar />
-    </div>
-  )
-}
-
-
-function DestinationSearchBar() {
   const { setDestination } = useContext(DestinationContext);
-
-  //this way the global address only gets set when the user makes a selection
-  const [searchAddress, setSearchAddress] = useState('');
-
-  const handleSelect = async (value) => {
-    const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
-
-    setDestination((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_DESTINATION);
-    setSearchAddress(value);
-  };
-
-  return (
-    <>
-      <div className="searchElement" id='destinationSearchbar'>
-        <PlacesAutocomplete
-          value={searchAddress}
-          onChange={setSearchAddress}
-          onSelect={handleSelect}>
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
-              <input id="searchInput" {...getInputProps({ placeholder: 'Type destination address ...' })} />
-              <div id="autocompletion-examples">
-                {loading ? <div className="loading">...loading</div> : null}
-
-                {suggestions.map((suggestion) => {
-                  const style = {
-                    backgroundColor: suggestion.active ? '#C9C9C9' : '#fff'
-                  };
-                  return (
-                    <div className="suggestions"
-                      key={suggestion.placeId}
-                      {...getSuggestionItemProps(suggestion, { style })}>
-                      {suggestion.description}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </PlacesAutocomplete>
-      </div>
-    </>
-  );
-}
-
-function OriginSearchBar() {
   const { setOrigin } = useContext(OriginContext);
 
-  //this way the global address only gets set when the user makes a selection
-  const [searchAddress, setSearchAddress] = useState('');
-
-  const handleSelect = async (value) => {
+  const originHandleSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
 
     setOrigin((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_ORIGIN);
-    setSearchAddress(value);
   };
+
+  const destinationHandleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+
+    setDestination((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_DESTINATION);
+  };
+
+  return(
+    <div className="searchbar">
+      <SearchbarElement handleSelect={originHandleSelect} placeholder="Type origin address"/>
+      <SearchbarElement handleSelect={destinationHandleSelect} placeholder="Type destination address"/>
+    </div>
+  )
+}
+
+function SearchbarElement({ handleSelect, placeholder }) {
+  //this way the global address only gets set when the user makes a selection
+  const [searchAddress, setSearchAddress] = useState('');
 
   return (
     <>
-      <div className="searchElement" id='originSearchbar'>
+      <div className="searchElement">
         <PlacesAutocomplete
           value={searchAddress}
           onChange={setSearchAddress}
-          onSelect={handleSelect}>
+          onSelect={(value) => {
+            handleSelect(value);
+            setSearchAddress(value);
+          }}>
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <input id="searchInput" {...getInputProps({ placeholder: 'Type start address ...' })} />
+              <input id="searchInput" {...getInputProps({ placeholder: placeholder })} />
               <div id="autocompletion-examples">
                 {loading ? <div className="loading">...loading</div> : null}
 
