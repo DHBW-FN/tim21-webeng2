@@ -24,7 +24,6 @@ export default function Account() {
    * @returns {JSX.Element} - the html code for the setting
    */
   function getSettingComponent(key) {
-    console.log("getSetting: " + key);
     switch (typeof userSettings[key].value) {
       case "boolean":
         return (
