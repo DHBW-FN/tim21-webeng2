@@ -21,7 +21,7 @@ export default function Routing() {
   const { origin } = useContext(OriginContext);
   const map = useMap();
   if (!map) return;
-  routingControl.spliceWaypoints(0, 1, L.latLng(origin.coordinates.lat, origin.coordinates.lng)); // -> Start LatLng
+  routingControl.spliceWaypoints(0, 1, origin.coordinates); // -> Start LatLng
   routingControl.spliceWaypoints(1, 1, L.latLng(destination.coordinates.lat, destination.coordinates.lng)); // -> Target LatLng
   routingControl.addTo(map);
   return null;

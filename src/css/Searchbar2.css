@@ -1,4 +1,4 @@
-.searchElement {
+.searchElement2 {
   display: flex;
   justify-content: flex-start;
   position: absolute;
@@ -7,7 +7,6 @@
   vertical-align: middle;
   background-color: white;
   margin: 2rem;
-  margin-top: 6rem;
 }
 
 #innerSearchdiv {
@@ -22,30 +21,13 @@
   z-index: 11000;
 }
 
-.loading {
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  margin-left: 1rem;
-}
-
-.suggestions {
-  padding-top: 0.3rem;
-  padding-bottom: 0.3rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  border-top: 1px solid grey;
-}
 
 @media only screen and (max-width: 768px) {
-  .searchElement {
+  .searchElement2 {
     min-width: 90%;
     justify-content: center;
     align-content: center;
     margin-left: 5%;
     margin-right: 5%;
-  }
-
-  #searchInput {
-    min-width: 90%;
   }
 }

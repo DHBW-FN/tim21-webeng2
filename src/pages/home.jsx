@@ -20,6 +20,7 @@ import WikiBox from '../components/WikiBox';
 import History from '../components/History';
 import Map from "../components/Maps";
 import SearchBar from '../components/SearchBar';
+import SearchBar2 from '../components/SearchBar2';
 import '../css/app.css';
 import '../css/home.css';
 import Account from "../components/Account";
@@ -72,6 +73,7 @@ const HomePage = () => {
 
     {/* Page content */}
     <SearchBar></SearchBar>
+    <SearchBar2 />
           <Toolbar tabbar bottom className='toolbar'>
           <Button panelOpen="left" className='toolbutton'><Icon f7="memories" className='toolicon'></Icon></Button>
           <Button className='toolbutton'> <Icon f7="map" className='toolicon'></Icon></Button>
