@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { DestinationContext, OriginContext } from "../js/Context";
+import { DestinationContext, OriginContext, CenterLocationContext } from "../js/Context";
 import PropTypes from "prop-types";
 import { parseAddressComponents } from "./Maps";
 import { setRoutingWaypoint } from "./Routing";
@@ -10,26 +10,29 @@ import { setRoutingWaypoint } from "./Routing";
 export default function Searchbar() {
   const { setDestination } = useContext(DestinationContext);
   const { setOrigin } = useContext(OriginContext);
+  const { setCenterLocation } = useContext(CenterLocationContext);
 
   const originHandleSelect = async (value) => {
     const results = await geocodeByAddress(value);
 
-    setOrigin({
+    const origin = {
       coordinates: await getLatLng(results[0]),
       address: parseAddressComponents(results[0].address_components)
-    });
-
+    };
+    setOrigin(origin);
+    setCenterLocation(origin);
     setRoutingWaypoint(await getLatLng(results[0]))
   };
 
   const destinationHandleSelect = async (value) => {
     const results = await geocodeByAddress(value);
 
-    setDestination({
+    const destination = {
       coordinates: await getLatLng(results[0]),
       address: parseAddressComponents(results[0].address_components)
-    });
-
+    };
+    setDestination(destination);
+    setCenterLocation(destination);
     setRoutingWaypoint(await getLatLng(results[0]))
   };
 
