@@ -5,7 +5,7 @@ import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
 import { DEFAULT_WIKI, DestinationContext, OriginContext } from '../js/Context';
-import { setRoutingDestination } from '../js/Routing';
+import { setRoutingOriginDestination } from '../js/Routing';
 
 export async function getWikipediaByCity(city) {
   return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&exsentences=10&titles=${city}`)
@@ -34,7 +34,7 @@ export default function WikiBox() {
 
   async function startNavigation() {
     f7.sheet.close('.wikibox-sheet');
-    setRoutingDestination(origin.coordinates, destination.coordinates);
+    setRoutingOriginDestination(origin.coordinates, destination.coordinates);
   }
 
   async function openWikibox() {
