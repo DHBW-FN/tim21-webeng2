@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { DEFAULT_DESTINATION, DEFAULT_ORIGIN, DestinationContext, OriginContext } from "../js/Context";
-import { getObjectByCoordinates } from './Maps';
+import { DestinationContext, OriginContext } from "../js/Context";
 import PropTypes from "prop-types";
+import { parseAddressComponents } from "./Maps";
 
 
 export default function Searchbar() {
@@ -14,14 +14,19 @@ export default function Searchbar() {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
 
-    setOrigin((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_ORIGIN);
+    setOrigin({
+      coordinates: await getLatLng(results[0]),
+      address: parseAddressComponents(results[0].address_components)
+    });
   };
 
   const destinationHandleSelect = async (value) => {
     const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
 
-    setDestination((await getObjectByCoordinates(latLng.lat, latLng.lng)) || DEFAULT_DESTINATION);
+    setDestination({
+      coordinates: await getLatLng(results[0]),
+      address: parseAddressComponents(results[0].address_components)
+    });
   };
 
   return(
