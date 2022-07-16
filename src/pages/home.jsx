@@ -14,6 +14,7 @@ import {
   DestinationContext,
   UserSettingsContext,
   OriginContext,
+  CenterLocationContext,
   DEFAULT_DESTINATION, DEFAULT_USER_SETTINGS
 } from "../js/Context";
 import WikiBox from '../components/WikiBox';
@@ -54,10 +55,12 @@ const HomePage = () => {
   const [history, setHistory] = useState([]);
   const [destination, setDestination] = useState(DEFAULT_DESTINATION);
   const [origin, setOrigin] = useState({});
+  const [centerLocation, setCenterLocation] = useState(DEFAULT_DESTINATION);
 
 
 
   return (
+  <CenterLocationContext.Provider value={{centerLocation, setCenterLocation}} >
   <UserSettingsContext.Provider value={{userSettings, setUserSettings}}>
   <AddressContext.Provider value={{address, setAddress}}>
   <HistoryArray.Provider value={{history, setHistory}}>
@@ -99,5 +102,6 @@ const HomePage = () => {
   </HistoryArray.Provider>
   </AddressContext.Provider>
   </UserSettingsContext.Provider>
+  </CenterLocationContext.Provider>
 )};
 export default HomePage;
