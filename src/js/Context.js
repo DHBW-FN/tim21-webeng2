@@ -39,10 +39,6 @@ export const DEFAULT_USER_SETTINGS = {
     value: 'en',
     options: ["en"]
   },
-  showRouting: {
-    name: 'Show routing',
-    value: false
-  },
   darkMode: {
     name: 'Dark Mode',
     value: false,
