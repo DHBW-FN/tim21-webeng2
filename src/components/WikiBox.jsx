@@ -16,7 +16,7 @@ export async function getWikipediaByCity(city) {
 }
 
 export default function WikiBox() {
-  const { destination, setDestination } = useContext(DestinationContext);
+  const { destination } = useContext(DestinationContext);
   const { origin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
 
@@ -29,8 +29,8 @@ export default function WikiBox() {
     closeByBackdropClick: true,
     closeOnEscape: true,
     onSheetOpen: async () => {
-      setDestination({
-        ...destination, wikipedia: await getWikipediaByCity(destination.address.city)
+      setCenterLocation({
+        ...centerLocation, wikipedia: await getWikipediaByCity(centerLocation.address.city)
       });
     }
   };
