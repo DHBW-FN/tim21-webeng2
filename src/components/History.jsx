@@ -1,14 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../css/History.css';
-import { HistoryArray, DestinationContext } from '../js/Context';
+import { DestinationContext, CenterLocationContext } from '../js/Context';
 import { List, ListItem, BlockTitle, Button, Icon } from 'framework7-react';
+import { setRoutingWaypoint } from './Routing';
 
 export default function History() {
-  const { history, setHistory } = useContext(HistoryArray);
+  const [ history, setHistory ] = useState([]);
   const { destination, setDestination } = useContext(DestinationContext);
+  const { setCenterLocation } = useContext(CenterLocationContext);
 
   function handleClick(hist) {
+    setCenterLocation(hist);
     setDestination(hist);
+    setRoutingWaypoint(hist.coordinates);
   }
 
   useEffect(() => {
