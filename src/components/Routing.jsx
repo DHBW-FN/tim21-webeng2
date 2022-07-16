@@ -3,6 +3,8 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 import '../css/routing.css';
 import { useMap } from 'react-leaflet';
+import {f7} from "framework7-react";
+import {$} from "dom7";
 
 export const routingControl = L.Routing.control({
   waypoints: [],
@@ -22,6 +24,7 @@ export const routingControl = L.Routing.control({
         shadowAnchor: [12, 41]
       })
     }).on('click', function (e) {
+      f7.sheet.open($('.wikibox-sheet'));
       if (e.originalEvent.ctrlKey) {
         this.remove();
       }
