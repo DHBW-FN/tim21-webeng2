@@ -4,6 +4,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 import { DestinationContext, OriginContext } from "../js/Context";
 import PropTypes from "prop-types";
 import { parseAddressComponents } from "./Maps";
+import { setRoutingWaypoint } from "./Routing";
 
 
 export default function Searchbar() {
@@ -12,12 +13,13 @@ export default function Searchbar() {
 
   const originHandleSelect = async (value) => {
     const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
 
     setOrigin({
       coordinates: await getLatLng(results[0]),
       address: parseAddressComponents(results[0].address_components)
     });
+
+    setRoutingWaypoint(await getLatLng(results[0]))
   };
 
   const destinationHandleSelect = async (value) => {
@@ -27,6 +29,8 @@ export default function Searchbar() {
       coordinates: await getLatLng(results[0]),
       address: parseAddressComponents(results[0].address_components)
     });
+
+    setRoutingWaypoint(await getLatLng(results[0]))
   };
 
   return(

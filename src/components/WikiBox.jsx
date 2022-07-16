@@ -5,7 +5,7 @@ import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
 import { DEFAULT_WIKI, DestinationContext, OriginContext } from '../js/Context';
-import { setRoutingOriginDestination } from '../js/Routing';
+import { setRoutingOriginDestination } from "./Routing";
 
 export async function getWikipediaByCity(city) {
   return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&exsentences=10&titles=${city}`)
