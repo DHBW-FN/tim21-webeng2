@@ -8,12 +8,11 @@ import { DEFAULT_WIKI, DestinationContext, OriginContext } from '../js/Context';
 import { setRoutingDestination } from '../js/Routing';
 
 export async function getWikipediaByCity(city) {
-  let wiki = fetch(
-    `https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${city}`
-  )
-    .then((response) => response.json())
-    .then((data) => data.query.pages[Object.keys(data.query.pages)[0]].extract);
-  return await wiki || DEFAULT_WIKI;
+  return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&exsentences=10&titles=${city}`)
+    .then(response => response.json())
+    .then(json => {
+      return json.query.pages[Object.keys(json.query.pages)[0]].extract || DEFAULT_WIKI;
+    })
 }
 
 export default function WikiBox() {
