@@ -6,6 +6,17 @@ import { useMap } from 'react-leaflet';
 import {f7} from "framework7-react";
 import {$} from "dom7";
 
+
+export function setRoutingOriginDestination(start, end) {
+  routingControl.setWaypoints([]);
+  routingControl.spliceWaypoints(0, 1, start); // -> Start LatLng
+  routingControl.spliceWaypoints(1, 1, end); // -> Target LatLng
+}
+
+export function setRoutingWaypoint(coordinates) {
+  routingControl.setWaypoints([coordinates]);
+}
+
 export const routingControl = L.Routing.control({
   waypoints: [],
   draggableWaypoints: false,
@@ -24,10 +35,12 @@ export const routingControl = L.Routing.control({
         shadowAnchor: [12, 41]
       })
     }).on('click', function (e) {
-      f7.sheet.open($('.wikibox-sheet'));
       if (e.originalEvent.ctrlKey) {
         this.remove();
+        return;
       }
+
+      f7.sheet.open($('.wikibox-sheet'));
     });
   }
 });

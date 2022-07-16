@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl, Marker} from 'react-leaflet';
+import {MapContainer, TileLayer, useMapEvents, useMap, ZoomControl} from 'react-leaflet';
 import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
@@ -11,17 +11,6 @@ import {
   OriginContext
 } from "../js/Context";
 import Routing from "./Routing";
-import {$} from "dom7";
-
-let markerIcon = L.icon({
-  iconUrl:
-      'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-  shadowAnchor: [12, 41]
-})
 
 export function parseAddressComponents(addressComponents) {
   const address = {};
@@ -164,11 +153,6 @@ export default function Map() {
     } else {
       map.flyTo(origin.coordinates);
     }
-    return <Marker position={destination.coordinates} icon={markerIcon} eventHandlers={{click: openWikiBox}}/>;
-  }
-
-  function openWikiBox() {
-    f7.sheet.open($('.wikibox-sheet'));
   }
 
   return (
