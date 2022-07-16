@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Sheet, BlockTitle, Fab, f7, Button, Icon } from 'framework7-react';
+import { Sheet, BlockTitle, f7, Button, Icon } from 'framework7-react';
 import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
@@ -43,18 +43,8 @@ export default function WikiBox() {
     setRoutingOriginDestination(origin.coordinates, destination.coordinates);
   }
 
-  async function openWikibox() {
-    f7.sheet.open($('.wikibox-sheet'));
-    setCenterLocation({ ...centerLocation, wikipedia: await getWikipediaByCity(centerLocation.address.city) });
-  }
-
   return (
     <>
-      <Fab
-        position="center-top"
-        id="debug-fab-open-wikibox"
-        text="Press to show info"
-        onClick={openWikibox}></Fab>
       <Sheet {...sheetProps}>
         <div className="sheet-modal-inner">
           <div className="sheet-modal-swipe-step" id="wikibox-modal-city">
