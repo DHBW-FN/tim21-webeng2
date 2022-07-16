@@ -16,7 +16,7 @@ export async function getWikipediaByCity(city) {
 }
 
 export default function WikiBox() {
-  const { destination, setDestination } = useContext(DestinationContext);
+  const { destination } = useContext(DestinationContext);
   const { origin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
 
@@ -27,7 +27,12 @@ export default function WikiBox() {
     swipeToClose: true,
     swipeToStep: true,
     closeByBackdropClick: true,
-    closeOnEscape: true
+    closeOnEscape: true,
+    onSheetOpen: async () => {
+      setCenterLocation({
+        ...centerLocation, wikipedia: await getWikipediaByCity(centerLocation.address.city)
+      });
+    }
   };
   if (Framework7.device.desktop) {
     sheetProps.swipeToStep = false;
