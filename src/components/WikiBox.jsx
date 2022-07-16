@@ -27,7 +27,12 @@ export default function WikiBox() {
     swipeToClose: true,
     swipeToStep: true,
     closeByBackdropClick: true,
-    closeOnEscape: true
+    closeOnEscape: true,
+    onSheetOpen: async () => {
+      setDestination({
+        ...destination, wikipedia: await getWikipediaByCity(destination.address.city)
+      });
+    }
   };
   if (Framework7.device.desktop) {
     sheetProps.swipeToStep = false;
