@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { MapContainer, TileLayer, useMapEvents, useMap, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, ZoomControl } from 'react-leaflet';
 import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
@@ -11,7 +11,7 @@ import {
   OriginContext,
   CenterLocationContext
 } from "../js/Context";
-import Routing from "./Routing";
+import Routing, { setRoutingWaypoint } from "./Routing";
 
 export function parseAddressComponents(addressComponents) {
   const address = {};
@@ -78,24 +78,9 @@ export async function getObjectByCoordinates(latitude, longitude) {
 }
 
 export default function Map() {
-  const { destination, setDestination } = useContext(DestinationContext);
-  const { origin, setOrigin } = useContext(OriginContext);
+  const { setOrigin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation} = useContext(CenterLocationContext);
 
-  function EventHandler() {
-    const map = useMapEvents({
-      async locationfound(e) {
-        setDestination(
-          await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)
-        );
-        map.flyTo(e.latlng, 15);
-      },
-      locationerror() {
-        alert('Unfortunately, we could not find your location');
-      }
-    });
-    return null;
-  }
 
   /**
    * Run functions on page load
@@ -105,11 +90,13 @@ export default function Map() {
       .then(location => {
       setOrigin(location);
       setCenterLocation(location);
+      setRoutingWaypoint(location.coordinates);
       })
       .catch(error => {
         console.log(error);
         setOrigin(DEFAULT_ORIGIN);
         setCenterLocation(DEFAULT_ORIGIN);
+        setRoutingWaypoint(DEFAULT_ORIGIN.coordinates);
       });
   }, []);
 
@@ -120,7 +107,8 @@ export default function Map() {
     getCurrentLocation()
       .then(location => {
         setOrigin(location);
-        setCenterLocation(location)
+        setCenterLocation(location);
+        setRoutingWaypoint(location.coordinates);
       })
       .catch(error => {
         console.log(error);
@@ -130,6 +118,7 @@ export default function Map() {
         );
         setOrigin(DEFAULT_ORIGIN);
         setCenterLocation(DEFAULT_ORIGIN);
+        setRoutingWaypoint(DEFAULT_ORIGIN.coordinates);
       });
   }
 
@@ -176,7 +165,6 @@ export default function Map() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ZoomControl position="bottomleft" />
-          <EventHandler />
           <FlyToAddress />
           <Routing />
         </MapContainer>
