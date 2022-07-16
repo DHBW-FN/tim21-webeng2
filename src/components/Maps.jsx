@@ -8,8 +8,7 @@ import {
   DEFAULT_DESTINATION,
   DEFAULT_ORIGIN,
   DestinationContext,
-  OriginContext,
-  UserSettingsContext
+  OriginContext
 } from "../js/Context";
 import Routing from "./Routing";
 
@@ -80,7 +79,6 @@ export async function getObjectByCoordinates(latitude, longitude) {
 export default function Map() {
   const { destination, setDestination } = useContext(DestinationContext);
   const { origin, setOrigin } = useContext(OriginContext);
-  const { userSettings } = useContext(UserSettingsContext);
 
   function EventHandler() {
     const map = useMapEvents({
@@ -180,7 +178,7 @@ export default function Map() {
           <ZoomControl position="bottomleft" />
           <EventHandler />
           <FlyToAddress />
-          {userSettings.showRouting.value ? <Routing />: null}
+          <Routing />
         </MapContainer>
       </PageContent>
     </>
