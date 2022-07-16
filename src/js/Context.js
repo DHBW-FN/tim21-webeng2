@@ -7,6 +7,7 @@ export const HistoryArray = createContext({});
 export const DestinationContext = createContext({});
 export const OriginContext = createContext({});
 export const UserSettingsContext = createContext({});
+export const CenterLocationContext = createContext({});
 
 export const DEFAULT_DESTINATION = {
   coordinates: {

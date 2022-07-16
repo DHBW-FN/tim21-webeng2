@@ -8,7 +8,8 @@ import {
   DEFAULT_DESTINATION,
   DEFAULT_ORIGIN,
   DestinationContext,
-  OriginContext
+  OriginContext,
+  CenterLocationContext
 } from "../js/Context";
 import Routing from "./Routing";
 
@@ -79,6 +80,7 @@ export async function getObjectByCoordinates(latitude, longitude) {
 export default function Map() {
   const { destination, setDestination } = useContext(DestinationContext);
   const { origin, setOrigin } = useContext(OriginContext);
+  const { centerLocation, setCenterLocation} = useContext(CenterLocationContext);
 
   function EventHandler() {
     const map = useMapEvents({
@@ -102,12 +104,12 @@ export default function Map() {
     getCurrentLocation()
       .then(location => {
       setOrigin(location);
-      setDestination(location);
+      setCenterLocation(location);
       })
       .catch(error => {
         console.log(error);
         setOrigin(DEFAULT_ORIGIN);
-        setDestination(DEFAULT_DESTINATION);
+        setCenterLocation(DEFAULT_ORIGIN);
       });
   }, []);
 
@@ -118,6 +120,7 @@ export default function Map() {
     getCurrentLocation()
       .then(location => {
         setOrigin(location);
+        setCenterLocation(location)
       })
       .catch(error => {
         console.log(error);
@@ -126,6 +129,7 @@ export default function Map() {
           'Error: Unable to locate'
         );
         setOrigin(DEFAULT_ORIGIN);
+        setCenterLocation(DEFAULT_ORIGIN);
       });
   }
 
@@ -148,11 +152,7 @@ export default function Map() {
 
   function FlyToAddress() {
     const map = useMap();
-    if (destination.coordinates.lat && destination.coordinates.lng) {
-      map.flyTo(destination.coordinates);
-    } else {
-      map.flyTo(origin.coordinates);
-    }
+    map.flyTo(centerLocation.coordinates);
   }
 
   return (

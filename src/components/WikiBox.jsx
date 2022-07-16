@@ -4,7 +4,7 @@ import Framework7 from 'framework7';
 import { $ } from 'dom7';
 import '../css/app.css';
 import '../css/wikibox.css';
-import { DEFAULT_WIKI, DestinationContext, OriginContext } from '../js/Context';
+import { DEFAULT_WIKI, DestinationContext, OriginContext, CenterLocationContext } from '../js/Context';
 import { setRoutingOriginDestination } from "./Routing";
 
 export async function getWikipediaByCity(city) {
@@ -18,6 +18,7 @@ export async function getWikipediaByCity(city) {
 export default function WikiBox() {
   const { destination, setDestination } = useContext(DestinationContext);
   const { origin } = useContext(OriginContext);
+  const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
 
   let sheetProps = {
     className: 'wikibox-sheet',
@@ -39,7 +40,7 @@ export default function WikiBox() {
 
   async function openWikibox() {
     f7.sheet.open($('.wikibox-sheet'));
-    setDestination({ ...destination, wikipedia: await getWikipediaByCity(destination.address.city) });
+    setCenterLocation({ ...centerLocation, wikipedia: await getWikipediaByCity(centerLocation.address.city) });
   }
 
   return (
@@ -53,7 +54,7 @@ export default function WikiBox() {
         <div className="sheet-modal-inner">
           <div className="sheet-modal-swipe-step" id="wikibox-modal-city">
             <div className="display-flex padding justify-content-space-between align-items-center" id="wikibox-header">
-              <h1>{destination.address.city}</h1>
+              <h1>{centerLocation.address.city}</h1>
               <Button
                 id="navigateButton"
                 tooltip={'Navigate to ' + destination.address.city}
@@ -78,7 +79,7 @@ export default function WikiBox() {
             <BlockTitle medium className="margin-top">
               Wiki
             </BlockTitle>
-            <p>{destination.wikipedia}</p>
+            <p>{centerLocation.wikipedia}</p>
           </div>
         </div>
       </Sheet>
