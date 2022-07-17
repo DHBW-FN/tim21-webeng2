@@ -88,7 +88,7 @@ export default function WikiBox() {
                 <div className="margin-top text-align-center">Swipe up for more details</div>
               ) : null}
             </div>
-            <BlockTitle medium className="margin-top">
+            <BlockTitle medium className="margin-top no-margin-left">
               Wiki
             </BlockTitle>
             <p>{centerLocation.wikipedia}</p>
