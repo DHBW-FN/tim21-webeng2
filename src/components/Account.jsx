@@ -63,7 +63,7 @@ export default function Account() {
       </BlockTitle>
         <List simpleList>
           <ListItem>
-            <span>&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</span>
+            <span>&copy; <a className="link external" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</span>
           </ListItem>
         </List>
         <BlockTitle>
