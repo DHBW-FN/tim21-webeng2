@@ -4,7 +4,8 @@
 
 .Buttons {
   position: absolute;
-  right: 0;
-  bottom: calc(var(--f7-toolbar-height) * 0.03);
-  height: calc(var(--f7-fab-size) * 3.8);
+  right: 1rem;
+  bottom: 0;
+  width: var(--f7-fab-size);
+  height: calc(var(--f7-fab-size) * 3 + var(--f7-toolbar-height));
 }

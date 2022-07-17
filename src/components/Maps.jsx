@@ -99,7 +99,7 @@ export async function getObjectByCoordinates(latitude, longitude) {
 export default function Map() {
   const { origin, setOrigin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
-  const { destination, setDestination } = useContext(DestinationContext);
+  const { destination } = useContext(DestinationContext);
 
   /**
    * Run functions on page load
@@ -175,10 +175,10 @@ export default function Map() {
   return (
     <>
       <div className='Buttons'>
-      <Fab position="right-top" slot="fixed" id="navi" onClick={startNavigation}>
+      <Fab position="center-top" slot="fixed" id="navi" onClick={startNavigation}>
         <Icon id="navigateIcon" material="directions" />
       </Fab>
-      <Fab position="right-bottom" slot="fixed" id="locateButton" onClick={locate}>
+      <Fab position="center-bottom" slot="fixed" id="locateButton" onClick={locate}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
       </div>
