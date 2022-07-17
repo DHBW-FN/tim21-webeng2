@@ -15,6 +15,11 @@ export default function Account() {
 
   useEffect(() => {
     localStorage.setItem('userSettings', JSON.stringify(userSettings));
+    if (userSettings.darkMode.value) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   }, [userSettings]);
 
   /**
