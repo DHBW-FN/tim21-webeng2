@@ -58,7 +58,7 @@ export default function Account() {
       </BlockTitle>
         <List simpleList>
           <ListItem>
-            <span>&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</span>
+            <span>&copy; <a className="link external" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</span>
           </ListItem>
         </List>
         <BlockTitle>
@@ -66,13 +66,13 @@ export default function Account() {
         </BlockTitle>
         <List simpleList>
           <ListItem>
-            <span><a class="link external" href="https://github.com/DHBW-FN/web-eng-2">Github</a></span>
+            <span><a className="link external" href="https://github.com/DHBW-FN/web-eng-2">Github</a></span>
           </ListItem>
           <ListItem>
-            <span><a class="link external" href="mailto:email@example.com">Mail</a></span>
+            <span><a className="link external" href="mailto:email@example.com">Mail</a></span>
           </ListItem>
           <ListItem>
-            <span><a class="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
+            <span><a className="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
           </ListItem>
         </List>
     </Page>
