@@ -1,50 +1,54 @@
-import React, { useContext } from 'react';
-import { MapContainer, TileLayer, useMapEvents, useMap, ZoomControl } from 'react-leaflet';
+/**
+ * The Maps component is used to display the map.
+ */
+import React, { useContext, useEffect } from 'react';
+import { MapContainer, TileLayer, useMap, ZoomControl } from 'react-leaflet';
 import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
 import { f7, Fab, Icon, PageContent } from 'framework7-react';
-import { DEFAULT_DESTINATION, DestinationContext, UserSettingsContext } from '../js/Context';
-import { geocodeByAddress } from 'react-places-autocomplete';
-import Routing from "./Routing";
+import {
+  DEFAULT_DESTINATION,
+  DEFAULT_ORIGIN,
+  OriginContext,
+  CenterLocationContext
+} from "../js/Context";
+import Routing, { setRoutingWaypoint } from "./Routing";
 
+/**
+ * Parse the addressComponents of the geocoding result to an address object
+ * @param addressComponents - the addressComponents of the geocoding result
+ * @returns {{country: string, city: string, street: string, houseNumber: number}} - the address object
+ */
+export function parseAddressComponents(addressComponents) {
+  const address = {};
+  addressComponents.forEach(component => {
+    if (component.types.includes('street_number')) {
+      address.streetNumber = component.long_name;
+    } else if (component.types.includes('route') || component.types.includes('premise')) {
+      address.street = component.long_name;
+    } else if (component.types.includes('locality') || component.types.includes('postal_town')) {
+      address.city = component.long_name;
+    } else if (component.types.includes('country')) {
+      address.country = component.long_name;
+    }
+  });
+  return address;
+}
+
+/**
+ * Get the address from the latlng
+ *
+ * @param latitude - latitude of the address
+ * @param longitude - longitude of the address
+ * @returns {Promise<{}|null>} - returns an object with the address or null if no address was found
+ */
 export async function getAddressByCoordinates(latitude, longitude) {
-  let results;
-  try {
-    results = await geocodeByAddress(`${latitude}, ${longitude}`);
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  let results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
+    .then(response => response.json())
+    .then(data => data.results);
 
-  console.log(results);
-
-  let address = {};
-
-  for (let i = 0; i < results[0].address_components.length; i++) {
-    //Country
-    if (results[0].address_components[i].types[0] === 'country') {
-      address.country = results[0].address_components[i].long_name;
-    }
-    //City
-    if (
-      results[0].address_components[i].types[0] === 'locality' ||
-      results[0].address_components[i].types[0] === 'postal_town'
-    ) {
-      address.city = results[0].address_components[i].long_name;
-    }
-    //Street
-    if (
-      results[0].address_components[i].types[0] === 'route' ||
-      results[0].address_components[i].types[0] === 'premise'
-    ) {
-      address.street = results[0].address_components[i].long_name;
-    }
-    //Street number
-    if (results[0].address_components[i].types[0] === 'street_number') {
-      address.streetNumber = results[0].address_components[i].long_name;
-    }
-  }
+  const address = parseAddressComponents(results[0].address_components);
 
   if (address.country && address.city) {
     return address;
@@ -56,6 +60,12 @@ export async function getAddressByCoordinates(latitude, longitude) {
   }
 }
 
+/**
+ * Get the location object from the address
+ * @param latitude - latitude of the address
+ * @param longitude - longitude of the address
+ * @returns {Promise<{address: {}, coordinates: {lng, lat}}|{address: {country: string, city: string, streetNumber: string, street: string}, coordinates: {lng: number, lat: number}}>} - returns an object with the address and coordinates or a default address if no address was found
+ */
 export async function getObjectByCoordinates(latitude, longitude) {
   let address = await getAddressByCoordinates(latitude, longitude);
   if (!address) {
@@ -79,30 +89,78 @@ export async function getObjectByCoordinates(latitude, longitude) {
   };
 }
 
+/**
+ * Generates the map page.
+ * @returns {JSX.Element} - The map page.
+ */
 export default function Map() {
-  const { destination, setDestination } = useContext(DestinationContext);
-  const { userSettings } = useContext(UserSettingsContext);
+  const { setOrigin } = useContext(OriginContext);
+  const { centerLocation, setCenterLocation} = useContext(CenterLocationContext);
 
-  function EventHandler() {
-    const map = useMapEvents({
-      async locationfound(e) {
-        setDestination(
-          await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)
+
+  /**
+   * Run functions on page load
+   */
+  useEffect(() => {
+    getCurrentLocation()
+      .then(location => {
+      setOrigin(location);
+      setCenterLocation(location);
+      setRoutingWaypoint(location.coordinates);
+      })
+      .catch(error => {
+        console.log(error);
+        setOrigin(DEFAULT_ORIGIN);
+        setCenterLocation(DEFAULT_ORIGIN);
+        setRoutingWaypoint(DEFAULT_ORIGIN.coordinates);
+      });
+  }, []);
+
+  /**
+   * Locate user
+   */
+  function locate() {
+    getCurrentLocation()
+      .then(location => {
+        setOrigin(location);
+        setCenterLocation(location);
+        setRoutingWaypoint(location.coordinates);
+      })
+      .catch(error => {
+        console.log(error);
+        f7.dialog.alert(
+          'Unfortunately, we could not find your location',
+          'Error: Unable to locate'
         );
-        map.flyTo(e.latlng, 15);
-      },
-      locationerror() {
-        alert('Unfortunately, we could not find your location');
-      }
-    });
-    return null;
+        setOrigin(DEFAULT_ORIGIN);
+        setCenterLocation(DEFAULT_ORIGIN);
+        setRoutingWaypoint(DEFAULT_ORIGIN.coordinates);
+      });
   }
 
+  /**
+   * Get current location of user
+   * @returns {Promise<unknown>} - Promise containing user location object
+   */
+  function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        async position => {
+          resolve(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+        },
+        error => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+  /**
+   * Flies to the centerLocation whenever it changes
+   */
   function FlyToAddress() {
     const map = useMap();
-    if (destination.coordinates.lat && destination.coordinates.lng) {
-      map.flyTo(destination.coordinates);
-    }
+    map.flyTo(centerLocation.coordinates);
   }
 
   return (
@@ -111,17 +169,7 @@ export default function Map() {
         position="right-bottom"
         slot="fixed"
         id="locateButton"
-        onClick={() => {
-          navigator.geolocation.getCurrentPosition(
-            async position => {
-              setDestination(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
-            },
-            error => {
-              console.error(error);
-              f7.dialog.alert('Unfortunately, we could not find your location');
-            }
-          )
-        }}>
+        onClick={locate}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
       <PageContent className="page-content-map">
@@ -136,9 +184,8 @@ export default function Map() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ZoomControl position="bottomleft" />
-          <EventHandler />
           <FlyToAddress />
-          {userSettings.showRouting ? <Routing />: null}
+          <Routing />
         </MapContainer>
       </PageContent>
     </>
