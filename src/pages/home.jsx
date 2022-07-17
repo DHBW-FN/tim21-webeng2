@@ -16,12 +16,17 @@ import '../css/app.css';
 import '../css/home.css';
 import Account from '../components/Account';
 
+/**
+ * Loads the user settings from local storage.
+ * @returns {Object} The user settings or the default settings if none are found.
+ */
 function loadUserSettings() {
   let settings = JSON.parse(localStorage.getItem('userSettings'));
 
+  // If no settings are found, use the default settings.
   if (settings === null) {
     console.log('No user settings found, using default settings');
-    settings = DEFAULT_USER_SETTINGS;
+    return DEFAULT_USER_SETTINGS;
   }
 
   // add default values if missing
@@ -37,7 +42,12 @@ function loadUserSettings() {
   return settings;
 }
 
+/**
+ * Creates the home page.
+ * @returns {JSX.Element} The home page.
+ */
 const HomePage = () => {
+  // Initialize the states and contexts.
   const [userSettings, setUserSettings] = useState(loadUserSettings());
   const [destination, setDestination] = useState(DEFAULT_DESTINATION);
   const [origin, setOrigin] = useState({});
