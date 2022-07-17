@@ -18,7 +18,7 @@ export default function Account() {
   }, [userSettings]);
 
   /**
-   * Get the html code for the setting
+   * Get the component for a setting.
    *
    * @param key - the key of the setting
    * @returns {JSX.Element} - the html code for the setting
