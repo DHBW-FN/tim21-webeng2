@@ -1,25 +1,41 @@
+/**
+ * The History component is used to display the history of the map
+ */
 import React, { useContext, useEffect, useState } from 'react';
 import '../css/History.css';
 import { DestinationContext, CenterLocationContext } from '../js/Context';
 import { List, ListItem, BlockTitle, Button, Icon } from 'framework7-react';
 import { setRoutingWaypoint } from './Routing';
 
+/**
+ * Get the component for the history.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function History() {
   const [ history, setHistory ] = useState([]);
   const { destination, setDestination } = useContext(DestinationContext);
   const { setCenterLocation } = useContext(CenterLocationContext);
 
+  /**
+   * Handle the click of a history item.
+   * @param hist - the clicked history item
+   */
   function handleClick(hist) {
     setCenterLocation(hist);
     setDestination(hist);
     setRoutingWaypoint(hist.coordinates);
   }
 
+  /**
+   * Update the history list when the destination changes.
+   */
   useEffect(() => {
     if (!destination.coordinates || !destination.address.city || !destination.address.country) {
       return;
     }
 
+    // bump the history element to front if it already exists
     for (let i = 0; i < history.length; i++) {
       if (
         history[i].coordinates.lat === destination.coordinates.lat &&
@@ -30,7 +46,7 @@ export default function History() {
       }
     }
 
-    //adding element to history and removing the oldest element if the history is full (more than 10 items)
+    //adding element to history and removing the oldest elements if the history is full (more than 10 items)
     setHistory([destination, ...history.slice(0, 9)]);
   }, [destination]);
 

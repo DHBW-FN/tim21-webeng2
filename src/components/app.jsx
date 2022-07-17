@@ -1,17 +1,11 @@
+/**
+ * The App component is the root of our application.
+ */
 import React from 'react';
-
-import {
-  f7ready,
-  App,
-  View,
-} from 'framework7-react';
-
-
+import { f7ready, App, View } from 'framework7-react';
 import routes from '../js/routes';
 
 export const MyApp = () => {
-
-
   // Framework7 Parameters
   const f7params = {
     name: "Navigator", // App name
@@ -24,17 +18,12 @@ export const MyApp = () => {
   };
 
   f7ready(() => {
-
-
     // Call F7 APIs here
   });
 
   return (
     <App {...f7params}>
-        
-        {/* Your main view, should have "view-main" class */}
-        <View main className="safe-areas" url="/" />
-
+      <View main className="safe-areas" url="/" />
     </App>
   );
 };
