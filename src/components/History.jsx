@@ -13,7 +13,7 @@ import { setRoutingWaypoint } from './Routing';
  * @constructor
  */
 export default function History() {
-  const [ history, setHistory ] = useState([]);
+  const [history, setHistory] = useState([]);
   const { destination, setDestination } = useContext(DestinationContext);
   const { setCenterLocation } = useContext(CenterLocationContext);
 

@@ -4,10 +4,10 @@
 import React, { useContext, useState } from 'react';
 import '../css/Searchbar.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { DestinationContext, OriginContext, CenterLocationContext } from "../js/Context";
-import PropTypes from "prop-types";
-import { parseAddressComponents } from "./Maps";
-import { setRoutingWaypoint } from "./Routing";
+import { DestinationContext, OriginContext, CenterLocationContext } from '../js/Context';
+import PropTypes from 'prop-types';
+import { parseAddressComponents } from './Maps';
+import { setRoutingWaypoint } from './Routing';
 
 /**
  * Generate the component for the searchbar.
@@ -32,7 +32,7 @@ export default function Searchbar() {
     };
     setOrigin(origin);
     setCenterLocation(origin);
-    setRoutingWaypoint(await getLatLng(results[0]))
+    setRoutingWaypoint(await getLatLng(results[0]));
   };
 
   /**
@@ -49,15 +49,18 @@ export default function Searchbar() {
     };
     setDestination(destination);
     setCenterLocation(destination);
-    setRoutingWaypoint(await getLatLng(results[0]))
+    setRoutingWaypoint(await getLatLng(results[0]));
   };
 
-  return(
+  return (
     <div className="searchbars">
-      <SearchbarElement handleSelect={originHandleSelect} placeholder="Type origin address"/>
-      <SearchbarElement handleSelect={destinationHandleSelect} placeholder="Type destination address"/>
+      <SearchbarElement handleSelect={originHandleSelect} placeholder="Type origin address" />
+      <SearchbarElement
+        handleSelect={destinationHandleSelect}
+        placeholder="Type destination address"
+      />
     </div>
-  )
+  );
 }
 
 /**
@@ -70,10 +73,10 @@ function SearchbarElement({ handleSelect, placeholder }) {
   SearchbarElement.propTypes = {
     handleSelect: PropTypes.func.isRequired,
     placeholder: PropTypes.string
-  }
+  };
   SearchbarElement.defaultProps = {
-    placeholder: "Type address"
-  }
+    placeholder: 'Type address'
+  };
 
   //this way the global address only gets set when the user makes a selection
   const [searchAddress, setSearchAddress] = useState('');
@@ -96,9 +99,10 @@ function SearchbarElement({ handleSelect, placeholder }) {
 
                 {suggestions.map((suggestion) => {
                   return (
-                    <div className="suggestions"
-                         key={suggestion.placeId}
-                         {...getSuggestionItemProps(suggestion)}>
+                    <div
+                      className="suggestions"
+                      key={suggestion.placeId}
+                      {...getSuggestionItemProps(suggestion)}>
                       {suggestion.description}
                     </div>
                   );

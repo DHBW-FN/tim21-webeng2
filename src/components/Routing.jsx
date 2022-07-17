@@ -6,8 +6,8 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-routing-machine';
 import '../css/routing.css';
 import { useMap } from 'react-leaflet';
-import {f7} from "framework7-react";
-import {$} from "dom7";
+import { f7 } from 'framework7-react';
+import { $ } from 'dom7';
 
 /**
  * Set the routing origin and destination.
@@ -48,14 +48,16 @@ export const routingControl = L.Routing.control({
         shadowSize: [41, 41],
         shadowAnchor: [12, 41]
       })
-    }).on('click', function (e) {
-      if (e.originalEvent.ctrlKey) {
-        this.remove();
-        return;
-      }
+    })
+      .on('click', function (e) {
+        if (e.originalEvent.ctrlKey) {
+          this.remove();
+          return;
+        }
 
-      f7.sheet.open($('.wikibox-sheet'));
-    }).bindTooltip('Show more information');
+        f7.sheet.open($('.wikibox-sheet'));
+      })
+      .bindTooltip('Show more information');
   }
 });
 
