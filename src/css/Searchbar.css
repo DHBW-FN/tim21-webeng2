@@ -1,13 +1,10 @@
-.searchbar {
+.searchbars {
   display: flex;
   flex-direction: column;
-
-  --f7-searchbar-in-page-content-margin: 2rem;
-  --f7-searchbar-in-page-content-box-shadow: none;
+  margin: 2rem;
   position: absolute;
   z-index: 10000;
-  width: 25vw !important;
-  background: none;
+  width: 25vw;
 }
 
 .searchElement {
@@ -20,6 +17,11 @@
   padding: 1rem;
   height: 3rem;
   z-index: 11000;
+}
+
+.dark #searchInput {
+  background: #333;
+  color: white;
 }
 
 .loading {
@@ -36,9 +38,25 @@
   border-top: 1px solid grey;
 }
 
+.suggestions:hover {
+  background: lightgrey;
+}
+
+.dark #autocompletion-examples {
+  background: #333;
+}
+
+.dark .suggestions {
+  background: #333;
+}
+
+.dark .suggestions:hover {
+  background: grey;
+}
+
 @media only screen and (max-width: 768px) {
-  .searchbar {
-    --f7-searchbar-in-page-content-margin: 5%;
+  .searchbars {
+    margin: 5%;
     min-width: 90%;
   }
 }
