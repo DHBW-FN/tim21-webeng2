@@ -19,6 +19,11 @@
   z-index: 11000;
 }
 
+.dark #searchInput {
+  background: #333;
+  color: white;
+}
+
 .loading {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
