@@ -80,8 +80,8 @@ export default function WikiBox() {
             </div>
           </div>
           <div
-            className="page-content"
-            id="wikibox-page-content"
+            className="wiki-heading"
+            id="wiki-heading"
             style={{ maxHeight: window.innerHeight - $('#wikibox-modal-city').height()}}>
             <div className="padding-horizontal padding-bottom">
               {!Framework7.device.desktop ? (
@@ -91,6 +91,16 @@ export default function WikiBox() {
             <BlockTitle medium className="margin-top">
               Wiki
             </BlockTitle>
+          </div>
+          <div
+            className="page-content"
+            id="wikibox-page-content"
+            style={{ maxHeight: window.innerHeight - $('#wikibox-modal-city').height()}}>
+            <div className="padding-horizontal padding-bottom">
+              {!Framework7.device.desktop ? (
+                <div className="margin-top text-align-center">Swipe up for more details</div>
+              ) : null}
+            </div>
             <p>{centerLocation.wikipedia}</p>
           </div>
         </div>

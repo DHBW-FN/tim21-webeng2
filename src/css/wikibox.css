@@ -2,14 +2,32 @@
   font-size: calc(var(--f7-button-height));
 }
 
-#wikibox-page-content {
-  margin: 0 1.5rem 1rem;
-  text-align: justify;
+#wiki-heading {
+  margin: 2rem;
+  margin-top: -1rem;
+  margin-left: 1rem
 }
 
+#wikibox-page-content {
+  margin-left: 1.8rem;
+  margin-right: 1.8rem;
+  margin-top: -3rem;
+  margin-bottom:1.5rem;
+}
+
+#wikibox-page-content,
 #wikibox-header,
 #wikibox-modal-city,
 .sheet-modal-inner,
 .wikibox-sheet {
   height: 100%;
+  text-align: justify;
+}
+
+.sheet-modal-inner {
+  margin: 0rem;
+}
+
+#wikibox-header {
+  margin-left: 1rem;
 }
