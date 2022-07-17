@@ -53,6 +53,28 @@ export default function Account() {
           return getSettingComponent(key);
         })}
       </List>
+      <BlockTitle>
+        <h1>Attributions</h1>
+      </BlockTitle>
+        <List simpleList>
+          <ListItem>
+            <span>&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</span>
+          </ListItem>
+        </List>
+        <BlockTitle>
+            <h1>Contact</h1>
+        </BlockTitle>
+        <List simpleList>
+          <ListItem>
+            <span><a href="https://github.com/DHBW-FN/web-eng-2">Github</a></span>
+          </ListItem>
+          <ListItem>
+            <span><a href="mailto:email@example.com">Mail</a></span>
+          </ListItem>
+          <ListItem>
+            <span><a href="tel:+44 (11) 7325 7425">Telephone</a></span>
+          </ListItem>
+        </List>
     </Page>
   );
 }
