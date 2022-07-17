@@ -37,7 +37,7 @@ export default function Searchbar() {
   };
 
   return(
-    <div className="searchbar">
+    <div className="searchbars">
       <SearchbarElement handleSelect={originHandleSelect} placeholder="Type origin address"/>
       <SearchbarElement handleSelect={destinationHandleSelect} placeholder="Type destination address"/>
     </div>

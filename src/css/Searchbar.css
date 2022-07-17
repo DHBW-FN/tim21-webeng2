@@ -1,13 +1,11 @@
-.searchbar {
+.searchbars {
   display: flex;
   flex-direction: column;
 
-  --f7-searchbar-in-page-content-margin: 2rem;
-  --f7-searchbar-in-page-content-box-shadow: none;
+  margin: 2rem;
   position: absolute;
   z-index: 10000;
-  width: 25vw !important;
-  background: none;
+  width: 25vw;
 }
 
 .searchElement {
@@ -37,8 +35,8 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .searchbar {
-    --f7-searchbar-in-page-content-margin: 5%;
+  .searchbars {
+    margin: 5%;
     min-width: 90%;
   }
 }
