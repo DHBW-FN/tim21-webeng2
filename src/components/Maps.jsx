@@ -1,5 +1,8 @@
+/**
+ * The Maps component is used to display the map.
+ */
 import React, { useContext, useEffect } from 'react';
-import { MapContainer, TileLayer, useMapEvents, useMap, ZoomControl } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, ZoomControl } from 'react-leaflet';
 import '../css/leaflet.css';
 import '../css/app.css';
 import '../css/maps.css';
@@ -7,14 +10,19 @@ import { f7, Fab, Icon, PageContent } from 'framework7-react';
 import {
   DEFAULT_DESTINATION,
   DEFAULT_ORIGIN,
-  DestinationContext,
-  OriginContext
-} from "../js/Context";
-import Routing from "./Routing";
+  OriginContext,
+  CenterLocationContext
+} from '../js/Context';
+import Routing, { setRoutingWaypoint } from './Routing';
 
+/**
+ * Parse the addressComponents of the geocoding result to an address object
+ * @param addressComponents - the addressComponents of the geocoding result
+ * @returns {{country: string, city: string, street: string, houseNumber: number}} - the address object
+ */
 export function parseAddressComponents(addressComponents) {
   const address = {};
-  addressComponents.forEach(component => {
+  addressComponents.forEach((component) => {
     if (component.types.includes('street_number')) {
       address.streetNumber = component.long_name;
     } else if (component.types.includes('route') || component.types.includes('premise')) {
@@ -30,16 +38,17 @@ export function parseAddressComponents(addressComponents) {
 
 /**
  * Get the address from the latlng
- * Attention: This returns the address in local language e.g. Köln instead of Cologne
  *
  * @param latitude - latitude of the address
  * @param longitude - longitude of the address
- * @returns {Promise<{}|null>} - returns an object with the address
+ * @returns {Promise<{}|null>} - returns an object with the address or null if no address was found
  */
 export async function getAddressByCoordinates(latitude, longitude) {
-  let results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
-    .then(response => response.json())
-    .then(data => data.results);
+  let results = await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`
+  )
+    .then((response) => response.json())
+    .then((data) => data.results);
 
   const address = parseAddressComponents(results[0].address_components);
 
@@ -53,6 +62,12 @@ export async function getAddressByCoordinates(latitude, longitude) {
   }
 }
 
+/**
+ * Get the location object from the address
+ * @param latitude - latitude of the address
+ * @param longitude - longitude of the address
+ * @returns {Promise<{address: {}, coordinates: {lng, lat}}|{address: {country: string, city: string, streetNumber: string, street: string}, coordinates: {lng: number, lat: number}}>} - returns an object with the address and coordinates or a default address if no address was found
+ */
 export async function getObjectByCoordinates(latitude, longitude) {
   let address = await getAddressByCoordinates(latitude, longitude);
   if (!address) {
@@ -76,38 +91,29 @@ export async function getObjectByCoordinates(latitude, longitude) {
   };
 }
 
+/**
+ * Generates the map page.
+ * @returns {JSX.Element} - The map page.
+ */
 export default function Map() {
-  const { destination, setDestination } = useContext(DestinationContext);
-  const { origin, setOrigin } = useContext(OriginContext);
-
-  function EventHandler() {
-    const map = useMapEvents({
-      async locationfound(e) {
-        setDestination(
-          await getObjectByCoordinates(e.latlng.lat, e.latlng.lng)
-        );
-        map.flyTo(e.latlng, 15);
-      },
-      locationerror() {
-        alert('Unfortunately, we could not find your location');
-      }
-    });
-    return null;
-  }
+  const { setOrigin } = useContext(OriginContext);
+  const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
 
   /**
    * Run functions on page load
    */
   useEffect(() => {
     getCurrentLocation()
-      .then(location => {
-      setOrigin(location);
-      setDestination(location);
+      .then((location) => {
+        setOrigin(location);
+        setCenterLocation(location);
+        setRoutingWaypoint(location.coordinates);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setOrigin(DEFAULT_ORIGIN);
-        setDestination(DEFAULT_DESTINATION);
+        setCenterLocation(DEFAULT_ORIGIN);
+        setRoutingWaypoint(DEFAULT_ORIGIN.coordinates);
       });
   }, []);
 
@@ -116,16 +122,20 @@ export default function Map() {
    */
   function locate() {
     getCurrentLocation()
-      .then(location => {
+      .then((location) => {
         setOrigin(location);
+        setCenterLocation(location);
+        setRoutingWaypoint(location.coordinates);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         f7.dialog.alert(
           'Unfortunately, we could not find your location',
           'Error: Unable to locate'
         );
         setOrigin(DEFAULT_ORIGIN);
+        setCenterLocation(DEFAULT_ORIGIN);
+        setRoutingWaypoint(DEFAULT_ORIGIN.coordinates);
       });
   }
 
@@ -136,32 +146,29 @@ export default function Map() {
   function getCurrentLocation() {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
-        async position => {
-          resolve(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+        async (position) => {
+          resolve(
+            await getObjectByCoordinates(position.coords.latitude, position.coords.longitude)
+          );
         },
-        error => {
+        (error) => {
           reject(error);
         }
       );
     });
   }
 
+  /**
+   * Flies to the centerLocation whenever it changes
+   */
   function FlyToAddress() {
     const map = useMap();
-    if (destination.coordinates.lat && destination.coordinates.lng) {
-      map.flyTo(destination.coordinates);
-    } else {
-      map.flyTo(origin.coordinates);
-    }
+    map.flyTo(centerLocation.coordinates);
   }
 
   return (
     <>
-      <Fab
-        position="right-bottom"
-        slot="fixed"
-        id="locateButton"
-        onClick={locate}>
+      <Fab position="right-bottom" slot="fixed" id="locateButton" onClick={locate}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
       <PageContent className="page-content-map">
@@ -176,7 +183,6 @@ export default function Map() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <ZoomControl position="bottomleft" />
-          <EventHandler />
           <FlyToAddress />
           <Routing />
         </MapContainer>
