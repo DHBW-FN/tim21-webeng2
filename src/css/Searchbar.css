@@ -36,6 +36,22 @@
   border-top: 1px solid grey;
 }
 
+.suggestions:hover {
+  background: lightgrey;
+}
+
+.dark #autocompletion-examples {
+  background: #333;
+}
+
+.dark .suggestions {
+  background: #333;
+}
+
+.dark .suggestions:hover {
+  background: grey;
+}
+
 @media only screen and (max-width: 768px) {
   .searchbar {
     --f7-searchbar-in-page-content-margin: 5%;

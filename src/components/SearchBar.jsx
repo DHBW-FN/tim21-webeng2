@@ -95,13 +95,10 @@ function SearchbarElement({ handleSelect, placeholder }) {
                 {loading ? <div className="loading">...loading</div> : null}
 
                 {suggestions.map((suggestion) => {
-                  const style = {
-                    backgroundColor: suggestion.active ? '#C9C9C9' : '#fff'
-                  };
                   return (
                     <div className="suggestions"
                          key={suggestion.placeId}
-                         {...getSuggestionItemProps(suggestion, { style })}>
+                         {...getSuggestionItemProps(suggestion)}>
                       {suggestion.description}
                     </div>
                   );
