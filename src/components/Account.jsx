@@ -66,13 +66,13 @@ export default function Account() {
         </BlockTitle>
         <List simpleList>
           <ListItem>
-            <span><a className="link external" href="https://github.com/DHBW-FN/web-eng-2">Github</a></span>
+            <span><a class="link external" href="https://github.com/DHBW-FN/web-eng-2">Github</a></span>
           </ListItem>
           <ListItem>
-            <span><a className="link external" href="mailto:email@example.com">Mail</a></span>
+            <span><a class="link external" href="mailto:email@example.com">Mail</a></span>
           </ListItem>
           <ListItem>
-            <span><a className="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
+            <span><a class="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
           </ListItem>
         </List>
     </Page>
