@@ -6,5 +6,5 @@
   position: absolute;
   right: 0;
   bottom: calc(var(--f7-toolbar-height) * 0.03);
-  height: calc(var(--f7-fab-size) * 3.8);
+  height: calc(var(--f7-fab-size) * 4);
 }

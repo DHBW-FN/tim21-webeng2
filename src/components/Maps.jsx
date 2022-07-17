@@ -99,7 +99,7 @@ export async function getObjectByCoordinates(latitude, longitude) {
 export default function Map() {
   const { origin, setOrigin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
-  const { destination, setDestination } = useContext(DestinationContext);
+  const { destination } = useContext(DestinationContext);
 
   /**
    * Run functions on page load
