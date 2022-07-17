@@ -1,7 +1,6 @@
 .searchbars {
   display: flex;
   flex-direction: column;
-
   margin: 2rem;
   position: absolute;
   z-index: 10000;
