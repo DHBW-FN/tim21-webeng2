@@ -61,25 +61,43 @@ export default function Account() {
       <BlockTitle>
         <h1>Attributions</h1>
       </BlockTitle>
-        <List simpleList>
-          <ListItem>
-            <span>&copy; <a className="link external" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</span>
-          </ListItem>
-        </List>
-        <BlockTitle>
-            <h1>Contact</h1>
-        </BlockTitle>
-        <List simpleList>
-          <ListItem>
-            <span><a className="link external" href="https://github.com/DHBW-FN/web-eng-2">Github</a></span>
-          </ListItem>
-          <ListItem>
-            <span><a className="link external" href="mailto:email@example.com">Mail</a></span>
-          </ListItem>
-          <ListItem>
-            <span><a className="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
-          </ListItem>
-        </List>
+      <List simpleList>
+        <ListItem>
+          <span>
+            &copy;{' '}
+            <a className="link external" href="https://www.openstreetmap.org/copyright">
+              OpenStreetMap
+            </a>{' '}
+            contributors
+          </span>
+        </ListItem>
+      </List>
+      <BlockTitle>
+        <h1>Contact</h1>
+      </BlockTitle>
+      <List simpleList>
+        <ListItem>
+          <span>
+            <a className="link external" href="https://github.com/DHBW-FN/web-eng-2">
+              Github
+            </a>
+          </span>
+        </ListItem>
+        <ListItem>
+          <span>
+            <a className="link external" href="mailto:email@example.com">
+              Mail
+            </a>
+          </span>
+        </ListItem>
+        <ListItem>
+          <span>
+            <a className="link external" href="tel:+44 (11) 7325 7425">
+              Telephone
+            </a>
+          </span>
+        </ListItem>
+      </List>
     </Page>
   );
 }

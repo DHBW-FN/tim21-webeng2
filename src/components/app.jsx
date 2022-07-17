@@ -8,13 +8,16 @@ import routes from '../js/routes';
 export const MyApp = () => {
   // Framework7 Parameters
   const f7params = {
-    name: "Navigator", // App name
+    name: 'Navigator', // App name
     theme: 'auto', // Automatic theme detection
     routes: routes,
     // Register service worker (only on production build)
-    serviceWorker: process.env.NODE_ENV ==='production' ? {
-      path: '/service-worker.js',
-    } : {},
+    serviceWorker:
+      process.env.NODE_ENV === 'production'
+        ? {
+            path: '/service-worker.js'
+          }
+        : {}
   };
 
   f7ready(() => {

@@ -12,8 +12,8 @@ import {
   DEFAULT_ORIGIN,
   OriginContext,
   CenterLocationContext
-} from "../js/Context";
-import Routing, { setRoutingWaypoint } from "./Routing";
+} from '../js/Context';
+import Routing, { setRoutingWaypoint } from './Routing';
 
 /**
  * Parse the addressComponents of the geocoding result to an address object
@@ -22,7 +22,7 @@ import Routing, { setRoutingWaypoint } from "./Routing";
  */
 export function parseAddressComponents(addressComponents) {
   const address = {};
-  addressComponents.forEach(component => {
+  addressComponents.forEach((component) => {
     if (component.types.includes('street_number')) {
       address.streetNumber = component.long_name;
     } else if (component.types.includes('route') || component.types.includes('premise')) {
@@ -44,9 +44,11 @@ export function parseAddressComponents(addressComponents) {
  * @returns {Promise<{}|null>} - returns an object with the address or null if no address was found
  */
 export async function getAddressByCoordinates(latitude, longitude) {
-  let results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
-    .then(response => response.json())
-    .then(data => data.results);
+  let results = await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`
+  )
+    .then((response) => response.json())
+    .then((data) => data.results);
 
   const address = parseAddressComponents(results[0].address_components);
 
@@ -95,20 +97,19 @@ export async function getObjectByCoordinates(latitude, longitude) {
  */
 export default function Map() {
   const { setOrigin } = useContext(OriginContext);
-  const { centerLocation, setCenterLocation} = useContext(CenterLocationContext);
-
+  const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
 
   /**
    * Run functions on page load
    */
   useEffect(() => {
     getCurrentLocation()
-      .then(location => {
-      setOrigin(location);
-      setCenterLocation(location);
-      setRoutingWaypoint(location.coordinates);
+      .then((location) => {
+        setOrigin(location);
+        setCenterLocation(location);
+        setRoutingWaypoint(location.coordinates);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setOrigin(DEFAULT_ORIGIN);
         setCenterLocation(DEFAULT_ORIGIN);
@@ -121,12 +122,12 @@ export default function Map() {
    */
   function locate() {
     getCurrentLocation()
-      .then(location => {
+      .then((location) => {
         setOrigin(location);
         setCenterLocation(location);
         setRoutingWaypoint(location.coordinates);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         f7.dialog.alert(
           'Unfortunately, we could not find your location',
@@ -145,10 +146,12 @@ export default function Map() {
   function getCurrentLocation() {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
-        async position => {
-          resolve(await getObjectByCoordinates(position.coords.latitude, position.coords.longitude));
+        async (position) => {
+          resolve(
+            await getObjectByCoordinates(position.coords.latitude, position.coords.longitude)
+          );
         },
-        error => {
+        (error) => {
           reject(error);
         }
       );
@@ -165,11 +168,7 @@ export default function Map() {
 
   return (
     <>
-      <Fab
-        position="right-bottom"
-        slot="fixed"
-        id="locateButton"
-        onClick={locate}>
+      <Fab position="right-bottom" slot="fixed" id="locateButton" onClick={locate}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
       <PageContent className="page-content-map">

@@ -50,7 +50,7 @@ export const DEFAULT_ORIGIN = {
  * This is the default wiki text
  * @type {string}
  */
-export const DEFAULT_WIKI = "No Wikipedia found for this destination :(";
+export const DEFAULT_WIKI = 'No Wikipedia found for this destination :(';
 
 /**
  * This is the default User Settings
@@ -60,10 +60,10 @@ export const DEFAULT_USER_SETTINGS = {
   language: {
     name: 'Language',
     value: 'en',
-    options: ["en"]
+    options: ['en']
   },
   darkMode: {
     name: 'Dark Mode',
-    value: false,
+    value: false
   }
-}
+};
