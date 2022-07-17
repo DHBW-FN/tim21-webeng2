@@ -1,3 +1,6 @@
+/**
+ * The Maps component is used to display the map.
+ */
 import React, { useContext, useEffect } from 'react';
 import { MapContainer, TileLayer, useMap, ZoomControl } from 'react-leaflet';
 import '../css/leaflet.css';
@@ -7,12 +10,16 @@ import { f7, Fab, Icon, PageContent } from 'framework7-react';
 import {
   DEFAULT_DESTINATION,
   DEFAULT_ORIGIN,
-  DestinationContext,
   OriginContext,
   CenterLocationContext
 } from "../js/Context";
 import Routing, { setRoutingWaypoint } from "./Routing";
 
+/**
+ * Parse the addressComponents of the geocoding result to an address object
+ * @param addressComponents - the addressComponents of the geocoding result
+ * @returns {{country: string, city: string, street: string, houseNumber: number}} - the address object
+ */
 export function parseAddressComponents(addressComponents) {
   const address = {};
   addressComponents.forEach(component => {
@@ -31,11 +38,10 @@ export function parseAddressComponents(addressComponents) {
 
 /**
  * Get the address from the latlng
- * Attention: This returns the address in local language e.g. Köln instead of Cologne
  *
  * @param latitude - latitude of the address
  * @param longitude - longitude of the address
- * @returns {Promise<{}|null>} - returns an object with the address
+ * @returns {Promise<{}|null>} - returns an object with the address or null if no address was found
  */
 export async function getAddressByCoordinates(latitude, longitude) {
   let results = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&language=en&key=AIzaSyCZXol-ZruQJH-gc_eqlf2RAR4H7VRtaIQ`)
@@ -54,6 +60,12 @@ export async function getAddressByCoordinates(latitude, longitude) {
   }
 }
 
+/**
+ * Get the location object from the address
+ * @param latitude - latitude of the address
+ * @param longitude - longitude of the address
+ * @returns {Promise<{address: {}, coordinates: {lng, lat}}|{address: {country: string, city: string, streetNumber: string, street: string}, coordinates: {lng: number, lat: number}}>} - returns an object with the address and coordinates or a default address if no address was found
+ */
 export async function getObjectByCoordinates(latitude, longitude) {
   let address = await getAddressByCoordinates(latitude, longitude);
   if (!address) {
@@ -77,6 +89,10 @@ export async function getObjectByCoordinates(latitude, longitude) {
   };
 }
 
+/**
+ * Generates the map page.
+ * @returns {JSX.Element} - The map page.
+ */
 export default function Map() {
   const { setOrigin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation} = useContext(CenterLocationContext);
@@ -139,6 +155,9 @@ export default function Map() {
     });
   }
 
+  /**
+   * Flies to the centerLocation whenever it changes
+   */
   function FlyToAddress() {
     const map = useMap();
     map.flyTo(centerLocation.coordinates);

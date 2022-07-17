@@ -1,3 +1,6 @@
+/**
+ * The Wikibox component is used to display the wikipedia information.
+ */
 import React, { useContext } from 'react';
 import { Sheet, BlockTitle, f7, Button, Icon } from 'framework7-react';
 import Framework7 from 'framework7';
@@ -7,6 +10,11 @@ import '../css/wikibox.css';
 import { DEFAULT_WIKI, DestinationContext, OriginContext, CenterLocationContext } from '../js/Context';
 import { setRoutingOriginDestination } from "./Routing";
 
+/**
+ * Get the wikitext for a given city
+ * @param {string} city - the city to get the wikitext for
+ * @returns {Promise<string>} - the wikitext
+ */
 export async function getWikipediaByCity(city) {
   return fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&exsentences=10&titles=${city}`)
     .then(response => response.json())
@@ -15,11 +23,16 @@ export async function getWikipediaByCity(city) {
     })
 }
 
+/**
+ * Generates the wikipedia box
+ * @returns {JSX.Element} - the wikipedia box
+ */
 export default function WikiBox() {
   const { destination } = useContext(DestinationContext);
   const { origin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
 
+  // the props used for the sheet element
   let sheetProps = {
     className: 'wikibox-sheet',
     style: { height: 'auto' , maxHeight: '100%'},
@@ -38,6 +51,10 @@ export default function WikiBox() {
     sheetProps.swipeToStep = false;
   }
 
+  /**
+   * Start the navigation to the destination
+   * @returns {Promise<void>}
+   */
   async function startNavigation() {
     f7.sheet.close('.wikibox-sheet');
     setRoutingOriginDestination(origin.coordinates, destination.coordinates);
