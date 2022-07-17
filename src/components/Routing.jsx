@@ -55,7 +55,7 @@ export const routingControl = L.Routing.control({
       }
 
       f7.sheet.open($('.wikibox-sheet'));
-    });
+    }).bindTooltip('Show more information');
   }
 });
 
