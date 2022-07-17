@@ -11,9 +11,10 @@ import {
   DEFAULT_DESTINATION,
   DEFAULT_ORIGIN,
   OriginContext,
-  CenterLocationContext
+  CenterLocationContext,
+  DestinationContext
 } from '../js/Context';
-import Routing, { setRoutingWaypoint } from './Routing';
+import Routing, { setRoutingWaypoint, setRoutingOriginDestination } from './Routing';
 
 /**
  * Parse the addressComponents of the geocoding result to an address object
@@ -96,8 +97,9 @@ export async function getObjectByCoordinates(latitude, longitude) {
  * @returns {JSX.Element} - The map page.
  */
 export default function Map() {
-  const { setOrigin } = useContext(OriginContext);
+  const { origin, setOrigin } = useContext(OriginContext);
   const { centerLocation, setCenterLocation } = useContext(CenterLocationContext);
+  const { destination } = useContext(DestinationContext);
 
   /**
    * Run functions on page load
@@ -166,11 +168,20 @@ export default function Map() {
     map.flyTo(centerLocation.coordinates);
   }
 
+  function startNavigation() {
+    setRoutingOriginDestination(origin.coordinates, destination.coordinates);
+  }
+
   return (
     <>
-      <Fab position="right-bottom" slot="fixed" id="locateButton" onClick={locate}>
+      <div className='Buttons'>
+      <Fab position="center-top" slot="fixed" id="navi" tooltip={"Navigate to " + destination.address.city} onClick={startNavigation}>
+        <Icon id="navigateIcon" material="directions" />
+      </Fab>
+      <Fab position="center-bottom" slot="fixed" id="locateButton" tooltip="jump to your location" onClick={locate}>
         <Icon id="locateIcon" material="gps_not_fixed" />
       </Fab>
+      </div>
       <PageContent className="page-content-map">
         <MapContainer
           center={[DEFAULT_DESTINATION.coordinates.lat, DEFAULT_DESTINATION.coordinates.lng]}
