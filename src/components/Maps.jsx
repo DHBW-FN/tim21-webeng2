@@ -174,13 +174,23 @@ export default function Map() {
 
   return (
     <>
-      <div className='Buttons'>
-      <Fab position="center-top" slot="fixed" id="navi" tooltip={"Navigate to " + destination.address.city} onClick={startNavigation}>
-        <Icon id="navigateIcon" material="directions" />
-      </Fab>
-      <Fab position="center-bottom" slot="fixed" id="locateButton" tooltip="jump to your location" onClick={locate}>
-        <Icon id="locateIcon" material="gps_not_fixed" />
-      </Fab>
+      <div className="Buttons">
+        <Fab
+          position="center-top"
+          slot="fixed"
+          id="navi"
+          tooltip={'Navigate to ' + destination.address.city}
+          onClick={startNavigation}>
+          <Icon id="navigateIcon" material="directions" />
+        </Fab>
+        <Fab
+          position="center-bottom"
+          slot="fixed"
+          id="locateButton"
+          tooltip="jump to your location"
+          onClick={locate}>
+          <Icon id="locateIcon" material="gps_not_fixed" />
+        </Fab>
       </div>
       <PageContent className="page-content-map">
         <MapContainer
