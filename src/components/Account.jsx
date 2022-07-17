@@ -72,7 +72,7 @@ export default function Account() {
             <span><a className="link external" href="mailto:email@example.com">Mail</a></span>
           </ListItem>
           <ListItem>
-            <span><a class="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
+            <span><a className="link external" href="tel:+44 (11) 7325 7425">Telephone</a></span>
           </ListItem>
         </List>
     </Page>
