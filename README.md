@@ -1,4 +1,5 @@
 # Navigator
+Web app using Location-Based-Service to select a position on a map, retrieve location information from Wikipedia via Reverse-Geocoding, and display a bike route to the selected location.
 
 ## Code Status
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6ff6dc97585d4fc3b0f515856d615265)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DHBW-FN/web-eng-2&amp;utm_campaign=Badge_Grade)
